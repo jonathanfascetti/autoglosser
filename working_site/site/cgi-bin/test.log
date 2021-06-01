@@ -1,0 +1,15 @@
+68 --> CRITICAL --> translate.py:Starting translate.py
+667 --> INFO --> translate.py: 19:56:31.421320 ~~> Arguments: {'moore': ['biis', 'yaa']}
+671 --> INFO --> translate.py: 19:56:31.421401 ~~> Moore: 
+672 --> INFO --> translate.py:['biis', 'yaa']
+168 --> INFO --> translate.py: 19:56:31.421488 ~~> Match found: biis -> row #14
+179 --> INFO --> translate.py: 19:56:31.421526 ~~> Moore: 'biis', Gloss: 'piece', English: '['piece', 'unit']'.
+168 --> INFO --> translate.py: 19:56:31.421612 ~~> Match found: yaa -> row #178
+179 --> INFO --> translate.py: 19:56:31.421645 ~~> Moore: 'yaa', Gloss: 'cop-aff', English: 'is [without any idea of change]'.
+618 --> DEBUG --> translate.py:keys --> [14, 178]
+619 --> DEBUG --> translate.py:givenCat --> [0, 0]
+620 --> DEBUG --> translate.py:givenLang --> moore
+455 --> DEBUG --> translate.py:[14, 178]
+494 --> INFO --> translate.py:[biis, piece, biis]
+494 --> INFO --> translate.py:[yaa, cop-aff, ya-a]
+677 --> INFO --> translate.py: 19:56:31.422124 ~~> Sucessfully executed.
