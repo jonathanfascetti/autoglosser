@@ -1,15 +1,16 @@
-584 --> INFO --> root: 17:27:30.416828 ~~> Arguments: {'moore': ['koelma', 'n', 'yɩɩde']}
-661 --> INFO --> root: 17:27:30.420058 ~~> Parsed cells in SPLVAR, ENGMEAN, and GLOSS that have commas into sub-lists.
-221 --> INFO --> root: 17:27:30.420701 ~~> Match found: koelma -> row #41
-229 --> INFO --> root: 17:27:30.420816 ~~> Moore: 'koelmã', Gloss: 'shortness-defn-aff', English: ''.
-221 --> INFO --> root: 17:27:30.420898 ~~> Match found: n -> row #69
-229 --> INFO --> root: 17:27:30.420943 ~~> Moore: 'n', Gloss: '$', English: 'serializing connector'.
-221 --> INFO --> root: 17:27:30.421074 ~~> Match found: yɩɩde -> row #209
-229 --> INFO --> root: 17:27:30.421113 ~~> Moore: 'yɩɩde', Gloss: 'exceed', English: '['go beyond', 'be more than', 'to be better than']'.
-168 --> DEBUG --> root:keys --> [41, 69, 209]
-169 --> DEBUG --> root:givenCat --> [6, 0, 0]
-170 --> DEBUG --> root:givenLang --> moore
-562 --> INFO --> root:[koelma, shortness-defn-aff, koelm\~a]
-562 --> INFO --> root:[n, $, n]
-562 --> INFO --> root:[yɩɩde, exceed, y\textiota{}\textiota{}de]
-697 --> INFO --> root: 17:27:30.421454 ~~> Sucessfully executed.
+68 --> CRITICAL --> translate.py:Starting /Users/jonathanfascetti/Desktop/latexhtml/translate/site/cgi-bin/translate.py
+648 --> DEBUG --> translate.py:FieldStorage(None, None, [MiniFieldStorage('moore', 'biis yaa')])
+652 --> DEBUG --> translate.py:biis yaa
+673 --> INFO --> translate.py: 20:13:44.049056 ~~> Moore: 
+674 --> INFO --> translate.py:['biis', 'yaa']
+162 --> INFO --> translate.py: 20:13:44.049133 ~~> Match found: biis -> row #14
+170 --> INFO --> translate.py: 20:13:44.049165 ~~> Moore: 'biis', Gloss: 'piece', English: '['piece', 'unit']'.
+162 --> INFO --> translate.py: 20:13:44.049256 ~~> Match found: yaa -> row #178
+170 --> INFO --> translate.py: 20:13:44.049286 ~~> Moore: 'yaa', Gloss: 'cop-aff', English: 'is [without any idea of change]'.
+620 --> DEBUG --> translate.py:keys --> [14, 178]
+621 --> DEBUG --> translate.py:givenCat --> [0, 0]
+622 --> DEBUG --> translate.py:givenLang --> moore
+455 --> DEBUG --> translate.py:[14, 178]
+487 --> INFO --> translate.py:[biis, piece, biis]
+487 --> INFO --> translate.py:[yaa, cop-aff, ya-a]
+678 --> INFO --> translate.py: 20:13:44.049494 ~~> Sucessfully executed.

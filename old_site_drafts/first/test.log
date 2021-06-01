@@ -1,0 +1,15 @@
+584 --> INFO --> root: 17:27:30.416828 ~~> Arguments: {'moore': ['koelma', 'n', 'yɩɩde']}
+661 --> INFO --> root: 17:27:30.420058 ~~> Parsed cells in SPLVAR, ENGMEAN, and GLOSS that have commas into sub-lists.
+221 --> INFO --> root: 17:27:30.420701 ~~> Match found: koelma -> row #41
+229 --> INFO --> root: 17:27:30.420816 ~~> Moore: 'koelmã', Gloss: 'shortness-defn-aff', English: ''.
+221 --> INFO --> root: 17:27:30.420898 ~~> Match found: n -> row #69
+229 --> INFO --> root: 17:27:30.420943 ~~> Moore: 'n', Gloss: '$', English: 'serializing connector'.
+221 --> INFO --> root: 17:27:30.421074 ~~> Match found: yɩɩde -> row #209
+229 --> INFO --> root: 17:27:30.421113 ~~> Moore: 'yɩɩde', Gloss: 'exceed', English: '['go beyond', 'be more than', 'to be better than']'.
+168 --> DEBUG --> root:keys --> [41, 69, 209]
+169 --> DEBUG --> root:givenCat --> [6, 0, 0]
+170 --> DEBUG --> root:givenLang --> moore
+562 --> INFO --> root:[koelma, shortness-defn-aff, koelm\~a]
+562 --> INFO --> root:[n, $, n]
+562 --> INFO --> root:[yɩɩde, exceed, y\textiota{}\textiota{}de]
+697 --> INFO --> root: 17:27:30.421454 ~~> Sucessfully executed.
