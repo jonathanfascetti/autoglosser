@@ -627,6 +627,11 @@ def main(args):
         moore, keys, givenCat, givenLang, gloss, latexGloss, latexSpl
     )
 
+    ###
+    ## PUT COMMAND LINE PRINT STATEMENTS HERE
+    ##
+    ###
+
     # Start JSON block
     if "GATEWAY_INTERFACE" in os.environ:
         print("Content-type: application/json")
