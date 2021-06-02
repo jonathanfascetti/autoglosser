@@ -1,0 +1,25 @@
+68 --> CRITICAL --> translate.py:Starting /Users/jonathanfascetti/Desktop/latexhtml/moore/other_drafts/second_localserver/site/cgi-bin/translate.py
+663 --> DEBUG --> translate.py:FieldStorage(None, None, [MiniFieldStorage('moore', 'A Robert woglmã ya wanna')])
+667 --> DEBUG --> translate.py:A Robert woglmã ya wanna
+688 --> INFO --> translate.py: 14:58:30.005751 ~~> Moore: 
+689 --> INFO --> translate.py:['A', 'Robert', 'woglmã', 'ya', 'wanna']
+162 --> INFO --> translate.py: 14:58:30.006160 ~~> Match found: a -> row #0
+170 --> INFO --> translate.py: 14:58:30.006200 ~~> Moore: 'ã', Gloss: 'as', English: 'definitizer'.
+552 --> INFO --> translate.py: 14:58:30.006675 ~~> No results found for 'Robert'. Checking for possible word misspells.
+188 --> DEBUG --> translate.py: Running through single letter switches in Robert.
+162 --> INFO --> translate.py: 14:58:30.091230 ~~> Match found: woglmã -> row #169
+170 --> INFO --> translate.py: 14:58:30.091342 ~~> Moore: 'wóglmã', Gloss: 'long-cl-defn', English: 'length'.
+162 --> INFO --> translate.py: 14:58:30.091438 ~~> Match found: ya -> row #177
+170 --> INFO --> translate.py: 14:58:30.091471 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+162 --> INFO --> translate.py: 14:58:30.091629 ~~> Match found: wanna -> row #165
+170 --> INFO --> translate.py: 14:58:30.091659 ~~> Moore: 'wãna', Gloss: 'how.much', English: '['how many', 'how much']'.
+635 --> DEBUG --> translate.py:keys --> [0, '?', 169, 177, 165]
+636 --> DEBUG --> translate.py:givenCat --> [9, '?', 6, 0, 6]
+637 --> DEBUG --> translate.py:givenLang --> moore
+455 --> DEBUG --> translate.py:[0, '?', 169, 177, 165]
+502 --> INFO --> translate.py:[A, as, \~a]
+502 --> INFO --> translate.py:[Robert, ?, ?]
+502 --> INFO --> translate.py:[woglmã, long-cl-defn, w\'ogl-m-\~a]
+502 --> INFO --> translate.py:[ya, cop, ya]
+502 --> INFO --> translate.py:[wanna, how.much, w\~ana]
+693 --> INFO --> translate.py: 14:58:30.091971 ~~> Sucessfully executed.

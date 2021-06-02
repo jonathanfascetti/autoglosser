@@ -1,0 +1,40 @@
+624 --> INFO --> root: 22:01:32.737817 ~~> Arguments: {'moore': ['a', 'bill', 'woglmã', 'ka', 'taa', 'maam', 'n', 'da', 'tenda', 'yé']}
+701 --> INFO --> root: 22:01:32.740727 ~~> Parsed cells in SPLVAR, ENGMEAN, and GLOSS that have commas into sub-lists.
+225 --> INFO --> root: 22:01:32.741291 ~~> Match found: a -> row #0
+233 --> INFO --> root: 22:01:32.741335 ~~> Moore: 'a', Gloss: 'pm', English: 'definitizer'.
+225 --> INFO --> root: 22:01:32.741557 ~~> Match found: bill -> row #280
+233 --> INFO --> root: 22:01:32.741591 ~~> Moore: 'Bill', Gloss: 'Bill', English: ''.
+225 --> INFO --> root: 22:01:32.741786 ~~> Match found: woglmã -> row #219
+233 --> INFO --> root: 22:01:32.741819 ~~> Moore: 'wóglmã', Gloss: 'long-cl-defn', English: 'length'.
+225 --> INFO --> root: 22:01:32.741952 ~~> Match found: ka -> row #35
+233 --> INFO --> root: 22:01:32.741983 ~~> Moore: 'kaa', Gloss: 'build-aff', English: 'to build'.
+225 --> INFO --> root: 22:01:32.742065 ~~> Match found: taa -> row #160
+233 --> INFO --> root: 22:01:32.742094 ~~> Moore: 'taa', Gloss: 'reach-aff', English: ''.
+225 --> INFO --> root: 22:01:32.742238 ~~> Match found: maam -> row #72
+233 --> INFO --> root: 22:01:32.742268 ~~> Moore: 'mam', Gloss: '1sg', English: '['I', 'me', 'my singular']'.
+225 --> INFO --> root: 22:01:32.742327 ~~> Match found: n -> row #84
+233 --> INFO --> root: 22:01:32.742357 ~~> Moore: 'n', Gloss: '$', English: 'serializing connector'.
+225 --> INFO --> root: 22:01:32.742395 ~~> Match found: da -> row #23
+233 --> INFO --> root: 22:01:32.742423 ~~> Moore: 'da', Gloss: 'buy', English: 'buy'.
+195 --> INFO --> root:Found ',' in wá, wã
+85 --> INFO --> root: 22:01:32.743015 ~~> No results found for 'tenda'. Checking for possible word misspells.
+251 --> DEBUG --> root: Running through single letter switches in tenda.
+225 --> INFO --> root: 22:01:32.813447 ~~> Match found: ténda -> row #179
+233 --> INFO --> root: 22:01:32.813563 ~~> Moore: 'tẽ́eda', Gloss: 'believer', English: 'believer'.
+102 --> DEBUG --> root: 22:01:32.813617 ~~> Possible match found. Input word: 'tenda'. Detected match: 'ténda'.
+225 --> INFO --> root: 22:01:32.832124 ~~> Match found: yé -> row #250
+233 --> INFO --> root: 22:01:32.832231 ~~> Moore: 'yé', Gloss: 'one', English: ''.
+168 --> DEBUG --> root:keys --> [0, 280, 219, 35, 160, 72, 84, 23, 179, 250]
+169 --> DEBUG --> root:givenCat --> [0, 6, 6, 6, 0, 6, 0, 0, 6, 0]
+170 --> DEBUG --> root:givenLang --> moore
+600 --> INFO --> root:[a, pm, a, \pm{}]
+600 --> INFO --> root:[bill, Bill, Bill, Bill]
+600 --> INFO --> root:[woglmã, long-cl-defn, w\'ogl-m-\~a, long-\cl{}-\defn{}]
+600 --> INFO --> root:[ka, build-aff, ka-a, build-\aff{}]
+600 --> INFO --> root:[taa, reach-aff, ta-a, reach-\aff{}]
+600 --> INFO --> root:[maam, 1sg, mam, 1\sg{}.\nom{}]
+600 --> INFO --> root:[n, $, n, \nlink{}]
+600 --> INFO --> root:[da, buy, da, buy]
+600 --> INFO --> root:[tenda, believer, t\high{\~e}eda, believer]
+600 --> INFO --> root:[yé, one, y\'e, one]
+737 --> INFO --> root: 22:01:32.832659 ~~> Sucessfully executed.

@@ -119,4 +119,7 @@ for i in questions:
         i[1]
     ]  # get second element and replace from int to str
 
+# define kaye syntax (directly from glossary)
+KAYE = "ká...yé"
+
 gg_logger.critical("Exiting " + __file__)

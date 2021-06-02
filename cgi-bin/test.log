@@ -1,15 +1,57 @@
-68 --> CRITICAL --> translate.py:Starting translate.py
-667 --> INFO --> translate.py: 19:56:31.421320 ~~> Arguments: {'moore': ['biis', 'yaa']}
-671 --> INFO --> translate.py: 19:56:31.421401 ~~> Moore: 
-672 --> INFO --> translate.py:['biis', 'yaa']
-168 --> INFO --> translate.py: 19:56:31.421488 ~~> Match found: biis -> row #14
-179 --> INFO --> translate.py: 19:56:31.421526 ~~> Moore: 'biis', Gloss: 'piece', English: '['piece', 'unit']'.
-168 --> INFO --> translate.py: 19:56:31.421612 ~~> Match found: yaa -> row #178
-179 --> INFO --> translate.py: 19:56:31.421645 ~~> Moore: 'yaa', Gloss: 'cop-aff', English: 'is [without any idea of change]'.
-618 --> DEBUG --> translate.py:keys --> [14, 178]
-619 --> DEBUG --> translate.py:givenCat --> [0, 0]
-620 --> DEBUG --> translate.py:givenLang --> moore
-455 --> DEBUG --> translate.py:[14, 178]
-494 --> INFO --> translate.py:[biis, piece, biis]
-494 --> INFO --> translate.py:[yaa, cop-aff, ya-a]
-677 --> INFO --> translate.py: 19:56:31.422124 ~~> Sucessfully executed.
+69 --> CRITICAL --> translate.py:Starting /Users/jonathanfascetti/Desktop/latexhtml/moore/cgi-bin/translate.py
+664 --> INFO --> translate.py: 17:40:54.511070 ~~> Arguments: {'moore': ['la']}
+686 --> DEBUG --> translate.py: 17:40:54.511168: Trimmed the input.
+686 --> DEBUG --> translate.py: 17:40:54.511213: Trimmed the input.
+690 --> INFO --> translate.py: 17:40:54.511248 ~~> Moore: 
+691 --> INFO --> translate.py:['la']
+153 --> INFO --> translate.py: 17:40:54.511340 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.511376 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.511432 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.511480 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.511533 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.511603 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.511707 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.511767 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.512027 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.512099 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.512196 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.512305 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.512548 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.512602 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.512645 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.512679 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.512715 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.512746 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.512787 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.512836 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.513002 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.513039 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.513081 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.513113 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.513146 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.513177 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.513263 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.513315 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.513467 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.513544 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.513666 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.513874 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+105 --> INFO --> translate.py:Found ',' in wá, wã
+153 --> INFO --> translate.py: 17:40:54.514368 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.514433 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.514496 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 17:40:54.514549 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 17:40:54.514608 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.514668 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.514729 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 17:40:54.514784 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 17:40:54.514889 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.514935 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 17:40:54.514979 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 17:40:54.515013 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+615 --> DEBUG --> translate.py:keys --> [59, 60, 61]
+616 --> DEBUG --> translate.py:givenCat --> [0, 0, 1]
+617 --> DEBUG --> translate.py:givenLang --> moore
+414 --> DEBUG --> translate.py:[59, 60, 61]
+467 --> INFO --> translate.py:[la, cop, \cop{}]
+695 --> INFO --> translate.py: 17:40:54.515474 ~~> Sucessfully executed.
