@@ -21,7 +21,7 @@ TO DO: -- in general
 
 """
 RUN SCRIPT
-Make sure relavent glossary .csv file is in the same directory as this script. When calling, the arguments should be in single quotes. All moore input should be preceeded by -m with a space between each word (inlc -m) Ex: ~ python3 translate.py '-m -(w)ã ãnd(ã) b'
+Make sure relevant glossary .csv file is in the same directory as this script. When calling, the arguments should be in single quotes. All moore input should be preceeded by -m with a space between each word (inlc -m) Ex: ~ python3 translate.py '-m -(w)ã ãnd(ã) b'
 
 RETIREVE DATA FROM glossary
 glossary is a list where each element is a tuple. All of the elements are parallel tuples where index 0 is blank, 1 is "Word in Mòoré (high tones marked)", etc. (following rules below). glossary[n][m] can be used where n is to access a certain moore word, and m is the category.
@@ -458,9 +458,24 @@ def findLSpl(keys):
     return latexSpl
 
 
+# FIND NORMAL SPELLING
+def findNormalSpl(keys):
+    normalSpl = []
+    for i in keys:
+        if type(i) == int:
+            if GLOSSARY[i][MOOREWORD] != "":
+                normalSpl.append(GLOSSARY[i][MOOREWORD])
+            else:
+                normalSpl.append("?")
+        else:
+            normalSpl.append("?")
+
+    return normalSpl
+
+
 # DO THE FINAL PRINTOUT
 def resultsDict(
-    givenWords, keys, givenCat, givenLang, gloss, latexGloss, latexSpl
+    givenWords, keys, givenCat, givenLang, normalSpl, gloss, latexSpl, latexGloss 
 ):
 
     for i in range(len(givenWords)):
@@ -622,15 +637,29 @@ def main(args):
 
     latexSpl = findLSpl(keys)
 
+    normalSpl = findNormalSpl(keys)
+
     # finalPrintout(moore, keys, givenCat, givenLang, gloss, latexGloss)
     rd = resultsDict(
-        moore, keys, givenCat, givenLang, gloss, latexGloss, latexSpl
+        moore, keys, givenCat, givenLang, normalSpl, gloss, latexSpl, latexGloss
     )
 
-    ###
-    ## PUT COMMAND LINE PRINT STATEMENTS HERE
-    ##
-    ###
+    print("\n~~~\n")
+    print(
+        "Original (in "
+        + str(givenLang)
+        + "):\n\n"
+        + " ".join(moore)
+    )
+
+    print("\n~~~\n")
+    print("Normalized spelling + Gloss:\n")
+    print(" ".join(normalSpl))
+    print(" ".join(gloss))
+    print("\n~~~\n")
+    print("LaTeX Gloss: \n\n\exg. " + " ".join(latexSpl)   + "\\\\\n" + " ".join(latexGloss) + "\\\\")
+    print("%Original spelling: " + " ".join(moore) + "\n")
+    print("\n~~~\n")
 
     # Start JSON block
     if "GATEWAY_INTERFACE" in os.environ:

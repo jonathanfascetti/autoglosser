@@ -1,17 +1,119 @@
-69 --> CRITICAL --> translate.py:Starting /Users/jonathanfascetti/Desktop/latexhtml/moore/cgi-bin/translate.py
-664 --> INFO --> translate.py: 17:56:58.229042 ~~> Arguments: {'moore': ['biis']}
-686 --> DEBUG --> translate.py: 17:56:58.229137: Trimmed the input.
-686 --> DEBUG --> translate.py: 17:56:58.229189: Trimmed the input.
-690 --> INFO --> translate.py: 17:56:58.229236 ~~> Moore: 
-691 --> INFO --> translate.py:['biis']
-153 --> INFO --> translate.py: 17:56:58.229341 ~~> Match found: biis -> row #18
-161 --> INFO --> translate.py: 17:56:58.229381 ~~> Moore: 'biis', Gloss: 'grain', English: '['piece', 'unit']'.
-153 --> INFO --> translate.py: 17:56:58.229451 ~~> Match found: biis -> row #18
-161 --> INFO --> translate.py: 17:56:58.229489 ~~> Moore: 'biis', Gloss: 'grain', English: '['piece', 'unit']'.
+69 --> CRITICAL --> translate.py:Starting translate.py
+698 --> INFO --> translate.py: 22:19:52.593217 ~~> Arguments: {'moore': ['taama', 'wanna', 'la', 'fo', 'ri', 'ya', '?']}
+720 --> DEBUG --> translate.py: 22:19:52.593285: Trimmed the input.
+720 --> DEBUG --> translate.py: 22:19:52.593330: Trimmed the input.
+724 --> INFO --> translate.py: 22:19:52.593366 ~~> Moore: 
+725 --> INFO --> translate.py:['taama', 'wanna', 'la', 'fo', 'ri', 'ya', '?']
+153 --> INFO --> translate.py: 22:19:52.593493 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.593529 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.593567 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.593600 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.593744 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.593779 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.593814 ~~> Match found: taama -> row #166
+161 --> INFO --> translate.py: 22:19:52.593846 ~~> Moore: 'taamde', Gloss: 'berry', English: 'berry'.
+153 --> INFO --> translate.py: 22:19:52.593880 ~~> Match found: taama -> row #166
+161 --> INFO --> translate.py: 22:19:52.593912 ~~> Moore: 'taamde', Gloss: 'berry', English: 'berry'.
+153 --> INFO --> translate.py: 22:19:52.594131 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.594175 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.594215 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.594249 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
 105 --> INFO --> translate.py:Found ',' in wá, wã
-615 --> DEBUG --> translate.py:keys --> [18]
-616 --> DEBUG --> translate.py:givenCat --> [0]
-617 --> DEBUG --> translate.py:givenLang --> moore
-414 --> DEBUG --> translate.py:[18]
-467 --> INFO --> translate.py:[biis, grain, grain]
-695 --> INFO --> translate.py: 17:56:58.230279 ~~> Sucessfully executed.
+153 --> INFO --> translate.py: 22:19:52.594535 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.594572 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.594618 ~~> Match found: taama -> row #165
+161 --> INFO --> translate.py: 22:19:52.594662 ~~> Moore: 'taama', Gloss: 'berry.pl', English: 'shea fruits'.
+153 --> INFO --> translate.py: 22:19:52.594994 ~~> Match found: wanna -> row #216
+161 --> INFO --> translate.py: 22:19:52.595043 ~~> Moore: 'wãna', Gloss: 'how.much', English: '['how many', 'how much']'.
+153 --> INFO --> translate.py: 22:19:52.595483 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.595522 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.595562 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.595596 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.595641 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.595684 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.595730 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.595772 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.595808 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.595841 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.595878 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.595911 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.596071 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.596108 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.596163 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.596232 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.596272 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.596306 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.596342 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.596376 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.596532 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.596569 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.596607 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.596640 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.596694 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.596728 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.596765 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.596798 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.596834 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.596866 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.596902 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.596935 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.597171 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.597208 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.597246 ~~> Match found: la -> row #59
+161 --> INFO --> translate.py: 22:19:52.597279 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+153 --> INFO --> translate.py: 22:19:52.597316 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.597349 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.597386 ~~> Match found: la -> row #60
+161 --> INFO --> translate.py: 22:19:52.597426 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+153 --> INFO --> translate.py: 22:19:52.597461 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.597493 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.597528 ~~> Match found: la -> row #61
+161 --> INFO --> translate.py: 22:19:52.597560 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+153 --> INFO --> translate.py: 22:19:52.597787 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.597843 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.597881 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.597923 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.598113 ~~> Match found: fo -> row #32
+161 --> INFO --> translate.py: 22:19:52.598158 ~~> Moore: 'fóó', Gloss: '2sg.acc', English: 'you'.
+153 --> INFO --> translate.py: 22:19:52.598237 ~~> Match found: fo -> row #32
+161 --> INFO --> translate.py: 22:19:52.598292 ~~> Moore: 'fóó', Gloss: '2sg.acc', English: 'you'.
+153 --> INFO --> translate.py: 22:19:52.598473 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.598508 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.598552 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.598604 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.598883 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.598928 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.598964 ~~> Match found: fo -> row #30
+161 --> INFO --> translate.py: 22:19:52.599015 ~~> Moore: 'fo', Gloss: '2sg.nom', English: ''.
+153 --> INFO --> translate.py: 22:19:52.599412 ~~> Match found: ri -> row #129
+161 --> INFO --> translate.py: 22:19:52.599468 ~~> Moore: 'rɩ', Gloss: 'eat', English: 'to eat'.
+153 --> INFO --> translate.py: 22:19:52.599543 ~~> Match found: ri -> row #129
+161 --> INFO --> translate.py: 22:19:52.599575 ~~> Moore: 'rɩ', Gloss: 'eat', English: 'to eat'.
+153 --> INFO --> translate.py: 22:19:52.600040 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600076 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600111 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600143 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600289 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600324 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600358 ~~> Match found: ya -> row #233
+161 --> INFO --> translate.py: 22:19:52.600389 ~~> Moore: 'yaa', Gloss: 'cop-aff', English: 'is [without any idea of change]'.
+153 --> INFO --> translate.py: 22:19:52.600523 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600557 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600592 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600623 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600844 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600878 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+153 --> INFO --> translate.py: 22:19:52.600912 ~~> Match found: ya -> row #232
+161 --> INFO --> translate.py: 22:19:52.600943 ~~> Moore: 'ya', Gloss: 'cop', English: 'to be '.
+630 --> DEBUG --> translate.py:keys --> [166, 165, 216, 59, 60, 61, 32, 30, 129, 233, 232]
+631 --> DEBUG --> translate.py:givenCat --> [6, 9, 6, 0, 0, 1, 6, 9, 6, 6, 9]
+632 --> DEBUG --> translate.py:givenLang --> moore
+414 --> DEBUG --> translate.py:[166, 165, 216, 59, 60, 61, 32, 30, 129, 233, 232]
+482 --> INFO --> translate.py:[taama, berry, berry]
+482 --> INFO --> translate.py:[wanna, berry.pl, berry.\pl{}]
+482 --> INFO --> translate.py:[la, how.much, how.much]
+482 --> INFO --> translate.py:[fo, cop, \cop{}]
+482 --> INFO --> translate.py:[ri, and, and]
+482 --> INFO --> translate.py:[ya, foc, \foc{}]
+482 --> INFO --> translate.py:[?, 2sg.acc, 2sg.\acc{}]
+729 --> INFO --> translate.py: 22:19:52.601907 ~~> Sucessfully executed.

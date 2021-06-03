@@ -74,7 +74,7 @@ foreach $index (sort @answers) {
   #strip final periods
   $input =~ s/\.[ ]*$//;
   
-  system("python3 translate-beta.py -m $input > batch-gloss-temp.txt");
+  system("python3 translate.py $input > batch-gloss-temp.txt");
   open (FILE, "batch-gloss-temp.txt");
   $readglossnext = 0;
   $gloss = "";
