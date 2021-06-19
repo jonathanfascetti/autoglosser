@@ -82,7 +82,6 @@ def wordToKey(word):
     ]:
         for j in range(len(GLOSSARY)):  # run through each row
             if "," in GLOSSARY[j][i]:
-                logger.info("Found ',' in " + str(GLOSSARY[j][i]))
                 # if there are multiple phrases within the cell
                 GLOSSARY[j][i] = commaParse(GLOSSARY[j][i])
                 # parse them into a list
@@ -90,22 +89,15 @@ def wordToKey(word):
                     # check each sub element for a match
                     if word == k:
                         keys.append(matchFound(word, j, i, "moore"))
-                        # return matchFound(word, j, i, "moore")
-                # break
             elif type(GLOSSARY[j][i]) == list:
                 for k in GLOSSARY[j][i]:
                     # check each sub element for a match
                     if word == k:
                         keys.append(matchFound(word, j, i, "moore"))
-                        # return matchFound(word, j, i, "moore")
-                # break
             else:
                 # if only one word in cell, check for match
                 if word == GLOSSARY[j][i]:  # if 1:1 match
-                    # print(matchFound(word, j, i, "moore"))
                     keys.append(matchFound(word, j, i, "moore"))
-                    # return matchFound(word, j, i, "moore")
-                # break
 
     # trim duplicates of same row matches (found in diff cols)
     for i in range(len(keys)):
@@ -147,73 +139,108 @@ def matchFound(word, row, col, givenLang):
 
 # FIND THE FINAL GLOSS
 def findGloss(keys):
-    gloss = []
-    logger.debug(keys)
-    for i in keys:
-        if type(i[0][0]) == int:
-            if GLOSSARY[i[0][0]][GLOSS] != "":
-                gloss.append(GLOSSARY[i[0][0]][GLOSS])
+    def append(i):
+        if type(i[0]) == int:
+            if GLOSSARY[i[0]][GLOSS] != "":
+                gloss.append(GLOSSARY[i[0]][GLOSS])
             else:
                 gloss.append("?")
-        elif i[0][0] == None:
+        elif i[0] == None:
             gloss.append("NEG")
         else:
             gloss.append("?")
+        return gloss
+
+    gloss = []
+    for i in keys:
+        if type(i) == list and i[0] != "?":
+            for j in i:
+                append(j)
+        else:
+            append(i)
 
     return gloss
 
 
 # FIND THE FINAL LATEX GLOSS
 def findLGloss(keys):
-    latexgloss = []
-    for i in keys:
-        if type(i[0][0]) == int:
-            if GLOSSARY[i[0][0]][LATEXGLOSS] != "":
-                latexgloss.append(GLOSSARY[i[0][0]][LATEXGLOSS])
+    def append(i):
+        if type(i[0]) == int:
+            if GLOSSARY[i[0]][LATEXGLOSS] != "":
+                latexgloss.append(GLOSSARY[i[0]][LATEXGLOSS])
             else:
                 latexgloss.append("?")
-        elif i[0][0] == None:
-            latexgloss.append("\\neg{}")
+        elif i[0] == None:
+            latexgloss.append("?")
         else:
             latexgloss.append("?")
+        return latexgloss
+
+    latexgloss = []
+    for i in keys:
+        if type(i) == list and i[0] != "?":
+            for j in i:
+                append(j)
+        else:
+            append(i)
 
     return latexgloss
 
 
 # FIND LATEX SPELLING
 def findLSpl(keys):
-    latexSpl = []
-    for i in keys:
-        if type(i[0][0]) == int:
-            if GLOSSARY[i[0][0]][LATEXSPL] != "":
-                latexSpl.append(GLOSSARY[i[0][0]][LATEXSPL])
+    def append(i):
+        if type(i[0]) == int:
+            if GLOSSARY[i[0]][LATEXSPL] != "":
+                latexSpl.append(GLOSSARY[i[0]][LATEXSPL])
             else:
                 latexSpl.append("?")
+        elif i[0] == None:
+            latexSpl.append("?")
         else:
             latexSpl.append("?")
+        return latexSpl
+
+    latexSpl = []
+    for i in keys:
+        if type(i) == list and i[0] != "?":
+            for j in i:
+                append(j)
+        else:
+            append(i)
 
     return latexSpl
 
 
 # FIND NORMSPL
 def findNormspl(keys):
-    normSpl = []
-    for i in keys:
-        if type(i[0][0]) == int:
-            if GLOSSARY[i[0][0]][MOOREWORD] != "":
-                normSpl.append(GLOSSARY[i[0][0]][MOOREWORD])
+    def append(i):
+        if type(i[0]) == int:
+            if GLOSSARY[i[0]][MOOREWORD] != "":
+                normSpl.append(GLOSSARY[i[0]][MOOREWORD])
             else:
                 normSpl.append("?")
+        elif i[0] == None:
+            normSpl.append("?")
         else:
             normSpl.append("?")
+        return normSpl
+
+    normSpl = []
+    for i in keys:
+        if type(i) == list and i[0] != "?":
+            for j in i:
+                append(j)
+        else:
+            append(i)
     return normSpl
 
 
-# DO THE FINAL PRINTOUT
+# PREPARE DICT FOR THE FINAL PRINTOUT
 def resultsDict(givenWords, keys, gloss, latexGloss, latexSpl, normSpl):
     for i in range(len(givenWords)):
         logger.info(
-            "["
+            " Per word output: ["
             + str(givenWords[i])
             + ", "
             + str(gloss[i])
@@ -260,18 +287,12 @@ def checkForKaYe(keys):
     return keys
 
 
-def checkForMultiTranslate(keys):
+def ambig(keys):
     return keys
 
 
 def main(args):
-    ###
-    # check for if more than one word in cell (nested list)
-    # append to each keys, givenCat, and givenLang
-    # logger
-    # questionmark for no matches
-    # only look for 1:1 match
-    ###
+
     lofkeys = []
     # list where each element is a list where each element is a tuple of a match found
 
@@ -281,8 +302,6 @@ def main(args):
     for i in range(len(lofkeys)):
         if lofkeys[i] == []:
             lofkeys[i] = ["?", "?", "?"]
-
-    # sys.exit()
 
     # see if there is a ká...yé
     for word in lofkeys:
@@ -299,13 +318,12 @@ def main(args):
 
     normSpl = findNormspl(lofkeys)
 
-    # finalPrintout(moore, keys, givenCat, givenLang, gloss, latexGloss)
-    rd = resultsDict(moore, keys, gloss, latexGloss, latexSpl, normSpl)
+    print(
+        "%s, %s, %s, %s, %s"
+        % (lofkeys, gloss, latexGloss, latexSpl, normSpl)
+    )
 
-    ###
-    ## PUT COMMAND LINE PRINT STATEMENTS HERE
-    ##
-    ###
+    rd = resultsDict(moore, lofkeys, gloss, latexGloss, latexSpl, normSpl)
 
     # Start JSON block
     if "GATEWAY_INTERFACE" in os.environ:
@@ -313,14 +331,17 @@ def main(args):
         print("")
         print(json.JSONEncoder().encode(rd))
     else:
+        percent = "%"
         print(
-            "Original: \n \t %s \n Normalized Spelling + Gloss: \n \t %s \n \t %s \n LaTex Spelling + Gloss: \n \t %s \n \t %s \n"
+            "Original: \n \t %s \n Normalized Spelling + Gloss: \n \t %s \n \t %s \n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s"
             % (
                 rd["moore"],
                 rd["normSpl"],
                 rd["gloss"],
                 rd["latexSpelling"],
                 rd["latexGloss"],
+                percent,
+                rd["moore"],
             )
         )
 
@@ -345,11 +366,13 @@ if __name__ == "__main__":
     else:  # COMMAND LINE EXECUTION
         # split arguments given at start into words in a list under variable moore
         parser = argparse.ArgumentParser(
-            description="Translate from Mòore to English"
+            description="Translate from Mòoré to English"
         )
         parser.add_argument(
             type=str, nargs="+", help="Input text.", dest="moore"
         )
+
+        ##Add preferences arg!!##
 
         args = parser.parse_args()
         logger.info(
