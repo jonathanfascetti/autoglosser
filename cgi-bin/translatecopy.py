@@ -237,7 +237,29 @@ def findNormspl(keys):
 
 
 # PREPARE DICT FOR THE FINAL PRINTOUT
-def resultsDict(givenWords, keys, gloss, latexGloss, latexSpl, normSpl):
+def resultsDict(
+    givenWords, keys, gloss, latexGloss, latexSpl, normSpl, is_amb, amb
+):
+
+    if is_amb == True:
+        i = 0
+        while i < len(givenWords):
+            for j in range(len(amb)):
+                if amb[j] != 0:
+                    for certainList in [
+                        gloss,
+                        latexGloss,
+                        latexSpl,
+                        normSpl,
+                    ]:
+                        certainList.insert(i, "[[")
+                        certainList.insert(amb[j] + i + 1, "]]")
+                    i = i + amb[j] + 2
+                else:
+                    i += 1
+
+        print(givenWords)
+
     for i in range(len(givenWords)):
         logger.info(
             " Per word output: ["
@@ -287,29 +309,112 @@ def checkForKaYe(keys):
     return keys
 
 
-def ambig(keys):
-    return keys
+def ambig(lofkeys, ambOptions):
+
+    for i in ambOptions:
+        if i[0] + 1 > len(lofkeys):
+            logger.critical(
+                " Ambiguity input value error. %s is greater than number of possible words.",
+                i,
+            )
+            sys.exit(
+                "\n\nExiting with error...\n\tAmbiguity input value error. "
+                + str(i)
+                + " is greater than number of possible words.\n\n"
+            )
+        try:
+            lofkeys[i[0]][i[1]]
+        except IndexError:
+            logger.critical(
+                " Ambiguity input value error. %s is greater than number of possible options.",
+                i,
+            )
+            sys.exit(
+                "\n\nExiting with error...\n\tAmbiguity input value error. "
+                + str(i)
+                + " is greater than number of possible options.\n\n"
+            )
+
+    # set values
+    for i in ambOptions:
+        lofkeys[i[0]] = lofkeys[i[0]][i[1]]
+
+    # make sure there are no more tuples
+    for i in lofkeys:
+        if len(i) > 1 and type(i) != tuple:
+
+            is_amb = True
+            logger.warning(" Ambiguity still exists after user input.")
+        else:
+            is_amb = False
+
+    return lofkeys, is_amb
 
 
-def main(args):
+def main(args, ambOptions):
+    if ambOptions:
+        logger.info(" ambOptions argument input found: %s", ambOptions)
+        # convert to list
+        ambOptionsStr = ambOptions.strip()
+        print(ambOptionsStr)
+        ambOptions = []
+        for i in range(len(ambOptionsStr)):
+            if ambOptionsStr[i] == ":":
+                try:
+                    ambOptions.append(
+                        [
+                            int(ambOptionsStr[i - 1]),
+                            int(ambOptionsStr[i + 1]),
+                        ]
+                    )
+                except ValueError:
+                    logger.critical(
+                        " "
+                        + str(datetime.now().time())
+                        + " ~~> Invalid ambiguity option found. Expected int, recieved "
+                        + str(ambOptionsStr[i - 1])
+                        + " and "
+                        + ambOptionsStr[i + 1]
+                    )
 
     lofkeys = []
     # list where each element is a list where each element is a tuple of a match found
+    amb = []
 
     for i in moore:
         lofkeys.append(wordToKey(i))
+        if len(lofkeys[-1]) > 1:  # ambiguity is true
+            amb.append(len(lofkeys[-1]))
+        else:
+            amb.append(0)
+
+    is_amb = None
+    if set(amb) != {0}:
+        is_amb = True
+        logger.info(
+            " "
+            + str(datetime.now().time())
+            + " ~~> Ambiguity found: "
+            + str(amb)
+        )
+        if ambOptions:
+            lofkeys, is_amb = ambig(lofkeys, ambOptions)
+    else:
+        is_amb = False
+        logger.info(
+            " " + str(datetime.now().time()) + " ~~> No ambiguity found"
+        )
 
     for i in range(len(lofkeys)):
         if lofkeys[i] == []:
             lofkeys[i] = ["?", "?", "?"]
 
+    """
     # see if there is a ká...yé
     for word in lofkeys:
         for key in word:
             keys = checkForKaYe(key)
-
-    logger.debug("keys --> " + str(lofkeys))
-
+    """
     gloss = findGloss(lofkeys)
 
     latexGloss = findLGloss(lofkeys)
@@ -318,12 +423,9 @@ def main(args):
 
     normSpl = findNormspl(lofkeys)
 
-    print(
-        "%s, %s, %s, %s, %s"
-        % (lofkeys, gloss, latexGloss, latexSpl, normSpl)
+    rd = resultsDict(
+        moore, lofkeys, gloss, latexGloss, latexSpl, normSpl, is_amb, amb
     )
-
-    rd = resultsDict(moore, lofkeys, gloss, latexGloss, latexSpl, normSpl)
 
     # Start JSON block
     if "GATEWAY_INTERFACE" in os.environ:
@@ -332,18 +434,27 @@ def main(args):
         print(json.JSONEncoder().encode(rd))
     else:
         percent = "%"
-        print(
-            "Original: \n \t %s \n Normalized Spelling + Gloss: \n \t %s \n \t %s \n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s"
-            % (
-                rd["moore"],
-                rd["normSpl"],
-                rd["gloss"],
-                rd["latexSpelling"],
-                rd["latexGloss"],
-                percent,
-                rd["moore"],
+        if is_amb != True:
+            print(
+                "\nFinal output. \n Original: \n \t %s \n\n Normalized Spelling + Gloss: \n \t %s \n \t %s \n\n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s \n\n"
+                % (
+                    rd["moore"],
+                    rd["normSpl"],
+                    rd["gloss"],
+                    rd["latexSpelling"],
+                    rd["latexGloss"],
+                    percent,
+                    rd["moore"],
+                )
             )
-        )
+        else:
+            print(
+                '\nAmbiguity was found. \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a "0:1/2:0" would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
+                % (
+                    rd["moore"],
+                    rd["gloss"],
+                )
+            )
 
     # end of function, return to main flow control
     ################
@@ -368,6 +479,14 @@ if __name__ == "__main__":
         parser = argparse.ArgumentParser(
             description="Translate from Mòoré to English"
         )
+
+        parser.add_argument(
+            "-a",
+            "--ambOptions",
+            type=str,
+            help='Only use this argument when the ambiguity is known. Use syntax: -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…".',
+        )
+
         parser.add_argument(
             type=str, nargs="+", help="Input text.", dest="moore"
         )
@@ -381,7 +500,18 @@ if __name__ == "__main__":
             + " ~~> Arguments: "
             + str(vars(args))
         )
+
         moore = args.moore
+
+        try:
+            logger.info(
+                " "
+                + str(datetime.now().time())
+                + " ~~> Ambiguity: "
+                + str(args.ambOptions)
+            )
+        except ValueError:
+            pass
 
         # if clumped together in one element
         if " " in moore[0]:
@@ -404,7 +534,7 @@ if __name__ == "__main__":
     logger.info(" " + str(datetime.now().time()) + " ~~> Moore: ")
     logger.info(moore)
 
-    main(moore)
+    main(moore, args.ambOptions)
 
     logger.info(
         " " + str(datetime.now().time()) + " ~~> Sucessfully executed."
