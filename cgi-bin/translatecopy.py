@@ -258,8 +258,6 @@ def resultsDict(
                 else:
                     i += 1
 
-        print(givenWords)
-
     for i in range(len(givenWords)):
         logger.info(
             " Per word output: ["
@@ -356,7 +354,7 @@ def main(args, ambOptions):
         logger.info(" ambOptions argument input found: %s", ambOptions)
         # convert to list
         ambOptionsStr = ambOptions.strip()
-        print(ambOptionsStr)
+
         ambOptions = []
         for i in range(len(ambOptionsStr)):
             if ambOptionsStr[i] == ":":
