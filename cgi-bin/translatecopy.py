@@ -447,7 +447,7 @@ def main(args, ambOptions):
             )
         else:
             print(
-                '\nAmbiguity was found. \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a "0:1/2:0" would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
+                '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a 0:1/2:0 would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
                 % (
                     rd["moore"],
                     rd["gloss"],
