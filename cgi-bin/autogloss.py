@@ -32,6 +32,7 @@ import cgi
 import cgitb
 import os
 import json
+import subprocess
 
 import argparse, logging, csv, sys
 from datetime import datetime
@@ -349,7 +350,21 @@ def ambig(lofkeys, ambOptions):
     return lofkeys, is_amb
 
 
-def main(args, ambOptions):
+def updateGlossary():
+    subprocess.run(
+        [
+            "wget",
+            "--no-check-certificate",
+            "--output-document=mooreglossary.csv",
+            "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
+        ]
+    )
+
+
+def main(args, ambOptions, glossaryUpdate):
+    if glossaryUpdate == True:
+        updateGlossary()
+
     if ambOptions:
         logger.info(" ambOptions argument input found: %s", ambOptions)
         # convert to list
@@ -407,12 +422,6 @@ def main(args, ambOptions):
         if lofkeys[i] == []:
             lofkeys[i] = ["?", "?", "?"]
 
-    """
-    # see if there is a ká...yé
-    for word in lofkeys:
-        for key in word:
-            keys = checkForKaYe(key)
-    """
     gloss = findGloss(lofkeys)
 
     latexGloss = findLGloss(lofkeys)
@@ -486,6 +495,13 @@ if __name__ == "__main__":
         )
 
         parser.add_argument(
+            "-u",
+            "--glossaryUpdate",
+            action="store_true",
+            help="Update glossary? True for update and False/no call for no update.",
+        )
+
+        parser.add_argument(
             type=str, nargs="+", help="Input text.", dest="moore"
         )
 
@@ -533,7 +549,7 @@ if __name__ == "__main__":
     logger.info(" " + str(datetime.now().time()) + " ~~> Moore: ")
     logger.info(moore)
 
-    main(moore, args.ambOptions)
+    main(moore, args.ambOptions, args.glossaryUpdate)
 
     logger.info(
         " " + str(datetime.now().time()) + " ~~> Sucessfully executed."
