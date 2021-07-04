@@ -253,9 +253,13 @@ def resultsDict(
                         latexSpl,
                         normSpl,
                     ]:
-                        certainList.insert(i, "[[")
-                        certainList.insert(amb[j] + i + 1, "]]")
+                        certainList[i] = (
+                            certainList[i] + "/" + certainList[i + 1]
+                        )
+
+                        certainList.pop(i + 1)
                     i = i + amb[j] + 2
+
                 else:
                     i += 1
 
