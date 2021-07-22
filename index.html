@@ -34,6 +34,12 @@
                     data: data,
                     dataType: "JSON",
                     success: function (jsonStr) {
+                        console.log(jsonStr["moore"]);
+                        console.log(jsonStr["gloss"]);
+                        console.log(jsonStr["latexGloss"]);
+                        console.log(jsonStr.hasOwnProperty("moore"));
+                        console.log(jsonStr.hasOwnProperty("gloss"));
+                        console.log(jsonStr.hasOwnProperty("latexGloss"));
                         console.log("[" + url + "]: " + JSON.stringify(jsonStr));
 
                         if (jsonStr.hasOwnProperty("moore")) {
