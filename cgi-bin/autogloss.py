@@ -580,7 +580,10 @@ if __name__ == "__main__":
         if "moore" in cgi.FieldStorage():
             moore = form.getvalue("moore")
             logger.debug(moore)
-            moore = moore.split(" as")
+            moore = moore.split(" ")
+            with open("out.txt") as file:
+                file.write("form-->" + str(form))
+                file.write("moore-->" + str(moore))
 
     else:  # COMMAND LINE EXECUTION
         # split arguments given at start into words in a list under variable moore
