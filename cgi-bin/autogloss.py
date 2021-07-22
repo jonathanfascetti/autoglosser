@@ -354,6 +354,7 @@ def resultsDict(
     results["gloss"] = gloss
     results["latexSpelling"] = latexSpl
     results["latexGloss"] = latexGloss
+
     return results, is_amb
 
 
