@@ -28,12 +28,18 @@ glossary is a list where each element is a tuple. All of the elements are parall
 
 """
 
+"""
+No matter whether ambiguity exists or not, the program will find the glosses of each given word and add their key values and all other needed indicatiors to paralell lists. If a certain given word has more than one corrisponding gloss (maybe from another colomn) (this indicated ambiguity), all possible glosses will be added to the lists. 
+Ambiguity is kept track of in var amb which is a list. len(amb) = len(givenWords). Each index of amb indicated the number of possible glosses for the respective given word. 
+Later on (in resultsDict()), var amb is used to organize the generated possible glosses into single elements of the paralell lists.
+"""
+
 import cgi
 import cgitb
 import os
 import json
 import subprocess
-
+from csv import reader
 import argparse, logging, csv, sys
 from datetime import datetime
 from glossaryGlobals import (
@@ -73,6 +79,8 @@ logger.critical("Starting " + __file__)
 # TO FIND WHICH ROW IN GLOSSARY INPUT WORD IS
 def wordToKey(word):
     word = word.lower()
+    if "," in word:
+        word = word[:-1]
     keys = []
     for i in [
         MOOREWORD,
@@ -239,10 +247,19 @@ def findNormspl(keys):
 
 # PREPARE DICT FOR THE FINAL PRINTOUT
 def resultsDict(
-    givenWords, keys, gloss, latexGloss, latexSpl, normSpl, is_amb, amb
+    givenWords,
+    keys,
+    gloss,
+    latexGloss,
+    latexSpl,
+    normSpl,
+    is_amb,
+    amb,
+    rules,
 ):
 
     if is_amb == True:
+        print(givenWords)
         i = 0
         while i < len(givenWords):
             for j in range(len(amb)):
@@ -253,15 +270,64 @@ def resultsDict(
                         latexSpl,
                         normSpl,
                     ]:
-                        certainList[i] = (
-                            certainList[i] + "/" + certainList[i + 1]
+
+                        certainList[i] = "/".join(
+                            certainList[i : i + amb[j]]
                         )
+                        for k in range(amb[j] - 1):
+                            certainList.pop(i + 1)
+                i += 1
 
-                        certainList.pop(i + 1)
-                    i = i + amb[j] + 2
+    if len(rules) > 1:
+        # some rules exist
+        for i in range(len(rules)):
+            if i != 0:
+                if rules[i][0] in givenWords:
+                    if rules[i][1] == "preceding":
+                        if (
+                            GLOSSARY[
+                                keys[givenWords.index(rules[i][0]) + 1][0][0]
+                            ][POS]
+                            == rules[i][3]
+                        ):
+                            toSwitch = []
+                            for j in range(len(givenWords)):
+                                if givenWords[j] == rules[i][0]:
+                                    toSwitch.append(j)
+                            for certainList in [
+                                gloss,
+                                latexGloss,
+                                latexSpl,
+                                normSpl,
+                            ]:
+                                for j in toSwitch:
+                                    certainList[j] = rules[i][4]
 
-                else:
-                    i += 1
+                    elif rules[i][1] == "succeeding":
+                        if (
+                            GLOSSARY[
+                                keys[givenWords.index(rules[i][0]) - 1][0][0]
+                            ][POS]
+                            == rules[i][3]
+                        ):
+                            toSwitch = []
+                            for j in range(len(givenWords)):
+                                if givenWords[j] == rules[i][0]:
+                                    toSwitch.append(j)
+                            for certainList in [
+                                gloss,
+                                latexGloss,
+                                latexSpl,
+                                normSpl,
+                            ]:
+                                for j in toSwitch:
+                                    certainList[j] = rules[i][4]
+        for i in gloss:
+            if "/" in i:
+                is_amb = True
+                break
+            else:
+                is_amb = False
 
     for i in range(len(givenWords)):
         logger.info(
@@ -288,7 +354,7 @@ def resultsDict(
     results["gloss"] = gloss
     results["latexSpelling"] = latexSpl
     results["latexGloss"] = latexGloss
-    return results
+    return results, is_amb
 
 
 def checkForKaYe(keys):
@@ -363,12 +429,30 @@ def updateGlossary():
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
         ]
     )
+    subprocess.run(
+        [
+            "wget",
+            "--no-check-certificate",
+            "--output-document=mooreglossaryrules.csv",
+            "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=210327120&format=csv",
+        ]
+    )
+
+
+def analyzeGlossaryRules():
+    with open("mooreglossaryrules.csv") as file:
+        csv_reader = reader(file)
+        # Pass reader object to list() to get a list of lists
+        list_of_rows = list(csv_reader)
+
+    return list_of_rows
 
 
 def main(args, ambOptions, glossaryUpdate):
     if glossaryUpdate == True:
         updateGlossary()
 
+    # if the user indicated theyt want to designate an ambiguity option
     if ambOptions:
         logger.info(" ambOptions argument input found: %s", ambOptions)
         # convert to list
@@ -395,7 +479,8 @@ def main(args, ambOptions, glossaryUpdate):
                     )
 
     lofkeys = []
-    # list where each element is a list where each element is a tuple of a match found
+    ## list where each element is a list where each element is a tuple of a match found
+    # list where each element is the number of ambigous options found per given word
     amb = []
 
     for i in moore:
@@ -406,6 +491,7 @@ def main(args, ambOptions, glossaryUpdate):
             amb.append(0)
 
     is_amb = None
+    # if there are values of ambiguity found
     if set(amb) != {0}:
         is_amb = True
         logger.info(
@@ -434,8 +520,18 @@ def main(args, ambOptions, glossaryUpdate):
 
     normSpl = findNormspl(lofkeys)
 
-    rd = resultsDict(
-        moore, lofkeys, gloss, latexGloss, latexSpl, normSpl, is_amb, amb
+    rules = analyzeGlossaryRules()
+
+    rd, is_amb = resultsDict(
+        moore,
+        lofkeys,
+        gloss,
+        latexGloss,
+        latexSpl,
+        normSpl,
+        is_amb,
+        amb,
+        rules,
     )
 
     # Start JSON block
