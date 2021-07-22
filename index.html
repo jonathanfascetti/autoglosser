@@ -28,7 +28,6 @@
                 var data = { 'moore': joined };
                 var url = "/moore/cgi-bin/autogloss.py";
 
-                console.log(data);
 
                 $.ajax({
                     type: "GET",
@@ -60,6 +59,7 @@
                         textStatus,
                         errorThrown,
                     ) {
+                        console.log("THIS: " + XMLHttpRequest);
                         console.log("[" + url + "]: Status: " + textStatus);
                         console.log("[" + url + "]: Error: " + errorThrown);
                         $("#results").text("");
