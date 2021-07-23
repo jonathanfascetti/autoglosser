@@ -583,7 +583,6 @@ if __name__ == "__main__":
             moore = moore.split(" ")
 
     else:  # COMMAND LINE EXECUTION
-
         # split arguments given at start into words in a list under variable moore
         parser = argparse.ArgumentParser(
             description="Translate from Mòoré to English"
