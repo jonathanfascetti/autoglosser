@@ -17,13 +17,13 @@ function run() {
 
 	$.ajax({
 		type: "test",
-		url: "/translate.py",
+		url: "/autogloss.py",
 		crossOrigin: null,
-		data: { param: input},
+		data: { param: input },
 		success: updateScreen
 	})
 
-	
+
 
 }
 
