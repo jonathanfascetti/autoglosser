@@ -583,6 +583,7 @@ if __name__ == "__main__":
             moore = moore.split(" ")
 
     else:  # COMMAND LINE EXECUTION
+        """
         # split arguments given at start into words in a list under variable moore
         parser = argparse.ArgumentParser(
             description="Translate from Mòoré to English"
@@ -646,6 +647,8 @@ if __name__ == "__main__":
             logger.debug(
                 " " + str(datetime.now().time()) + ": Trimmed the input."
             )
+        """
+        moore = "THIS IS A TEST"
 
     logger.info(" " + str(datetime.now().time()) + " ~~> Moore: ")
     logger.info(moore)

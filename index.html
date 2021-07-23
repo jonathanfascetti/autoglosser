@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Mòore to English//'/'/'</title>
+    <title>Mòore to English</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
@@ -21,14 +21,12 @@
                 console.log($("#mooretextarea").val())
                 var lines = $("#mooretextarea").val().split("\n");
                 var joined = lines
-                    .filter((line) => line.trim() !== " ")
+                    .filter((line) => line.trim() !== "")
                     .join("");
 
                 console.log(joined);
                 var data = { 'moore': joined };
-                var url = "/moore/cgi-bin/autogloss.py";
-
-                console.log(data);
+                var url = "/cgi-bin/autogloss.py";
 
                 $.ajax({
                     type: "GET",
@@ -40,14 +38,12 @@
 
                         if (jsonStr.hasOwnProperty("moore")) {
                             console.log(jsonStr["moore"]);
-                            $("<p><i>Wordform in Mòoré (high tones marked)</i></p>").appendTo($("#results"));
-                            $("<p>" + jsonStr["moore"] + "</p> <br>").appendTo($("#results"));
+                            $("<p>" + jsonStr["moore"] + "</p>").appendTo($("#results"));
                         }
 
                         if (jsonStr.hasOwnProperty("gloss")) {
                             console.log(jsonStr["gloss"]);
-                            $("<p><i>Gloss</i></p>").appendTo($("#results"));
-                            $("<p>" + jsonStr["gloss"] + "</p> <br>").appendTo($("#results"));
+                            $("<p>" + jsonStr["gloss"] + "</p>").appendTo($("#results"));
                         }
 
                         if (jsonStr.hasOwnProperty("latexGloss")) {
@@ -58,7 +54,7 @@
                     error: function (
                         XMLHttpRequest,
                         textStatus,
-                        errorThrown,
+                        errorThrown
                     ) {
                         console.log("[" + url + "]: Status: " + textStatus);
                         console.log("[" + url + "]: Error: " + errorThrown);
