@@ -1,23 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-"""
-TO DO: -- this script
-    first parse words in cell, and check for question
-    handle two word cells
-
-
-    Make function to split cell into words seperated by commas (like ColN,Row44)
-    work with '...'
-    items that are two words in the glossary (ex row 43) {!Maybe fixed by three above?!}
-    recognize moore vs english vs latex {!maybe solvable by labeling colomns!}
-    ###SPELLCHECK###
-TO DO: -- in general
-    Create list of types of glosses
-    Save search results into log file from site
-
-"""
-
 
 """
 RUN SCRIPT
@@ -65,6 +48,7 @@ from glossaryGlobals import (
     KAYE,
 )
 
+# setting up logger info
 logger = logging.getLogger(os.path.basename(__file__))
 fh = logging.FileHandler("test.log", mode="w")
 formatter = logging.Formatter(
@@ -78,10 +62,15 @@ logger.critical("Starting " + __file__)
 
 # TO FIND WHICH ROW IN GLOSSARY INPUT WORD IS
 def wordToKey(word):
+    # convert to lower case to avoid errors
     word = word.lower()
+
+    # if the word ends in a comma, delete it
     if "," in word:
         word = word[:-1]
+
     keys = []
+    # work through each of the given rows (all possible positive outcomees)
     for i in [
         MOOREWORD,
         SPLVAR,
@@ -146,102 +135,69 @@ def matchFound(word, row, col, givenLang):
     return (key, givenCat, givenLang)
 
 
+# helper function for finding final gloss, latex gloss, latex spelling, and normalized spelling
+def append(glossaryRow, row, i):
+    if type(i[0]) == int:
+        if GLOSSARY[i[0]][glossaryRow] != "":
+            row.append(GLOSSARY[i[0]][glossaryRow])
+        else:
+            row.append("?")
+    elif i[0] == None:
+        row.append("NEG")
+    else:
+        row.append("?")
+    return row
+
+
 # FIND THE FINAL GLOSS
 def findGloss(keys):
-    def append(i):
-        if type(i[0]) == int:
-            if GLOSSARY[i[0]][GLOSS] != "":
-                gloss.append(GLOSSARY[i[0]][GLOSS])
-            else:
-                gloss.append("?")
-        elif i[0] == None:
-            gloss.append("NEG")
-        else:
-            gloss.append("?")
-        return gloss
-
     gloss = []
     for i in keys:
+        # check if there is an unknown
         if type(i) == list and i[0] != "?":
             for j in i:
-                append(j)
+                gloss = append(GLOSS, gloss, j)
         else:
-            append(i)
+            gloss = append(GLOSS, gloss, i)
 
     return gloss
 
 
 # FIND THE FINAL LATEX GLOSS
 def findLGloss(keys):
-    def append(i):
-        if type(i[0]) == int:
-            if GLOSSARY[i[0]][LATEXGLOSS] != "":
-                latexgloss.append(GLOSSARY[i[0]][LATEXGLOSS])
-            else:
-                latexgloss.append("?")
-        elif i[0] == None:
-            latexgloss.append("?")
-        else:
-            latexgloss.append("?")
-        return latexgloss
-
     latexgloss = []
     for i in keys:
         if type(i) == list and i[0] != "?":
             for j in i:
-                append(j)
+                latexgloss = append(LATEXGLOSS, latexgloss, j)
         else:
-            append(i)
+            latexgloss = append(LATEXGLOSS, latexgloss, i)
 
     return latexgloss
 
 
 # FIND LATEX SPELLING
 def findLSpl(keys):
-    def append(i):
-        if type(i[0]) == int:
-            if GLOSSARY[i[0]][LATEXSPL] != "":
-                latexSpl.append(GLOSSARY[i[0]][LATEXSPL])
-            else:
-                latexSpl.append("?")
-        elif i[0] == None:
-            latexSpl.append("?")
-        else:
-            latexSpl.append("?")
-        return latexSpl
-
     latexSpl = []
     for i in keys:
         if type(i) == list and i[0] != "?":
             for j in i:
-                append(j)
+                latexSpl = append(LATEXSPL, latexSpl, j)
         else:
-            append(i)
+            latexSpl = append(LATEXSPL, latexSpl, i)
 
     return latexSpl
 
 
 # FIND NORMSPL
 def findNormspl(keys):
-    def append(i):
-        if type(i[0]) == int:
-            if GLOSSARY[i[0]][MOOREWORD] != "":
-                normSpl.append(GLOSSARY[i[0]][MOOREWORD])
-            else:
-                normSpl.append("?")
-        elif i[0] == None:
-            normSpl.append("?")
-        else:
-            normSpl.append("?")
-        return normSpl
-
     normSpl = []
     for i in keys:
         if type(i) == list and i[0] != "?":
             for j in i:
-                append(j)
+                normSpl = append(MOOREWORD, normSpl, j)
         else:
-            append(i)
+            normSpl = append(MOOREWORD, normSpl, i)
     return normSpl
 
 
@@ -257,72 +213,94 @@ def resultsDict(
     amb,
     rules,
 ):
-
+    # if any ambiguity is establised by user
     if is_amb == True:
-        print(givenWords)
         i = 0
+        # iterate through the length of givenWords
         while i < len(givenWords):
+            # work through list of ambiguity preferences
             for j in range(len(amb)):
                 if amb[j] != 0:
+                    # make changes to each of the certainLists
                     for certainList in [
                         gloss,
                         latexGloss,
                         latexSpl,
                         normSpl,
                     ]:
-
+                        # combine all possible options
                         certainList[i] = "/".join(
                             certainList[i : i + amb[j]]
                         )
+                        # remove junk to keep list clean
                         for k in range(amb[j] - 1):
                             certainList.pop(i + 1)
                 i += 1
 
+    # if there are rules set in the CSV file (in addition to headder)
     if len(rules) > 1:
-        # some rules exist
+        # iterate through all rule rows...
         for i in range(len(rules)):
+            # ... except headder row
             if i != 0:
+                # if the first item in the row is one of the givenWords (because if not, don't bother with the rest of the rule)
                 if rules[i][0] in givenWords:
+                    # check to see if the second item is either "preceding" or "succeeding"
                     if rules[i][1] == "preceding":
-                        if (
-                            GLOSSARY[
-                                keys[givenWords.index(rules[i][0]) + 1][0][0]
-                            ][POS]
-                            == rules[i][3]
-                        ):
-                            toSwitch = []
-                            for j in range(len(givenWords)):
-                                if givenWords[j] == rules[i][0]:
-                                    toSwitch.append(j)
-                            for certainList in [
-                                gloss,
-                                latexGloss,
-                                latexSpl,
-                                normSpl,
-                            ]:
-                                for j in toSwitch:
-                                    certainList[j] = rules[i][4]
-
+                        # check to see if the rule applies to this situation...
+                        try:
+                            if (
+                                GLOSSARY[
+                                    keys[givenWords.index(rules[i][0]) + 1][
+                                        0
+                                    ][0]
+                                ][POS]
+                                == rules[i][3]
+                            ):
+                                # find which word needs to be switched
+                                toSwitch = []
+                                for j in range(len(givenWords)):
+                                    if givenWords[j] == rules[i][0]:
+                                        toSwitch.append(j)
+                                # make the change in all of the lists
+                                for certainList in [
+                                    gloss,
+                                    latexGloss,
+                                    latexSpl,
+                                    normSpl,
+                                ]:
+                                    for j in toSwitch:
+                                        certainList[j] = rules[i][4]
+                        except TypeError:
+                            pass
+                    # this is the same as the condition above, but it checks for "succeeding"...
                     elif rules[i][1] == "succeeding":
-                        if (
-                            GLOSSARY[
-                                keys[givenWords.index(rules[i][0]) - 1][0][0]
-                            ][POS]
-                            == rules[i][3]
-                        ):
-                            toSwitch = []
-                            for j in range(len(givenWords)):
-                                if givenWords[j] == rules[i][0]:
-                                    toSwitch.append(j)
-                            for certainList in [
-                                gloss,
-                                latexGloss,
-                                latexSpl,
-                                normSpl,
-                            ]:
-                                for j in toSwitch:
-                                    certainList[j] = rules[i][4]
+                        # ...in this condition...
+                        try:
+                            if (
+                                GLOSSARY[
+                                    keys[givenWords.index(rules[i][0]) - 1][
+                                        0
+                                    ][0]
+                                ][POS]
+                                == rules[i][3]
+                            ):
+                                toSwitch = []
+                                for j in range(len(givenWords)):
+                                    if givenWords[j] == rules[i][0]:
+                                        toSwitch.append(j)
+                                for certainList in [
+                                    gloss,
+                                    latexGloss,
+                                    latexSpl,
+                                    normSpl,
+                                ]:
+                                    for j in toSwitch:
+                                        certainList[j] = rules[i][4]
+                        except TypeError:
+                            pass
         for i in gloss:
+            # after rules are applied, if there is still a slash in the gloss (meaning there is ambiguity) make is_amb True
             if "/" in i:
                 is_amb = True
                 break
@@ -342,45 +320,42 @@ def resultsDict(
             + "]"
         )
 
+    old_results = {}
+    old_results["moore"] = givenWords
+    old_results["normSpl"] = normSpl
+    old_results["gloss"] = gloss
+    old_results["latexSpelling"] = latexSpl
+    old_results["latexGloss"] = latexGloss
+    if is_amb == True:
+        old_results["ambiguity"] = "True"
+    else:
+        old_results["ambiguity"] = "False"
+
+    # join all of lists into a more readable form.
     givenWords = " ".join(givenWords)
     normSpl = " ".join(normSpl)
     gloss = " ".join(gloss)
     latexSpl = " ".join(latexSpl)
     latexGloss = " ".join(latexGloss)
 
+    # put the lists in the dictionary with respective keys
     results = {}
     results["moore"] = givenWords
     results["normSpl"] = normSpl
     results["gloss"] = gloss
     results["latexSpelling"] = latexSpl
     results["latexGloss"] = latexGloss
+    if is_amb == True:
+        results["ambiguity"] = "True"
+    else:
+        results["ambiguity"] = "False"
 
-    return results, is_amb
-
-
-def checkForKaYe(keys):
-    for i in range(len(keys)):
-        try:
-            if GLOSSARY[keys[i]][MOOREWORD] == "ká":
-                for j in range(len(keys)):
-                    if GLOSSARY[keys[j]][MOOREWORD] == "yé":
-                        logger.info(
-                            " "
-                            + str(datetime.now().time())
-                            + " Found ká...yé."
-                        )
-                        for k in range(len(GLOSSARY)):
-                            if KAYE in GLOSSARY[k]:
-                                keys[i] = k
-                                keys[j] = None
-                        return keys
-        except TypeError:
-            pass
-    return keys
+    return results, is_amb, old_results
 
 
+# this function will only be called if the -a flag is used
 def ambig(lofkeys, ambOptions):
-
+    # check to make sure whatever ambiguity preferences there are are valid
     for i in ambOptions:
         if i[0] + 1 > len(lofkeys):
             logger.critical(
@@ -421,6 +396,7 @@ def ambig(lofkeys, ambOptions):
     return lofkeys, is_amb
 
 
+# code to update glossary (should only run when -u flag is included in program call)
 def updateGlossary():
     subprocess.run(
         [
@@ -440,6 +416,7 @@ def updateGlossary():
     )
 
 
+# digest the glossary rules CSV (seperate into parallel lists by row)
 def analyzeGlossaryRules():
     with open("mooreglossaryrules.csv") as file:
         csv_reader = reader(file)
@@ -450,15 +427,20 @@ def analyzeGlossaryRules():
 
 
 def main(args, ambOptions, glossaryUpdate):
+    logger.info("Main")
+
+    # if glossaryUpdate is True, update the files
     if glossaryUpdate == True:
         updateGlossary()
+        logger.info("Updated glossary and rules")
 
-    # if the user indicated theyt want to designate an ambiguity option
+    # if the user indicated they want to designate an ambiguity option
     if ambOptions:
-        logger.info(" ambOptions argument input found: %s", ambOptions)
+        logger.info("AmbOptions argument input found: %s", ambOptions)
         # convert to list
         ambOptionsStr = ambOptions.strip()
 
+        # organize list to be grouped in [[#:#], [#:#] ...]
         ambOptions = []
         for i in range(len(ambOptionsStr)):
             if ambOptionsStr[i] == ":":
@@ -479,13 +461,22 @@ def main(args, ambOptions, glossaryUpdate):
                         + ambOptionsStr[i + 1]
                     )
 
+    # list where each element is a list where each element is a tuple of a match found
     lofkeys = []
-    ## list where each element is a list where each element is a tuple of a match found
     # list where each element is the number of ambigous options found per given word
     amb = []
 
-    for i in moore:
+    theInput = args
+    # trim periods and commas off of given words and lower case everynthing
+    for i in range(len(theInput)):
+        if theInput[i][-1] == "," or theInput[i][-1] == ".":
+            theInput[i] = theInput[i][:-1]
+        theInput[i] = theInput[i].lower()
+
+    for i in theInput:
+        # find the row number for each of the given rows
         lofkeys.append(wordToKey(i))
+        # if more than one possible row is found, make ambiguity True
         if len(lofkeys[-1]) > 1:  # ambiguity is true
             amb.append(len(lofkeys[-1]))
         else:
@@ -513,6 +504,7 @@ def main(args, ambOptions, glossaryUpdate):
         if lofkeys[i] == []:
             lofkeys[i] = ["?", "?", "?"]
 
+    # find the final lists for all of the different outputs
     gloss = findGloss(lofkeys)
 
     latexGloss = findLGloss(lofkeys)
@@ -521,10 +513,12 @@ def main(args, ambOptions, glossaryUpdate):
 
     normSpl = findNormspl(lofkeys)
 
+    # analyze the rules
     rules = analyzeGlossaryRules()
 
-    rd, is_amb = resultsDict(
-        moore,
+    # orangize lists and put into a dictionary
+    rd, is_amb, old_rd = resultsDict(
+        theInput,
         lofkeys,
         gloss,
         latexGloss,
@@ -537,11 +531,18 @@ def main(args, ambOptions, glossaryUpdate):
 
     # Start JSON block
     if "GATEWAY_INTERFACE" in os.environ:
-        print("Content-type: application/json")
-        print("")
-        print(json.JSONEncoder().encode(rd))
+        if rd["ambiguity"] == "False":
+            print("Content-type: application/json")
+            print("")
+            print(json.JSONEncoder().encode(rd))
+        else:
+            print("Content-type: application/json")
+            print("")
+            print(json.JSONEncoder().encode(old_rd))
+    # if terminal call
     else:
         percent = "%"
+        # if there is no ambiguity, do this output...
         if is_amb != True:
             print(
                 "\nFinal output. \n Original: \n \t %s \n\n Normalized Spelling + Gloss: \n \t %s \n \t %s \n\n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s \n\n"
@@ -555,6 +556,7 @@ def main(args, ambOptions, glossaryUpdate):
                     rd["moore"],
                 )
             )
+        # ...but if there is ambiguity do this one
         else:
             print(
                 '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a 0:1/2:0 would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
@@ -582,12 +584,18 @@ if __name__ == "__main__":
             logger.debug(moore)
             moore = moore.split(" ")
 
+            logger.info("Refined input")
+
+            # run main() without ambOptions or updateGlossary
+            main(moore, None, None)
+
     else:  # COMMAND LINE EXECUTION
         # split arguments given at start into words in a list under variable moore
         parser = argparse.ArgumentParser(
             description="Translate from Mòoré to English"
         )
 
+        # use -a then the 0:0 type syntax to set ambiguity preferences
         parser.add_argument(
             "-a",
             "--ambOptions",
@@ -595,6 +603,7 @@ if __name__ == "__main__":
             help='Only use this argument when the ambiguity is known. Use syntax: -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…".',
         )
 
+        # just include the -u flag to update the glossary and rules files before processing input
         parser.add_argument(
             "-u",
             "--glossaryUpdate",
@@ -602,13 +611,13 @@ if __name__ == "__main__":
             help="Update glossary? True for update and False/no call for no update.",
         )
 
+        # all other text (even without a flag) will be classified under the variable args.theInput
         parser.add_argument(
-            type=str, nargs="+", help="Input text.", dest="moore"
+            type=str, nargs="+", help="Input text.", dest="theInput"
         )
 
-        ##Add preferences arg!!##
-
         args = parser.parse_args()
+
         logger.info(
             " "
             + str(datetime.now().time())
@@ -616,7 +625,8 @@ if __name__ == "__main__":
             + str(vars(args))
         )
 
-        moore = args.moore
+        # rename variable to make a bit easier to work with
+        theInput = args.theInput
 
         try:
             logger.info(
@@ -628,29 +638,30 @@ if __name__ == "__main__":
         except ValueError:
             pass
 
-        # if clumped together in one element
-        if " " in moore[0]:
-            moore = moore[0].split()
+        # if the input is clumped together in one element
+        if " " in theInput[0]:
+            theInput = theInput[0].split()
 
-        # string period and quotes
-        if moore[0][0] == "'" or moore[0][0] == '"':
-            moore[0] = moore[0][1:]
+        # get rid of period and quotes to make processing easier
+        if theInput[0][0] == "'" or theInput[0][0] == '"':
+            theInput[0] = theInput[0][1:]
         for i in range(2):
             if (
-                moore[-1][-1] == "."
-                or moore[-1][-1] == "'"
-                or moore[-1][-1] == '"'
-                or moore[-1][-1] == "?"
+                theInput[-1][-1] == "."
+                or theInput[-1][-1] == "'"
+                or theInput[-1][-1] == '"'
+                or theInput[-1][-1] == "?"
             ):
-                moore[-1] = moore[-1][:-1]
+                theInput[-1] = theInput[-1][:-1]
             logger.debug(
                 " " + str(datetime.now().time()) + ": Trimmed the input."
             )
 
-    logger.info(" " + str(datetime.now().time()) + " ~~> Moore: ")
-    logger.info(moore)
+        logger.info("Refined input")
+        logger.info(theInput)
 
-    main(moore, args.ambOptions, args.glossaryUpdate)
+        # run main()
+        main(theInput, args.ambOptions, args.glossaryUpdate)
 
     logger.info(
         " " + str(datetime.now().time()) + " ~~> Sucessfully executed."
