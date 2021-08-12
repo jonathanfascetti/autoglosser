@@ -1,49 +1,58 @@
 60 --> CRITICAL --> autogloss.py:Starting /Users/jonathanfascetti/Desktop/Programming/autoglosser_local/autoglosser/cgi-bin/autogloss.py
-621 --> INFO --> autogloss.py: 16:31:40.674566 ~~> Arguments: {'ambOptions': '1:1/3:0/4:1/5:1', 'glossaryUpdate': False, 'theInput': ['Dar a yembré, A Anna né a Julia kinga raaga']}
-632 --> INFO --> autogloss.py: 16:31:40.674935 ~~> Ambiguity: 1:1/3:0/4:1/5:1
-656 --> DEBUG --> autogloss.py: 16:31:40.674964: Trimmed the input.
-656 --> DEBUG --> autogloss.py: 16:31:40.674987: Trimmed the input.
+621 --> INFO --> autogloss.py: 17:34:27.512554 ~~> Arguments: {'ambOptions': None, 'glossaryUpdate': False, 'theInput': ['Dar', 'a', 'yembré,', 'A', 'Anna', 'né', 'a', 'Julia', 'kinga', 'raaga']}
+632 --> INFO --> autogloss.py: 17:34:27.512602 ~~> Ambiguity: None
+656 --> DEBUG --> autogloss.py: 17:34:27.512626: Trimmed the input.
+656 --> DEBUG --> autogloss.py: 17:34:27.512648: Trimmed the input.
 660 --> INFO --> autogloss.py:Refined input
 661 --> INFO --> autogloss.py:['Dar', 'a', 'yembré,', 'A', 'Anna', 'né', 'a', 'Julia', 'kinga', 'raaga']
 430 --> INFO --> autogloss.py:Main
-439 --> INFO --> autogloss.py:AmbOptions argument input found: 1:1/3:0/4:1/5:1
-116 --> INFO --> autogloss.py: 16:31:40.675485 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.675506 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.675525 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.675541 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.675718 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.675735 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.675752 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.675769 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.676376 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.676394 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.676411 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.676427 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.676603 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.676619 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.676637 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.676653 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.676973 ~~> Match found: anna -> row #4
-124 --> INFO --> autogloss.py: 16:31:40.676990 ~~> Moore: 'ã́nda', Gloss: 'who', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.677097 ~~> Match found: anna -> row #290
-124 --> INFO --> autogloss.py: 16:31:40.677114 ~~> Moore: 'Anna', Gloss: 'Anna', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.677370 ~~> Match found: né -> row #93
-124 --> INFO --> autogloss.py: 16:31:40.677388 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
-116 --> INFO --> autogloss.py: 16:31:40.677483 ~~> Match found: né -> row #93
-124 --> INFO --> autogloss.py: 16:31:40.677500 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
-116 --> INFO --> autogloss.py: 16:31:40.677601 ~~> Match found: né -> row #93
-124 --> INFO --> autogloss.py: 16:31:40.677618 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
-116 --> INFO --> autogloss.py: 16:31:40.677707 ~~> Match found: né -> row #93
-124 --> INFO --> autogloss.py: 16:31:40.677724 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
-116 --> INFO --> autogloss.py: 16:31:40.677864 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.677881 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.677898 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.677914 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.678089 ~~> Match found: a -> row #1
-124 --> INFO --> autogloss.py: 16:31:40.678106 ~~> Moore: 'a', Gloss: '3sg', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.678123 ~~> Match found: a -> row #2
-124 --> INFO --> autogloss.py: 16:31:40.678139 ~~> Moore: 'a', Gloss: 'num', English: ''.
-116 --> INFO --> autogloss.py: 16:31:40.678531 ~~> Match found: julia -> row #289
-124 --> INFO --> autogloss.py: 16:31:40.678548 ~~> Moore: 'Julia', Gloss: 'Julia', English: ''.
-489 --> INFO --> autogloss.py: 16:31:40.679538 ~~> Ambiguity found: [0, 2, 0, 2, 2, 0, 2, 0, 0, 0]
-373 --> CRITICAL --> autogloss.py: Ambiguity isdfnput value error. [5, 1] is greater than number of possible options.
+116 --> INFO --> autogloss.py: 17:34:27.513117 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.513138 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.513157 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.513174 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.513357 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.513375 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.513392 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.513408 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514044 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.514062 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514079 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.514096 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514280 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.514300 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514317 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.514334 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514653 ~~> Match found: anna -> row #4
+124 --> INFO --> autogloss.py: 17:34:27.514671 ~~> Moore: 'ã́nda', Gloss: 'who', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.514782 ~~> Match found: anna -> row #290
+124 --> INFO --> autogloss.py: 17:34:27.514800 ~~> Moore: 'Anna', Gloss: 'Anna', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.515067 ~~> Match found: né -> row #93
+124 --> INFO --> autogloss.py: 17:34:27.515085 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
+116 --> INFO --> autogloss.py: 17:34:27.515183 ~~> Match found: né -> row #93
+124 --> INFO --> autogloss.py: 17:34:27.515201 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
+116 --> INFO --> autogloss.py: 17:34:27.515305 ~~> Match found: né -> row #93
+124 --> INFO --> autogloss.py: 17:34:27.515321 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
+116 --> INFO --> autogloss.py: 17:34:27.515414 ~~> Match found: né -> row #93
+124 --> INFO --> autogloss.py: 17:34:27.515431 ~~> Moore: 'né', Gloss: 'with', English: 'with'.
+116 --> INFO --> autogloss.py: 17:34:27.515576 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.515593 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.515611 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.515627 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.515809 ~~> Match found: a -> row #1
+124 --> INFO --> autogloss.py: 17:34:27.515826 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.515843 ~~> Match found: a -> row #2
+124 --> INFO --> autogloss.py: 17:34:27.515859 ~~> Moore: 'a', Gloss: 'num', English: ''.
+116 --> INFO --> autogloss.py: 17:34:27.516270 ~~> Match found: julia -> row #289
+124 --> INFO --> autogloss.py: 17:34:27.516290 ~~> Moore: 'Julia', Gloss: 'Julia', English: ''.
+489 --> INFO --> autogloss.py: 17:34:27.517315 ~~> Ambiguity found: [0, 2, 0, 2, 2, 0, 2, 0, 0, 0]
+311 --> INFO --> autogloss.py: Per word output: [dar, ?, ?, ?]
+311 --> INFO --> autogloss.py: Per word output: [a, 3sg/num, 3\sg{}/\numeralmarker{}, a/a]
+311 --> INFO --> autogloss.py: Per word output: [yembré, ?, ?, ?]
+311 --> INFO --> autogloss.py: Per word output: [a, 3sg/num, 3\sg{}/\numeralmarker{}, a/a]
+311 --> INFO --> autogloss.py: Per word output: [anna, who/Anna, who/Anna, ã́nda/Anna]
+311 --> INFO --> autogloss.py: Per word output: [né, with, with, né]
+311 --> INFO --> autogloss.py: Per word output: [a, 3sg/num, 3\sg{}/\numeralmarker{}, a/a]
+311 --> INFO --> autogloss.py: Per word output: [julia, Julia, Julia, Julia]
+311 --> INFO --> autogloss.py: Per word output: [kinga, ?, ?, ?]
+311 --> INFO --> autogloss.py: Per word output: [raaga, ?, ?, ?]
+666 --> INFO --> autogloss.py: 17:34:27.517826 ~~> Sucessfully executed.
