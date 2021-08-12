@@ -5,51 +5,96 @@
     <meta charset="utf-8" />
     <title>Autoglosser</title>
 
+    <!-- import packages etc. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
         type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
         type="text/javascript"></script>
 
-    <style>
-        table {
-            display: table;
-        }
 
-        table tr {
-            display: table-cell;
-        }
-
-        table tr td {
-            display: block;
-        }
-    </style>
     <script type="text/javascript">
+        function reformat() {
+            var radio = document.getElementById("table");
+            const rows = [];
+            var i = 0;
+            /*
+            while (i != -1) {
+                console.log(i);
+                try {
+                    rows.push(document.getElementById("guessOf" + i));
+                }
+                catch (err) {
+                    console.log("End of words reached: " + i);
+                    i = -1;
+                }
+            }
+            */
+            var temp = document.getElementsByName("glossOf2");
+            console.log(temp);
+
+            while (i != -1) {
+                if (i == 2) {
+                    break;
+                }
+                console.log(temp.value);
+                i++;
+            }
+
+            for (let k = 0; k < temp.length; k++) {
+                console.log("check")
+                if (temp[k].value) {
+                    alert(temp[k].value);
+                } else {
+                    console.log(k);
+                }
+            }
+            /*
+            for (let j = 0; j < 4; j++) {
+                console.log(document.getElementById("glossOf" + j));
+            }
+            */
+            alert("end");
+
+
+
+
+        }
+
         $(document).ready(function () {
+            // when submit button is pressed on webpage...
             $("#submit").click(function () {
                 var that = this;
-
                 $("#results").text("");
 
-                console.log($("#inputtextarea").val())
+                console.log($("#inputtextarea").val());
+
+                // reorganize data that's in the text field into a list
                 var lines = $("#inputtextarea").val().split("\n");
                 var joined = lines
                     .filter((line) => line.trim() !== " ")
                     .join("");
 
                 console.log(joined);
+                // orgainize it into a dictionary...
                 var data = { 'moore': joined };
+                // ...and send it to the python script
                 var url = "cgi-bin/autogloss.py";
 
                 console.log(data);
 
+                // ajax is the communicator between the html and the python
                 $.ajax({
+                    // set variables
                     type: "GET",
                     url: url,
                     data: data,
                     dataType: "JSON",
+                    // assuming the script executed sucessfully (see error block for else case)
                     success: function (jsonStr) {
+                        // put python output in the console
                         console.log("[" + url + "]: " + JSON.stringify(jsonStr));
+                        // if there was not ambiguity in the python output do a standard print out
                         if (jsonStr["ambiguity"] == "False") {
                             if (jsonStr.hasOwnProperty("moore")) {
                                 console.log(jsonStr["moore"]);
@@ -70,31 +115,43 @@
                                 $("<p>&emsp;" + jsonStr["latexGloss"] + "</p>").appendTo($("#results"));
                                 $("<p>&emsp;" + jsonStr["gloss"] + "</p> <br>").appendTo($("#results"));
                             }
+                            // if there is ambiguity found...
                         } else {
+                            $("#tableDiv").css("display", "block")
                             $("<p>~~~</p>").appendTo($("#results"));
                             $("<p>Ambiguity was found</p>").appendTo($("#results"));
                             $("<p>~~~</p><br>").appendTo($("#results"));
                             $("<p>Initial input and gloss with ambiguity:</p>").appendTo($("#results"));
-                            $("<tr><td>").appendTo($("#table"))
-                            for (var i in jsonStr["moore"]) {
-                                $("<p>" + jsonStr["moore"][i] + "</p>").appendTo($("#table"));
+                            $("<p>&emsp;" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#results"));
+                            // append to the table
+                            $("<tr>").appendTo($("#table"))
+                            for (var num in jsonStr["moore"]) {
+                                $("<p>" + jsonStr["moore"][num] + "</p>").appendTo($("#table"));
+                                var startidx = 0;
+                                for (var ltr in jsonStr["gloss"][num]) {
+                                    if (jsonStr["gloss"][num][ltr] == "/") {
+                                        $("<input type=\"radio\" name=\"glossOf" + num + "\" value =" + jsonStr["gloss"][num].substring(startidx, ltr) + ">" + jsonStr["gloss"][num].substring(startidx, ltr) + "&emsp;</input>").appendTo($("#table"));
+                                        startidx = ltr;
+                                        startidx++;
+                                    } else if (ltr == jsonStr["gloss"][num].length - 1) {
+                                        $("<input type=\"radio\" name=\"glossOf" + num + "\" value=" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + ">" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + "&emsp;</input>").appendTo($("#table"));
+                                        startidx = ltr;
+                                        startidx++;
+                                    }
+                                }
+
+
                             }
-                            $("</td>").appendTo($("#table"));
-                            $("<td>").appendTo($("#table"));
-                            for (var i in jsonStr["gloss"]) {
-                                $("<p>" + jsonStr["gloss"][i] + "</p>").appendTo($("#table"));
-                            }
-                            $("</td></tr>").appendTo($("#table"));
-
-
-
+                            $("</tr>").appendTo($("#table"));
                         }
                     },
+                    // if python did not execute sucessfully...
                     error: function (
                         XMLHttpRequest,
                         textStatus,
                         errorThrown,
                     ) {
+                        // ... report these errors in the console
                         console.log("[" + url + "]: Status: " + textStatus);
                         console.log("[" + url + "]: Error: " + errorThrown);
                         console.log("[" + url + "]: XMLHttpRequest: " + XMLHttpRequest);
@@ -118,10 +175,13 @@
 
     <div id="results"></div>
 
-    <div id="tableDiv" class="table_container">
-        <table style="width:fit;color:red;" border="1" id="table">
+    <div id="tableDiv" class="table_container" style="display:None">
+        <table style="width:fit;color:black;" border="1" id="table">
         </table>
+        <br>
+        <button id="submitAmb" style="cursor: pointer" onclick="reformat()">submit</button>
     </div>
+
 
 </body>
 
