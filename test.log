@@ -1,59 +1,35 @@
 60 --> CRITICAL --> autogloss.py:Starting /Users/jonathanfascetti/Desktop/Programming/autoglosser_local/autoglosser/cgi-bin/autogloss.py
-570 --> DEBUG --> autogloss.py:FieldStorage(None, None, [MiniFieldStorage('moore', 'la ye')])
-574 --> DEBUG --> autogloss.py:la ye
-577 --> INFO --> autogloss.py:Refined input
-420 --> INFO --> autogloss.py:Main
-116 --> INFO --> autogloss.py: 15:21:05.879213 ~~> Match found: la -> row #62
-124 --> INFO --> autogloss.py: 15:21:05.879233 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-116 --> INFO --> autogloss.py: 15:21:05.879253 ~~> Match found: la -> row #63
-124 --> INFO --> autogloss.py: 15:21:05.879269 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-116 --> INFO --> autogloss.py: 15:21:05.879286 ~~> Match found: la -> row #64
-124 --> INFO --> autogloss.py: 15:21:05.879302 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-116 --> INFO --> autogloss.py: 15:21:05.879390 ~~> Match found: la -> row #62
-124 --> INFO --> autogloss.py: 15:21:05.879407 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-116 --> INFO --> autogloss.py: 15:21:05.879424 ~~> Match found: la -> row #63
-124 --> INFO --> autogloss.py: 15:21:05.879439 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-116 --> INFO --> autogloss.py: 15:21:05.879456 ~~> Match found: la -> row #64
-124 --> INFO --> autogloss.py: 15:21:05.879471 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-116 --> INFO --> autogloss.py: 15:21:05.879568 ~~> Match found: la -> row #62
-124 --> INFO --> autogloss.py: 15:21:05.879583 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-116 --> INFO --> autogloss.py: 15:21:05.879600 ~~> Match found: la -> row #63
-124 --> INFO --> autogloss.py: 15:21:05.879615 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-116 --> INFO --> autogloss.py: 15:21:05.879632 ~~> Match found: la -> row #64
-124 --> INFO --> autogloss.py: 15:21:05.879647 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-116 --> INFO --> autogloss.py: 15:21:05.879797 ~~> Match found: la -> row #62
-124 --> INFO --> autogloss.py: 15:21:05.879813 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-116 --> INFO --> autogloss.py: 15:21:05.879831 ~~> Match found: la -> row #63
-124 --> INFO --> autogloss.py: 15:21:05.879846 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-116 --> INFO --> autogloss.py: 15:21:05.879863 ~~> Match found: la -> row #64
-124 --> INFO --> autogloss.py: 15:21:05.879878 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-116 --> INFO --> autogloss.py: 15:21:05.879972 ~~> Match found: ye -> row #38
-124 --> INFO --> autogloss.py: 15:21:05.879988 ~~> Moore: 'ye', Gloss: 'neg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880148 ~~> Match found: ye -> row #259
-124 --> INFO --> autogloss.py: 15:21:05.880164 ~~> Moore: 'yé', Gloss: 'one', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880182 ~~> Match found: ye -> row #260
-124 --> INFO --> autogloss.py: 15:21:05.880197 ~~> Moore: 'yé', Gloss: 'neg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880213 ~~> Match found: ye -> row #261
-124 --> INFO --> autogloss.py: 15:21:05.880228 ~~> Moore: 'yé', Gloss: 'again/still', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880245 ~~> Match found: ye -> row #262
-124 --> INFO --> autogloss.py: 15:21:05.880260 ~~> Moore: 'yé', Gloss: 'so.long.as', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880276 ~~> Match found: ye -> row #263
-124 --> INFO --> autogloss.py: 15:21:05.880296 ~~> Moore: 'yé', Gloss: 'C.1sg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880331 ~~> Match found: ye -> row #38
-124 --> INFO --> autogloss.py: 15:21:05.880347 ~~> Moore: 'ye', Gloss: 'neg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880496 ~~> Match found: ye -> row #38
-124 --> INFO --> autogloss.py: 15:21:05.880512 ~~> Moore: 'ye', Gloss: 'neg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880578 ~~> Match found: ye -> row #259
-124 --> INFO --> autogloss.py: 15:21:05.880594 ~~> Moore: 'yé', Gloss: 'one', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880610 ~~> Match found: ye -> row #260
-124 --> INFO --> autogloss.py: 15:21:05.880625 ~~> Moore: 'yé', Gloss: 'neg', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880641 ~~> Match found: ye -> row #261
-124 --> INFO --> autogloss.py: 15:21:05.880656 ~~> Moore: 'yé', Gloss: 'again/still', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880672 ~~> Match found: ye -> row #262
-124 --> INFO --> autogloss.py: 15:21:05.880687 ~~> Moore: 'yé', Gloss: 'so.long.as', English: ''.
-116 --> INFO --> autogloss.py: 15:21:05.880704 ~~> Match found: ye -> row #263
-124 --> INFO --> autogloss.py: 15:21:05.880721 ~~> Moore: 'yé', Gloss: 'C.1sg', English: ''.
-479 --> INFO --> autogloss.py: 15:21:05.880766 ~~> Ambiguity found: [3, 6]
-301 --> INFO --> autogloss.py: Per word output: [la, cop/and/foc, \cop{}/and/\foc{}, la/la/la]
-301 --> INFO --> autogloss.py: Per word output: [ye, one/neg/again/still/so.long.as/C.1sg/neg, one/\neg{}/again/still/so.long.as/C.1\sg{}/\neg{}, yé/yé/yé/yé/yé/ye]
-656 --> INFO --> autogloss.py: 15:21:05.880908 ~~> Sucessfully executed.
+580 --> DEBUG --> autogloss.py:FieldStorage(None, None, [MiniFieldStorage('moore', 'biis la')])
+584 --> DEBUG --> autogloss.py:biis la
+587 --> INFO --> autogloss.py:Refined input
+430 --> INFO --> autogloss.py:Main
+116 --> INFO --> autogloss.py: 16:56:34.087596 ~~> Match found: biis -> row #19
+124 --> INFO --> autogloss.py: 16:56:34.087616 ~~> Moore: 'biis', Gloss: 'grain', English: '['piece', 'unit']'.
+116 --> INFO --> autogloss.py: 16:56:34.088004 ~~> Match found: la -> row #62
+124 --> INFO --> autogloss.py: 16:56:34.088021 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+116 --> INFO --> autogloss.py: 16:56:34.088040 ~~> Match found: la -> row #63
+124 --> INFO --> autogloss.py: 16:56:34.088056 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+116 --> INFO --> autogloss.py: 16:56:34.088074 ~~> Match found: la -> row #64
+124 --> INFO --> autogloss.py: 16:56:34.088090 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+116 --> INFO --> autogloss.py: 16:56:34.088178 ~~> Match found: la -> row #62
+124 --> INFO --> autogloss.py: 16:56:34.088204 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+116 --> INFO --> autogloss.py: 16:56:34.088221 ~~> Match found: la -> row #63
+124 --> INFO --> autogloss.py: 16:56:34.088237 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+116 --> INFO --> autogloss.py: 16:56:34.088255 ~~> Match found: la -> row #64
+124 --> INFO --> autogloss.py: 16:56:34.088270 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+116 --> INFO --> autogloss.py: 16:56:34.088366 ~~> Match found: la -> row #62
+124 --> INFO --> autogloss.py: 16:56:34.088382 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+116 --> INFO --> autogloss.py: 16:56:34.088399 ~~> Match found: la -> row #63
+124 --> INFO --> autogloss.py: 16:56:34.088415 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+116 --> INFO --> autogloss.py: 16:56:34.088432 ~~> Match found: la -> row #64
+124 --> INFO --> autogloss.py: 16:56:34.088447 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+116 --> INFO --> autogloss.py: 16:56:34.088596 ~~> Match found: la -> row #62
+124 --> INFO --> autogloss.py: 16:56:34.088612 ~~> Moore: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+116 --> INFO --> autogloss.py: 16:56:34.088629 ~~> Match found: la -> row #63
+124 --> INFO --> autogloss.py: 16:56:34.088644 ~~> Moore: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+116 --> INFO --> autogloss.py: 16:56:34.088661 ~~> Match found: la -> row #64
+124 --> INFO --> autogloss.py: 16:56:34.088676 ~~> Moore: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+489 --> INFO --> autogloss.py: 16:56:34.088761 ~~> Ambiguity found: [0, 3]
+311 --> INFO --> autogloss.py: Per word output: [biis, grain, grain, biis]
+311 --> INFO --> autogloss.py: Per word output: [la, cop/and/foc, \cop{}/and/\foc{}, la/la/la]
+666 --> INFO --> autogloss.py: 16:56:34.089028 ~~> Sucessfully executed.
