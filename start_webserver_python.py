@@ -10,7 +10,7 @@ import sys
 
 cgitb.enable()  # enable CGI error reporting
 
-PATH = "./site/"
+PATH = "./autoglosser/"
 PORT = 9000
 server_address = ("", PORT)
 
