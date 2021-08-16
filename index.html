@@ -169,7 +169,7 @@
                                     for (var ltr in jsonStr["gloss"][num]) {
                                         console.log(jsonStr["gloss"][num]);
                                         if (jsonStr["gloss"][num][ltr] == "/") {
-                                            $("<input type=\"radio\" name=\"glossOf" + num + "\" value =" + jsonStr["gloss"][num].substring(startidx, ltr) + " checked=\"checked\" >" + jsonStr["gloss"][num].substring(startidx, ltr) + "&emsp;</input>").appendTo($("#table"));
+                                            $("<input type=\"radio\" name=\"glossOf" + num + "\" value =" + jsonStr["gloss"][num].substring(startidx, ltr) + ">" + jsonStr["gloss"][num].substring(startidx, ltr) + "&emsp;</input>").appendTo($("#table"));
                                             startidx = ltr;
                                             startidx++;
                                             theSet.add("glossOf" + num);
