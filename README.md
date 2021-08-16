@@ -32,6 +32,7 @@ Repo contents:
       glossary rules pulled from https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw (DIFFERENT TAB THAN glossary.csv)
     glossaryGlobals.py
       helper python file that autogloss.py calls each time -- used to make sure the main autogloss.py file is not too messy
+      If this program is to be adapted for another glossary, most of the changes should be in this script, not autogloss.py
     autogloss.py
       main python file that takes in sentence input (either from terminal or through web interface) and outputs a gloss based off of glossary.csv. The file can handle ambiguity and some (but not all) variations in input syntax.
 
