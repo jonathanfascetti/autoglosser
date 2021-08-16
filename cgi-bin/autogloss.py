@@ -402,7 +402,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=mooreglossary.csv",
+            "--output-document=glossary.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
         ]
     )
@@ -410,7 +410,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=mooreglossaryrules.csv",
+            "--output-document=glossaryrules.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=210327120&format=csv",
         ]
     )
@@ -418,10 +418,16 @@ def updateGlossary():
 
 # digest the glossary rules CSV (seperate into parallel lists by row)
 def analyzeGlossaryRules():
-    with open("mooreglossaryrules.csv") as file:
-        csv_reader = reader(file)
-        # Pass reader object to list() to get a list of lists
-        list_of_rows = list(csv_reader)
+    try:
+        with open("cgi-bin/glossaryrules.csv") as file:
+            csv_reader = reader(file)
+            # Pass reader object to list() to get a list of lists
+            list_of_rows = list(csv_reader)
+    except FileNotFoundError:
+        with open("glossaryrules.csv") as file:
+            csv_reader = reader(file)
+            # Pass reader object to list() to get a list of lists
+            list_of_rows = list(csv_reader)
 
     return list_of_rows
 
