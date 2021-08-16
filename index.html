@@ -102,7 +102,7 @@
 
                 console.log(joined);
                 // orgainize it into a dictionary...
-                var data = { 'moore': joined };
+                var data = { 'inputword': joined };
                 // ...and send it to the python script
                 var url = "cgi-bin/autogloss.py";
 
@@ -121,10 +121,10 @@
                         console.log("[" + url + "]: " + JSON.stringify(jsonStr));
                         // if there was not ambiguity in the python output do a standard print out
                         if (jsonStr["ambiguity"] == "False") {
-                            if (jsonStr.hasOwnProperty("moore")) {
-                                console.log(jsonStr["moore"]);
+                            if (jsonStr.hasOwnProperty("inputword")) {
+                                console.log(jsonStr["inputword"]);
                                 $("<p><i>Original:</i></p>").appendTo($("#results"));
-                                $("<p>&emsp;" + jsonStr["moore"] + "</p> <br>").appendTo($("#results"));
+                                $("<p>&emsp;" + jsonStr["inputword"] + "</p> <br>").appendTo($("#results"));
                             }
 
                             if (jsonStr.hasOwnProperty("gloss")) {
@@ -147,11 +147,11 @@
                             $("<p>Ambiguity was found</p>").appendTo($("#results"));
                             $("<p>~~~</p><br>").appendTo($("#results"));
                             $("<p>Initial input and gloss with ambiguity:</p>").appendTo($("#results"));
-                            $("<p style=\"padding-left:50px\">" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#results"));
+                            $("<p style=\"padding-left:50px\">" + jsonStr["inputword"].join(" ") + "</p>").appendTo($("#results"));
                             $("<p style=\"padding-left:50px\" id=\"workingSentence\">" + jsonStr["gloss"].join(" ") + "</p>").appendTo($("#results"));
                             $("<br>").appendTo($("#results"));
                             $("<p><i>Original:</i></p>").appendTo($("#ambResults"));
-                            $("<p id=\"workingOrig\" style=\"padding-left:50px\">" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingOrig\" style=\"padding-left:50px\">" + jsonStr["inputword"].join(" ") + "</p>").appendTo($("#ambResults"));
                             $("<p><i>Normalized Spelling + Gloss:</i></p>").appendTo($("#ambResults"));
                             $("<p id=\"workingNormSpl\" style=\"padding-left:50px\">" + jsonStr["normSpl"].join(" ") + "</p>").appendTo($("#ambResults"));
                             $("<p id=\"workingGloss\" style=\"padding-left:50px\">" + jsonStr["gloss"].join(" ") + "</p>").appendTo($("#ambResults"));
@@ -162,9 +162,9 @@
                             // append to the table
                             $("<tr>").appendTo($("#table"))
                             const theSet = new Set();
-                            for (var num in jsonStr["moore"]) {
+                            for (var num in jsonStr["inputword"]) {
                                 if (jsonStr["gloss"][num].includes("/")) {
-                                    $("<p>" + jsonStr["moore"][num] + "</p>").appendTo($("#table"));
+                                    $("<p>" + jsonStr["inputword"][num] + "</p>").appendTo($("#table"));
                                     var startidx = 0;
                                     for (var ltr in jsonStr["gloss"][num]) {
                                         console.log(jsonStr["gloss"][num]);

@@ -2,21 +2,6 @@
 # coding: utf-8
 
 
-"""
-RUN SCRIPT
-Make sure relavent glossary .csv file is in the same directory as this script. When calling, the arguments should be in single quotes. All moore input should be preceeded by -m with a space between each word (inlc -m) Ex: ~ python3 translate.py '-m -(w)ã ãnd(ã) b'
-
-RETIREVE DATA FROM glossary
-glossary is a list where each element is a tuple. All of the elements are parallel tuples where index 0 is blank, 1 is "Word in Mòoré (high tones marked)", etc. (following rules below). glossary[n][m] can be used where n is to access a certain moore word, and m is the category.
-
-"""
-
-"""
-No matter whether ambiguity exists or not, the program will find the glosses of each given word and add their key values and all other needed indicatiors to paralell lists. If a certain given word has more than one corrisponding gloss (maybe from another colomn) (this indicated ambiguity), all possible glosses will be added to the lists. 
-Ambiguity is kept track of in var amb which is a list. len(amb) = len(givenWords). Each index of amb indicated the number of possible glosses for the respective given word. 
-Later on (in resultsDict()), var amb is used to organize the generated possible glosses into single elements of the paralell lists.
-"""
-
 import cgi
 import cgitb
 import os
@@ -28,7 +13,7 @@ from datetime import datetime
 from glossaryGlobals import (
     commaParse,
     GLOSSARY,
-    MOOREWORD,
+    ORIGWORD,
     MORPH,
     LATEXSPL,
     POS,
@@ -72,7 +57,7 @@ def wordToKey(word):
     keys = []
     # work through each of the given rows (all possible positive outcomees)
     for i in [
-        MOOREWORD,
+        ORIGWORD,
         SPLVAR,
         MORPH,
         FLEXSPL,
@@ -86,16 +71,16 @@ def wordToKey(word):
                 for k in GLOSSARY[j][i]:
                     # check each sub element for a match
                     if word == k:
-                        keys.append(matchFound(word, j, i, "moore"))
+                        keys.append(matchFound(word, j, i, "inputword"))
             elif type(GLOSSARY[j][i]) == list:
                 for k in GLOSSARY[j][i]:
                     # check each sub element for a match
                     if word == k:
-                        keys.append(matchFound(word, j, i, "moore"))
+                        keys.append(matchFound(word, j, i, "inputword"))
             else:
                 # if only one word in cell, check for match
                 if word == GLOSSARY[j][i]:  # if 1:1 match
-                    keys.append(matchFound(word, j, i, "moore"))
+                    keys.append(matchFound(word, j, i, "inputword"))
 
     # trim duplicates of same row matches (found in diff cols)
     for i in range(len(keys)):
@@ -124,8 +109,8 @@ def matchFound(word, row, col, givenLang):
     logger.info(
         " "
         + str(datetime.now().time())
-        + " ~~> Moore: '"
-        + str(GLOSSARY[row][MOOREWORD])
+        + " ~~> inputword: '"
+        + str(GLOSSARY[row][ORIGWORD])
         + "', Gloss: '"
         + str(GLOSSARY[row][GLOSS])
         + "', English: '"
@@ -195,9 +180,9 @@ def findNormspl(keys):
     for i in keys:
         if type(i) == list and i[0] != "?":
             for j in i:
-                normSpl = append(MOOREWORD, normSpl, j)
+                normSpl = append(ORIGWORD, normSpl, j)
         else:
-            normSpl = append(MOOREWORD, normSpl, i)
+            normSpl = append(ORIGWORD, normSpl, i)
     return normSpl
 
 
@@ -321,7 +306,7 @@ def resultsDict(
         )
 
     old_results = {}
-    old_results["moore"] = givenWords
+    old_results["inputword"] = givenWords
     old_results["normSpl"] = normSpl
     old_results["gloss"] = gloss
     old_results["latexSpelling"] = latexSpl
@@ -340,7 +325,7 @@ def resultsDict(
 
     # put the lists in the dictionary with respective keys
     results = {}
-    results["moore"] = givenWords
+    results["inputword"] = givenWords
     results["normSpl"] = normSpl
     results["gloss"] = gloss
     results["latexSpelling"] = latexSpl
@@ -553,13 +538,13 @@ def main(args, ambOptions, glossaryUpdate):
             print(
                 "\nFinal output. \n Original: \n \t %s \n\n Normalized Spelling + Gloss: \n \t %s \n \t %s \n\n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s \n\n"
                 % (
-                    rd["moore"],
+                    rd["inputword"],
                     rd["normSpl"],
                     rd["gloss"],
                     rd["latexSpelling"],
                     rd["latexGloss"],
                     percent,
-                    rd["moore"],
+                    rd["inputword"],
                 )
             )
         # ...but if there is ambiguity do this one
@@ -567,7 +552,7 @@ def main(args, ambOptions, glossaryUpdate):
             print(
                 '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a 0:1/2:0 would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
                 % (
-                    rd["moore"],
+                    rd["inputword"],
                     rd["gloss"],
                 )
             )
@@ -579,24 +564,24 @@ def main(args, ambOptions, glossaryUpdate):
 
 if __name__ == "__main__":
 
-    moore = None  # declare
+    inputword = None  # declare
 
     if "GATEWAY_INTERFACE" in os.environ:  # WEB EXECUTION
         form = cgi.FieldStorage()
         logger.debug(form)
 
-        if "moore" in cgi.FieldStorage():
-            moore = form.getvalue("moore")
-            logger.debug(moore)
-            moore = moore.split(" ")
+        if "inputword" in cgi.FieldStorage():
+            inputword = form.getvalue("inputword")
+            logger.debug(inputword)
+            inputword = inputword.split(" ")
 
             logger.info("Refined input")
 
             # run main() without ambOptions or updateGlossary
-            main(moore, None, None)
+            main(inputword, None, None)
 
     else:  # COMMAND LINE EXECUTION
-        # split arguments given at start into words in a list under variable moore
+        # split arguments given at start into words in a list under variable inputword
         parser = argparse.ArgumentParser(
             description="Translate from Mòoré to English"
         )

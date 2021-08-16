@@ -42,7 +42,7 @@ for i in range(len(glossaryTemp)):
         GLOSSARY.append(glossaryTemp[i])
 
 ###
-MOOREWORD = HEADDER.index("Wordform in Mòoré (high tones marked)")
+ORIGWORD = HEADDER.index("Wordform in Mòoré (high tones marked)")
 MORPH = HEADDER.index("Morph. breakdown (high tones marked)")
 LATEXSPL = HEADDER.index("LaTex Spelling (with breakdown)")
 POS = HEADDER.index("POS (webonary categories)")
@@ -76,7 +76,7 @@ gg_logger.debug(
 questions = []
 for i in range(len(GLOSSARY)):  # by row
     for j in [
-        MOOREWORD,
+        ORIGWORD,
         GLOSS,
         SILSPL,
         ENGMEAN,
@@ -96,7 +96,7 @@ for i in range(len(GLOSSARY)):  # by row
 
 # replace second item with global var names
 HEADDERLIST = [
-    "MOOREWORD",
+    "ORIGWORD",
     "MORPH",
     "LATEXSPL",
     "RECORDING",
