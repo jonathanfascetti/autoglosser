@@ -14,47 +14,72 @@
 
 
     <script type="text/javascript">
-        function reformat() {
-            var radio = document.getElementById("table");
-            const rows = [];
-            var i = 0;
-            /*
-            while (i != -1) {
-                console.log(i);
-                try {
-                    rows.push(document.getElementById("guessOf" + i));
-                }
-                catch (err) {
-                    console.log("End of words reached: " + i);
-                    i = -1;
-                }
-            }
-            */
-            var temp = document.getElementsByName("glossOf2");
-            console.log(temp);
+        function reformat(theString) {
+            console.log("Start of reformat()")
 
-            while (i != -1) {
-                if (i == 2) {
-                    break;
-                }
-                console.log(temp.value);
-                i++;
-            }
+            const theList = theString.split(',');
+            var sentenceT = document.getElementById("workingSentence");
+            const sentence = sentenceT.innerHTML.split(" ");
+            sentence[sentence.length - 1] = sentence[sentence.length - 1].trim() //FIX THIS LINE FOR TRIMMING WHITESPACE AT END OF INPUT
+            var sentenceT = document.getElementById("workingOrig");
+            const sentenceO = sentenceT.innerHTML.split(" ");
+            var sentenceT = document.getElementById("workingNormSpl");
+            const sentenceNS = sentenceT.innerHTML.split(" ");
+            var sentenceT = document.getElementById("workingGloss");
+            const sentenceG = sentenceT.innerHTML.split(" ");
+            var sentenceT = document.getElementById("workingLSpl");
+            const sentenceLS = sentenceT.innerHTML.split(" ");
+            var sentenceT = document.getElementById("workingLGloss");
+            const sentenceLG = sentenceT.innerHTML.split(" ");
 
-            for (let k = 0; k < temp.length; k++) {
-                console.log("check")
-                if (temp[k].value) {
-                    alert(temp[k].value);
+            console.log(sentenceG);
+
+            console.log(theList);
+            console.log(sentence);
+
+            for (var row = 0; row < sentence.length; row++) {
+                if (theList.includes("glossOf" + row)) {
+                    console.log("theList includes \"glossOf" + row + "\"");
+                    var newVal = document.getElementsByName(theList[theList.indexOf("glossOf" + row)]);
+                    console.log("newVal: ");
+                    console.log(newVal);
+                    var i;
+                    for (i = 0; i < newVal.length; i++) {
+                        if (newVal[i].checked) {
+                            sentence[row] = newVal[i].value;
+                            sentenceNS[row] = sentenceNS[row].split("/")[i]
+                            sentenceG[row] = sentenceG[row].split("/")[i]
+                            sentenceLS[row] = sentenceLS[row].split("/")[i]
+                            sentenceLG[row] = sentenceLG[row].split("/")[i]
+                        }
+                    }
                 } else {
-                    console.log(k);
+                    console.log("theList does not include \"glossOf" + row + "\"");
                 }
             }
-            /*
-            for (let j = 0; j < 4; j++) {
-                console.log(document.getElementById("glossOf" + j));
+            console.log(sentence);
+            var finalSentence = sentence.join(" ");
+            var finalSentenceNS = sentenceNS.join(" ");
+            var finalSentenceG = sentenceG.join(" ");
+            var finalSentenceLS = sentenceLS.join(" ");
+            var finalSentenceLG = sentenceLG.join(" ");
+            console.log(finalSentence);
+            console.log(finalSentenceLS)
+
+            document.getElementById("workingSentence").innerHTML = finalSentence
+            document.getElementById("workingNormSpl").innerHTML = finalSentenceNS
+            document.getElementById("workingGloss").innerHTML = finalSentenceG
+            document.getElementById("workingLSpl").innerHTML = finalSentenceLS
+            document.getElementById("workingLGloss").innerHTML = finalSentenceLG
+
+            for (var word = 0; word < sentence.length; word++) {
+
             }
-            */
-            alert("end");
+
+
+
+
+            console.log("End of reformat()");
 
 
 
@@ -122,27 +147,47 @@
                             $("<p>Ambiguity was found</p>").appendTo($("#results"));
                             $("<p>~~~</p><br>").appendTo($("#results"));
                             $("<p>Initial input and gloss with ambiguity:</p>").appendTo($("#results"));
-                            $("<p>&emsp;" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#results"));
+                            $("<p style=\"padding-left:50px\">" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#results"));
+                            $("<p style=\"padding-left:50px\" id=\"workingSentence\">" + jsonStr["gloss"].join(" ") + "</p>").appendTo($("#results"));
+                            $("<br>").appendTo($("#results"));
+                            $("<p><i>Original:</i></p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingOrig\" style=\"padding-left:50px\">" + jsonStr["moore"].join(" ") + "</p>").appendTo($("#ambResults"));
+                            $("<p><i>Normalized Spelling + Gloss:</i></p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingNormSpl\" style=\"padding-left:50px\">" + jsonStr["normSpl"].join(" ") + "</p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingGloss\" style=\"padding-left:50px\">" + jsonStr["gloss"].join(" ") + "</p>").appendTo($("#ambResults"));
+                            $("<p><i>LaTeX Spelling + Gloss:</i></p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingLSpl\" style=\"padding-left:50px\">" + jsonStr["latexGloss"].join(" ") + "</p>").appendTo($("#ambResults"));
+                            $("<p id=\"workingLGloss\" style=\"padding-left:50px\">" + jsonStr["gloss"].join(" ") + "</p>").appendTo($("#ambResults"));
+
                             // append to the table
                             $("<tr>").appendTo($("#table"))
+                            const theSet = new Set();
                             for (var num in jsonStr["moore"]) {
-                                $("<p>" + jsonStr["moore"][num] + "</p>").appendTo($("#table"));
-                                var startidx = 0;
-                                for (var ltr in jsonStr["gloss"][num]) {
-                                    if (jsonStr["gloss"][num][ltr] == "/") {
-                                        $("<input type=\"radio\" name=\"glossOf" + num + "\" value =" + jsonStr["gloss"][num].substring(startidx, ltr) + ">" + jsonStr["gloss"][num].substring(startidx, ltr) + "&emsp;</input>").appendTo($("#table"));
-                                        startidx = ltr;
-                                        startidx++;
-                                    } else if (ltr == jsonStr["gloss"][num].length - 1) {
-                                        $("<input type=\"radio\" name=\"glossOf" + num + "\" value=" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + ">" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + "&emsp;</input>").appendTo($("#table"));
-                                        startidx = ltr;
-                                        startidx++;
+                                if (jsonStr["gloss"][num].includes("/")) {
+                                    $("<p>" + jsonStr["moore"][num] + "</p>").appendTo($("#table"));
+                                    var startidx = 0;
+                                    for (var ltr in jsonStr["gloss"][num]) {
+                                        console.log(jsonStr["gloss"][num]);
+                                        if (jsonStr["gloss"][num][ltr] == "/") {
+                                            $("<input type=\"radio\" name=\"glossOf" + num + "\" value =" + jsonStr["gloss"][num].substring(startidx, ltr) + " checked=\"checked\" >" + jsonStr["gloss"][num].substring(startidx, ltr) + "&emsp;</input>").appendTo($("#table"));
+                                            startidx = ltr;
+                                            startidx++;
+                                            theSet.add("glossOf" + num);
+                                        } else if (ltr == jsonStr["gloss"][num].length - 1 && jsonStr["gloss"][num].includes("/")) {
+                                            $("<input type=\"radio\" name=\"glossOf" + num + "\" value=" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + ">" + jsonStr["gloss"][num].substring(startidx, ltr + 1) + "&emsp;</input>").appendTo($("#table"));
+                                            startidx = ltr;
+                                            startidx++;
+                                            theSet.add("glossOf" + num);
+                                        }
                                     }
                                 }
 
 
                             }
+                            const theList = Array.from(theSet);
+                            console.log(theList);
                             $("</tr>").appendTo($("#table"));
+                            $("<button id=\"submitAmb\" style=\"cursor: pointer\" onclick=\"reformat('" + theList + "') \">submit</button>").appendTo($("#tableDiv"));
                         }
                     },
                     // if python did not execute sucessfully...
@@ -179,8 +224,9 @@
         <table style="width:fit;color:black;" border="1" id="table">
         </table>
         <br>
-        <button id="submitAmb" style="cursor: pointer" onclick="reformat()">submit</button>
     </div>
+
+    <div id="ambResults"></div>
 
 
 </body>
