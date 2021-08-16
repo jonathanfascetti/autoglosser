@@ -27,7 +27,7 @@ def commaParse(inputPhrase):
 
 # get glossary info and store in list of tuples (described at the top)
 filepath = os.path.dirname(__file__)
-filename = filepath + "/" + "mooreglossary.csv"
+filename = filepath + "/" + "glossary.csv"
 with open(os.path.join(filename)) as f:
     glossaryTemp = [tuple(line) for line in csv.reader(f)]
 
