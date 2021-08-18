@@ -59,6 +59,7 @@ Run application:
     You should see a simple HTML site with a text box and submit button.
     You can paste input words or a phrase into the box (make sure to minimize white space and exess characters) and use the submit button to see results.
     If there is ambiguity in the input words, you will be prompted to choose options which update the gloss
+    Be sure to reload the page between queries.
 
 Additional terminal flags:
   -u
