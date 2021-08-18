@@ -201,6 +201,7 @@
                         console.log("[" + url + "]: Error: " + errorThrown);
                         console.log("[" + url + "]: XMLHttpRequest: " + XMLHttpRequest);
                         $("#results").text("");
+                        $("<p>Something went wrong. Try...</p><br><p>&emsp;Checking the formatting of the input (minimize extra characters and whitespace).</p><p>&emsp;Opening the console and looking at debug statements.</p><p>&emsp;Be sure to reload the page between queries.</p><p>&emsp;Make sure no file names/directories were changed since downloading repo.</p>").appendTo($("#results"));
                     },
                 });
             });
