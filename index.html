@@ -14,13 +14,12 @@
 
 
     <script type="text/javascript">
-        function reformat(theString) {
+        function reformat(theString, counter) {
             console.log("Start of reformat()")
 
             const theList = theString.split(',');
             var sentenceT = document.getElementById("workingSentence");
             const sentence = sentenceT.innerHTML.split(" ");
-            sentence[sentence.length - 1] = sentence[sentence.length - 1].trim() //FIX THIS LINE FOR TRIMMING WHITESPACE AT END OF INPUT
             var sentenceT = document.getElementById("workingOrig");
             const sentenceO = sentenceT.innerHTML.split(" ");
             var sentenceT = document.getElementById("workingNormSpl");
@@ -31,8 +30,33 @@
             const sentenceLS = sentenceT.innerHTML.split(" ");
             var sentenceT = document.getElementById("workingLGloss");
             const sentenceLG = sentenceT.innerHTML.split(" ");
+            // THIS NEEDS TO BE DONE WHEN YOU CAN LOOK UP HOW TO DO GLOBAL VARIABLES IN JAVASCRIPT
+            var counter = 0;
+            console.log(counter);
+            if (counter == 0) {
+                var ORIGsentence = sentence;
+                var ORIGsentenceO = sentenceO;
+                var ORIGsentenceNS = sentenceNS;
+                var ORIGsentenceG = sentenceG;
+                var ORIGsentenceLG = sentenceLG;
+                var ORIGsentenceLS = sentenceLS;
+            }
 
-            console.log(sentenceG);
+            //console.log(ORIGsentenceNS);
+
+            for (var i = 0; i < ORIGsentence.length; i++) {
+                if (ORIGsentence.includes("/")) {
+                    ORIGsentence[i] = ORIGsentence[i].split("/")
+                    ORIGsentenceO[i] = ORIGsentenceO[i].split("/")
+                    ORIGsentenceNS[i] = ORIGsentenceNS[i].split("/")
+                    ORIGsentenceG[i] = ORIGsentenceG[i].split("/")
+                    ORIGsentenceLS[i] = ORIGsentenceLS[i].split("/")
+                    ORIGsentenceLG[i] = ORIGsentenceLG[i].split("/")
+                }
+            }
+
+            console.log(ORIGsentenceNS);
+
 
             console.log(theList);
             console.log(sentence);
@@ -46,11 +70,16 @@
                     var i;
                     for (i = 0; i < newVal.length; i++) {
                         if (newVal[i].checked) {
+                            console.log(newVal[i]);
+                            console.log(sentenceNS[row]);
                             sentence[row] = newVal[i].value;
-                            sentenceNS[row] = sentenceNS[row].split("/")[i]
-                            sentenceG[row] = sentenceG[row].split("/")[i]
-                            sentenceLS[row] = sentenceLS[row].split("/")[i]
-                            sentenceLG[row] = sentenceLG[row].split("/")[i]
+                            sentenceNS[row] = ORIGsentenceNS[row].split("/")[i]
+                            console.log(ORIGsentenceNS[row]);
+                            sentenceG[row] = ORIGsentenceG[row].split("/")[i]
+                            sentenceLS[row] = ORIGsentenceLS[row].split("/")[i]
+                            sentenceLG[row] = ORIGsentenceLG[row].split("/")[i]
+                            console.log(sentenceNS[row]);
+
                         }
                     }
                 } else {
@@ -72,13 +101,6 @@
             document.getElementById("workingLSpl").innerHTML = finalSentenceLS
             document.getElementById("workingLGloss").innerHTML = finalSentenceLG
 
-            for (var word = 0; word < sentence.length; word++) {
-
-            }
-
-
-
-
             console.log("End of reformat()");
 
 
@@ -89,6 +111,7 @@
         $(document).ready(function () {
             // when submit button is pressed on webpage...
             $("#submit").click(function () {
+                console.log("Normal submit button pressed.");
                 var that = this;
                 $("#results").text("");
 
@@ -141,6 +164,11 @@
                                 $("<p>&emsp;" + jsonStr["gloss"] + "</p> <br>").appendTo($("#results"));
                             }
                             // if there is ambiguity found...
+                            //BUGS: 
+                            //--chops off some words after amb resubmit 
+                            //[DOUBLE CHECK THIS ON WIFI]-- add way to update glossary in web 
+                            //[DONE]-- change input box to one line 
+                            //[DONE]-- add name
                         } else {
                             $("#tableDiv").css("display", "block")
                             $("<p>~~~</p>").appendTo($("#results"));
@@ -187,7 +215,8 @@
                             const theList = Array.from(theSet);
                             console.log(theList);
                             $("</tr>").appendTo($("#table"));
-                            $("<button id=\"submitAmb\" style=\"cursor: pointer\" onclick=\"reformat('" + theList + "') \">submit</button>").appendTo($("#tableDiv"));
+                            const counter = 0;
+                            $("<button id=\"submitAmb\" style=\"cursor: pointer\" onclick=\"reformat('" + theList + ", " + counter + "') \">submit</button>").appendTo($("#tableDiv"));
                         }
                     },
                     // if python did not execute sucessfully...
@@ -205,6 +234,52 @@
                     },
                 });
             });
+            $("#submitUpdate").click(function () {
+                console.log("Submit update glossary button pressed.");
+                var that = this;
+                $("#results").text("");
+
+                console.log($("#inputtextarea").val());
+
+                // reorganize data that's in the text field into a list
+                var lines = $("#inputtextarea").val().split("\n");
+                var joined = lines
+                    .filter((line) => line.trim() !== " ")
+                    .join("");
+
+                console.log(joined);
+                // orgainize it into a dictionary...
+                var data = { 'inputword': '-u' };
+                // ...and send it to the python script
+                var url = "cgi-bin/autogloss.py";
+
+                console.log(data);
+
+                // ajax is the communicator between the html and the python
+                $.ajax({
+                    // set variables
+                    type: "GET",
+                    url: url,
+                    data: data,
+                    dataType: "JSON",
+                    // assuming the script executed sucessfully (see error block for else case)
+                    success: function (jsonStr) {
+                        console.log("Updated files.");
+                        alert("Files updated.");
+                    },
+                    error: function (
+                        XMLHttpRequest,
+                        textStatus,
+                        errorThrown,
+                    ) {
+                        // ... report these errors in the console
+                        console.log("[" + url + "]: Status: " + textStatus);
+                        console.log("[" + url + "]: Error: " + errorThrown);
+                        console.log("[" + url + "]: XMLHttpRequest: " + XMLHttpRequest);
+                        alert("Something went wrong updating the files...");
+                    },
+                });
+            })
         });
     </script>
 
@@ -213,9 +288,10 @@
 <body>
     <div id="userinputform">
         <form>
-            <textarea rows="5" cols="60" placeholder="Input text here." id="inputtextarea"></textarea>
+            <textarea rows="1" cols="60" placeholder="Input text here." id="inputtextarea"></textarea>
             <br />
             <input type="button" value="submit" id="submit" style="cursor: pointer" />
+            <input type="button" value="update glossary files" id="submitUpdate" style="cursor: pointer" />
         </form>
     </div>
 
