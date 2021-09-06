@@ -252,10 +252,11 @@ def resultsDict(
                                     gloss,
                                     latexGloss,
                                     latexSpl,
-                                    normSpl,
                                 ]:
                                     for j in toSwitch:
                                         certainList[j] = rules[i][4]
+                                for j in toSwitch:
+                                    normSpl[j] = rules[i][0]
                         except TypeError:
                             pass
                     # this is the same as the condition above, but it checks for "succeeding"...
@@ -278,10 +279,11 @@ def resultsDict(
                                     gloss,
                                     latexGloss,
                                     latexSpl,
-                                    normSpl,
                                 ]:
                                     for j in toSwitch:
                                         certainList[j] = rules[i][4]
+                                for j in toSwitch:
+                                    normSpl[j] = rules[i][0]
                         except TypeError:
                             pass
         for i in gloss:
@@ -383,11 +385,12 @@ def ambig(lofkeys, ambOptions):
 
 # code to update glossary (should only run when -u flag is included in program call)
 def updateGlossary():
+    logger.info("Running updateGlossary()")
     subprocess.run(
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=glossary.csv",
+            "--output-document=cgi-bin/glossary.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
         ]
     )
@@ -395,7 +398,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=glossaryrules.csv",
+            "--output-document=cgi-bin/glossaryrules.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=210327120&format=csv",
         ]
     )
@@ -405,11 +408,15 @@ def updateGlossary():
 def analyzeGlossaryRules():
     try:
         with open("cgi-bin/glossaryrules.csv") as file:
+            print("Found cgi-fin/glossaryrules.csv")
             csv_reader = reader(file)
             # Pass reader object to list() to get a list of lists
             list_of_rows = list(csv_reader)
     except FileNotFoundError:
         with open("glossaryrules.csv") as file:
+            logger.debug(
+                "cgi-bin/glossaryrules.csv not found. Looking for glossaryrules.csv"
+            )
             csv_reader = reader(file)
             # Pass reader object to list() to get a list of lists
             list_of_rows = list(csv_reader)
@@ -424,6 +431,12 @@ def main(args, ambOptions, glossaryUpdate):
     if glossaryUpdate == True:
         updateGlossary()
         logger.info("Updated glossary and rules")
+        logger.debug(args)
+        if args == None:
+            rd = {}
+            print("Content-type: application/json")
+            print("")
+            print(json.JSONEncoder().encode(rd))
 
     # if the user indicated they want to designate an ambiguity option
     if ambOptions:
@@ -573,12 +586,18 @@ if __name__ == "__main__":
         if "inputword" in cgi.FieldStorage():
             inputword = form.getvalue("inputword")
             logger.debug(inputword)
+
             inputword = inputword.split(" ")
+            if inputword[0] == "-u":
+                logger.info("WED EXECUTED UPDATE GLOSSARY FILES")
+                main(None, None, True)
 
-            logger.info("Refined input")
+            else:
 
-            # run main() without ambOptions or updateGlossary
-            main(inputword, None, None)
+                logger.info("Refined input")
+
+                # run main() without ambOptions or updateGlossary
+                main(inputword, None, None)
 
     else:  # COMMAND LINE EXECUTION
         # split arguments given at start into words in a list under variable inputword
