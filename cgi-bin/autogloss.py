@@ -388,7 +388,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=cgi-bin/glossary.csv",
+            "--output-document=glossary.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
         ]
     )
@@ -396,7 +396,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=cgi-bin/glossaryrules.csv",
+            "--output-document=glossaryrules.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=210327120&format=csv",
         ]
     )
