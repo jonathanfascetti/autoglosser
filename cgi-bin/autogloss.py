@@ -365,22 +365,18 @@ def ambig(lofkeys, ambOptions):
         lofkeys[input_index] = lofkeys[input_index][ambiguity_option]
 
     # make sure there are no more lists
-    # print("working")
     is_amb = False
-    # for input_index in range(len(lofkeys)):
-    #     key = lofkeys[input_index]
+    for input_index in range(len(lofkeys)):
+        key = lofkeys[input_index]
 
-    #     # convert list to tuple
-    #     if type(key) != tuple:
-    #         lofkeys[input_index] = key[0]
+        # convert list to tuple
+        if type(key) != tuple:
+            lofkeys[input_index] = key[0]
 
-    #         # set ambiguious term to default
-    #         if len(key) > 1:
-    #             logger.warning(" Ambiguity still exists after user input.")
-    #             is_amb = True
-
-    # print(lofkeys)
-    # print(is_amb)
+            # set ambiguious term to default
+            if len(key) > 1:
+                logger.warning(" Ambiguity still exists after user input.")
+                # is_amb = True
 
     return lofkeys, is_amb
 
@@ -482,6 +478,25 @@ def main(args, ambOptions, glossaryUpdate):
         )
         if ambOptions:
             lofkeys, is_amb = ambig(lofkeys, ambOptions)
+        else:
+            for input_index in range(len(lofkeys)):
+                key = lofkeys[input_index]
+
+                # convert list to tuple
+                if type(key) != tuple:
+                    lofkeys[input_index] = key[0]
+            
+            is_amb = False
+            
+            amb_pos = "[" + ", ".join([str(elem) for elem in amb]) + "]"
+
+            print(
+                '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Ambiguity for each Position: \n \t %s \n\n Fix: Append the argument -a followed by input_index:ambiguity_option/input_index2:ambiguity_option2/... \n \n \t For example: -a 0:1/2:0 would assign the first ambiguity option to the zeroth input word  \n\t\t and assign the zeroth ambiguity option to the second input word. \n'
+                % (
+                    theInput,
+                    amb_pos,
+                )
+            )
     else:
         is_amb = False
         logger.info(
