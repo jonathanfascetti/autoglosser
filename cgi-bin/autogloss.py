@@ -343,42 +343,44 @@ def resultsDict(
 # this function will only be called if the -a flag is used
 def ambig(lofkeys, ambOptions):
     # check to make sure whatever ambiguity preferences there are are valid
-    for i in ambOptions:
-        if i[0] + 1 > len(lofkeys):
+    for ambOption in ambOptions:
+        input_index, ambiguity_option = ambOption[0], ambOption[1]
+
+        if input_index < 0 or input_index >= len(lofkeys) or ambiguity_option < 0 or ambiguity_option >= len(lofkeys[input_index]):
+            ambOptionStr = "[" + ", ".join([str(elem) for elem in ambOption]) + "]"
             logger.critical(
-                " Ambiguity input value error. %s is greater than number of possible words.",
-                i,
+                " Ambiguity input index error. %s is out of bounds.",
+                ambOptionStr,
             )
             sys.exit(
-                "\n\nExiting with error...\n\tAmbiguity input value error. "
-                + str(i)
-                + " is greater than number of possible words.\n\n"
-            )
-        try:
-            lofkeys[i[0]][i[1]]
-        except IndexError:
-            logger.critical(
-                " Ambiguity input value error. %s is greater than number of possible options.",
-                i,
-            )
-            sys.exit(
-                "\n\nExiting with error...\n\tAmbiguity input value error. "
-                + str(i)
-                + " is greater than number of possible options.\n\n"
+                "\n\nExiting with error...\n\tAmbiguity input index error. "
+                + ambOptionStr
+                + " is out of bounds.\n\n"
             )
 
     # set values
-    for i in ambOptions:
-        lofkeys[i[0]] = lofkeys[i[0]][i[1]]
+    for ambOption in ambOptions:
+        input_index, ambiguity_option = ambOption[0], ambOption[1]
 
-    # make sure there are no more tuples
-    for i in lofkeys:
-        if len(i) > 1 and type(i) != tuple:
+        lofkeys[input_index] = lofkeys[input_index][ambiguity_option]
 
-            is_amb = True
-            logger.warning(" Ambiguity still exists after user input.")
-        else:
-            is_amb = False
+    # make sure there are no more lists
+    # print("working")
+    is_amb = False
+    # for input_index in range(len(lofkeys)):
+    #     key = lofkeys[input_index]
+
+    #     # convert list to tuple
+    #     if type(key) != tuple:
+    #         lofkeys[input_index] = key[0]
+
+    #         # set ambiguious term to default
+    #         if len(key) > 1:
+    #             logger.warning(" Ambiguity still exists after user input.")
+    #             is_amb = True
+
+    # print(lofkeys)
+    # print(is_amb)
 
     return lofkeys, is_amb
 
@@ -445,25 +447,7 @@ def main(args, ambOptions, glossaryUpdate):
         ambOptionsStr = ambOptions.strip()
 
         # organize list to be grouped in [[#:#], [#:#] ...]
-        ambOptions = []
-        for i in range(len(ambOptionsStr)):
-            if ambOptionsStr[i] == ":":
-                try:
-                    ambOptions.append(
-                        [
-                            int(ambOptionsStr[i - 1]),
-                            int(ambOptionsStr[i + 1]),
-                        ]
-                    )
-                except ValueError:
-                    logger.critical(
-                        " "
-                        + str(datetime.now().time())
-                        + " ~~> Invalid ambiguity option found. Expected int, recieved "
-                        + str(ambOptionsStr[i - 1])
-                        + " and "
-                        + ambOptionsStr[i + 1]
-                    )
+        ambOptions = [[int(elem.split(":")[0]), int(elem.split(":")[1])] for elem in ambOptionsStr.split("/")]
 
     # list where each element is a list where each element is a tuple of a match found
     lofkeys = []
@@ -488,7 +472,7 @@ def main(args, ambOptions, glossaryUpdate):
 
     is_amb = None
     # if there are values of ambiguity found
-    if set(amb) != {0}:
+    if max(amb) > 0:
         is_amb = True
         logger.info(
             " "
@@ -562,11 +546,26 @@ def main(args, ambOptions, glossaryUpdate):
             )
         # ...but if there is ambiguity do this one
         else:
+            amb_pos = "[" + ", ".join([str(elem) for elem in amb]) + "]"
+
             print(
-                '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Gloss: \n \t %s \n\n Please run the program again with the same sentence and append the argument -a with the given syntax. \n\n \t\t -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…" \n\n \t For example: -a 0:1/2:0 would mean the zeroth input word is assigned the  \n\t   first ambiguity option and the second input word is assigned the \n\t   zeroth ambiguity option. \n'
+                '\n\t\t\t~~\n\t\tAmbiguity was found.\n\t\t\t~~ \n Original: \n \t %s \n Ambiguity for each Position: \n \t %s \n\n Fix: Append the argument -a followed by input_index:ambiguity_option/input_index2:ambiguity_option2/... \n \n \t For example: -a 0:1/2:0 would assign the first ambiguity option to the zeroth input word  \n\t\t and assign the zeroth ambiguity option to the second input word. \n'
                 % (
                     rd["inputword"],
+                    amb_pos,
+                )
+            )
+
+            print(
+                "\nFinal output. \n Original: \n \t %s \n\n Normalized Spelling + Gloss: \n \t %s \n \t %s \n\n LaTex Spelling + Gloss: \n \t \\exg. %s\\\\ \n \t %s\\\\ \n \t %sOriginal spelling: %s \n\n"
+                % (
+                    rd["inputword"],
+                    rd["normSpl"],
                     rd["gloss"],
+                    rd["latexSpelling"],
+                    rd["latexGloss"],
+                    percent,
+                    rd["inputword"],
                 )
             )
 
