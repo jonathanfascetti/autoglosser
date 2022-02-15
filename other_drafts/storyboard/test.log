@@ -1,9 +1,0 @@
-624 --> INFO --> root: 22:33:15.778941 ~~> Arguments: {'moore': ['biis']}
-701 --> INFO --> root: 22:33:15.785099 ~~> Parsed cells in SPLVAR, ENGMEAN, and GLOSS that have commas into sub-lists.
-225 --> INFO --> root: 22:33:15.785747 ~~> Match found: biis -> row #18
-233 --> INFO --> root: 22:33:15.785798 ~~> Moore: 'biis', Gloss: 'grain', English: '['piece', 'unit']'.
-168 --> DEBUG --> root:keys --> [18]
-169 --> DEBUG --> root:givenCat --> [0]
-170 --> DEBUG --> root:givenLang --> moore
-600 --> INFO --> root:[biis, grain, bii-s, grain]
-737 --> INFO --> root: 22:33:15.786076 ~~> Sucessfully executed.

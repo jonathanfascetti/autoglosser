@@ -1,0 +1,8 @@
+45 --> CRITICAL --> autogloss.py:Starting /mnt/c/Repos/autoglosser/website/cgi-bin/autogloss.py
+598 --> DEBUG --> autogloss.py:FieldStorage(None, None, [MiniFieldStorage('inputword', 'chill')])
+602 --> DEBUG --> autogloss.py:chill
+611 --> INFO --> autogloss.py:Refined input
+426 --> INFO --> autogloss.py:Main
+502 --> INFO --> autogloss.py: 15:58:05.397534 ~~> No ambiguity found
+298 --> INFO --> autogloss.py: Per word output: [chill, ?, ?, ?]
+690 --> INFO --> autogloss.py: 15:58:05.401927 ~~> Sucessfully executed.
