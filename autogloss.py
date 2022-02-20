@@ -363,7 +363,7 @@ def ambig(lofkeys, ambOptions):
     for ambOption in ambOptions:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
 
-        # lofkeys[input_index] = lofkeys[input_index][ambiguity_option]
+        lofkeys[input_index] = lofkeys[input_index][ambiguity_option]
 
     # Select default values if no ambiguity option selected for those words
     is_amb = False
@@ -500,11 +500,6 @@ def main(args, ambOptions, glossaryUpdate):
     amb = []
 
     theInput = args
-    # trim periods and commas off of given words and lower case everynthing
-    for i in range(len(theInput)):
-        if theInput[i][-1] == "," or theInput[i][-1] == ".":
-            theInput[i] = theInput[i][:-1]
-        theInput[i] = theInput[i].lower()
 
     for i in theInput:
         # find the row number for each of the given rows
@@ -654,24 +649,21 @@ if __name__ == "__main__":
         except ValueError:
             pass
 
-        # if the input is clumped together in one element
-        if " " in theInput[0]:
-            theInput = theInput[0].split()
+        # List of punctuations to remove
+        punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~ '''
+ 
+        # Removing punctuations in string
+        for word_index in range(len(theInput)):
+            word = theInput[word_index]
 
-        # get rid of period and quotes to make processing easier
-        if theInput[0][0] == "'" or theInput[0][0] == '"':
-            theInput[0] = theInput[0][1:]
-        for i in range(2):
-            if (
-                theInput[-1][-1] == "."
-                or theInput[-1][-1] == "'"
-                or theInput[-1][-1] == '"'
-                or theInput[-1][-1] == "?"
-            ):
-                theInput[-1] = theInput[-1][:-1]
-            logger.debug(
-                " " + str(datetime.now().time()) + ": Trimmed the input."
-            )
+            for char in word:
+                if char in punc:
+                    word = word.replace(char, "")
+            
+            theInput[word_index] = word.lower()
+
+        # Remove empty strings
+        theInput = [i for i in theInput if i]
 
         logger.info("Refined input")
         logger.info(theInput)
