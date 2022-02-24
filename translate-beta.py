@@ -642,7 +642,7 @@ if __name__ == "__main__":
     """
 
     # get glossary info and store in list of tuples (described at the top)
-    with open("glossary.csv") as f:
+    with open("assets/glossary/glossary.csv") as f:
         glossaryTemp = [tuple(line) for line in csv.reader(f)]
 
     GLOSSARY = []
