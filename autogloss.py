@@ -246,7 +246,7 @@ def resultsDict(
                                 # find which word needs to be switched
                                 toSwitch = []
                                 for j in range(len(givenWords)):
-                                    if givenWords[j] == rules[i][0]:
+                                    if givenWords[j] == rules[i][0] and amb[j] != 0:
                                         toSwitch.append(j)
                                 # make the change in all of the lists
                                 for certainList in [
@@ -274,7 +274,7 @@ def resultsDict(
                             ):
                                 toSwitch = []
                                 for j in range(len(givenWords)):
-                                    if givenWords[j] == rules[i][0]:
+                                    if givenWords[j] == rules[i][0] and amb[j] != 0:
                                         toSwitch.append(j)
                                 for certainList in [
                                     gloss,
@@ -342,7 +342,7 @@ def resultsDict(
 
 
 # this function will only be called if the -a flag is used
-def ambig(lofkeys, ambOptions):
+def ambig(lofkeys, ambOptions, amb):
     # check to make sure whatever ambiguity preferences there are are valid
     for ambOption in ambOptions:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
@@ -363,7 +363,10 @@ def ambig(lofkeys, ambOptions):
     for ambOption in ambOptions:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
 
-        lofkeys[input_index] = lofkeys[input_index][ambiguity_option]
+        # Set key to amb word
+        lofkeys[input_index] = [lofkeys[input_index][ambiguity_option]]
+        # Set number of amb to 0
+        amb[input_index] = 0
 
     # Select default values if no ambiguity option selected for those words
     is_amb = False
@@ -379,7 +382,8 @@ def ambig(lofkeys, ambOptions):
                 logger.warning(" Ambiguity still exists after user input.")
                 is_amb = True
 
-    return lofkeys, is_amb
+    is_amb = False
+    return lofkeys, is_amb, amb
 
 
 # code to update glossary (should only run when -u flag is included in program call)
@@ -501,6 +505,7 @@ def main(args, ambOptions, glossaryUpdate):
 
     theInput = args
 
+    # Match the input
     for i in theInput:
         # find the row number for each of the given rows
         lofkeys.append(wordToKey(i))
@@ -509,6 +514,11 @@ def main(args, ambOptions, glossaryUpdate):
             amb.append(len(lofkeys[-1]))
         else:
             amb.append(0)
+
+    # Match anything that was unmatched
+    for i in range(len(lofkeys)):
+        if lofkeys[i] == []:
+            lofkeys[i] = ["?", "?", "?"]
 
     is_amb = None
     # if there are values of ambiguity found
@@ -523,17 +533,13 @@ def main(args, ambOptions, glossaryUpdate):
 
         # Apply Ambiguity Options Handler
         if ambOptions:
-            lofkeys, is_amb = ambig(lofkeys, ambOptions)
+            lofkeys, is_amb, amb = ambig(lofkeys, ambOptions, amb)
 
     else:
         is_amb = False
         logger.info(
             " " + str(datetime.now().time()) + " ~~> No ambiguity found"
         )
-
-    for i in range(len(lofkeys)):
-        if lofkeys[i] == []:
-            lofkeys[i] = ["?", "?", "?"]
 
     # find the final lists for all of the different outputs
     gloss = findGloss(lofkeys)
@@ -620,6 +626,8 @@ if __name__ == "__main__":
 
     # List of punctuations to remove
     punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~ '''
+
+    theInput = theInput[0].split(" ")
 
     # Removing punctuations in string
     for word_index in range(len(theInput)):
