@@ -30,6 +30,8 @@ import argparse, logging, csv, sys
 from datetime import datetime
 
 # createAlpha is another script that has a function to split the known alphamet -- needed for spell check system
+import os
+sys.path.append(os.path.abspath(os.path.join('assets', 'alphabet')))
 import createAlpha
 
 # set up logging info
@@ -640,7 +642,7 @@ if __name__ == "__main__":
     """
 
     # get glossary info and store in list of tuples (described at the top)
-    with open("mooreglossary.csv") as f:
+    with open("glossary.csv") as f:
         glossaryTemp = [tuple(line) for line in csv.reader(f)]
 
     GLOSSARY = []

@@ -560,116 +560,85 @@ def main(args, ambOptions, glossaryUpdate):
         rules,
     )
 
-    # Start JSON block - web
-    if "GATEWAY_INTERFACE" in os.environ:
-        if rd["ambiguity"] == "False":
-            print("Content-type: application/json")
-            print("")
-            print(json.JSONEncoder().encode(rd))
-        else:
-            print("Content-type: application/json")
-            print("")
-            print(json.JSONEncoder().encode(old_rd))
-    else:
-        # Print to terminal - command line
-        # finalPrintout("moore", rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
-        standardPrintout(rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
+    # Print to terminal - command line
+    # finalPrintout("moore", rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
+    standardPrintout(rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
 
 
 if __name__ == "__main__":
 
     inputword = None  # declare
 
-    if "GATEWAY_INTERFACE" in os.environ:  # WEB EXECUTION
-        form = cgi.FieldStorage()
-        logger.debug(form)
+    # Handle arguments
+    # split arguments given at start into words in a list under variable inputword
+    parser = argparse.ArgumentParser(
+        description="Translate from Mòoré to English"
+    )
 
-        if "inputword" in cgi.FieldStorage():
-            inputword = form.getvalue("inputword")
-            logger.debug(inputword)
+    # use -a then the 0:0 type syntax to set ambiguity preferences
+    parser.add_argument(
+        "-a",
+        "--ambOptions",
+        type=str,
+        help='Only use this argument when the ambiguity is known. Use syntax: -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…".',
+    )
 
-            inputword = inputword.split(" ")
-            if inputword[0] == "-u":
-                logger.info("WED EXECUTED UPDATE GLOSSARY FILES")
-                main(None, None, True)
+    # just include the -u flag to update the glossary and rules files before processing input
+    parser.add_argument(
+        "-u",
+        "--glossaryUpdate",
+        action="store_true",
+        help="Update glossary? True for update and False/no call for no update.",
+    )
 
-            else:
+    # all other text (even without a flag) will be classified under the variable args.theInput
+    parser.add_argument(
+        type=str, nargs="+", help="Input text.", dest="theInput"
+    )
 
-                logger.info("Refined input")
+    args = parser.parse_args()
 
-                # run main() without ambOptions or updateGlossary
-                main(inputword, None, None)
+    logger.info(
+        " "
+        + str(datetime.now().time())
+        + " ~~> Arguments: "
+        + str(vars(args))
+    )
 
-    else:  # COMMAND LINE EXECUTION
-        # split arguments given at start into words in a list under variable inputword
-        parser = argparse.ArgumentParser(
-            description="Translate from Mòoré to English"
-        )
+    # rename variable to make a bit easier to work with
+    theInput = args.theInput
 
-        # use -a then the 0:0 type syntax to set ambiguity preferences
-        parser.add_argument(
-            "-a",
-            "--ambOptions",
-            type=str,
-            help='Only use this argument when the ambiguity is known. Use syntax: -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…".',
-        )
-
-        # just include the -u flag to update the glossary and rules files before processing input
-        parser.add_argument(
-            "-u",
-            "--glossaryUpdate",
-            action="store_true",
-            help="Update glossary? True for update and False/no call for no update.",
-        )
-
-        # all other text (even without a flag) will be classified under the variable args.theInput
-        parser.add_argument(
-            type=str, nargs="+", help="Input text.", dest="theInput"
-        )
-
-        args = parser.parse_args()
-
+    try:
         logger.info(
             " "
             + str(datetime.now().time())
-            + " ~~> Arguments: "
-            + str(vars(args))
+            + " ~~> Ambiguity: "
+            + str(args.ambOptions)
         )
+    except ValueError:
+        pass
 
-        # rename variable to make a bit easier to work with
-        theInput = args.theInput
+    # List of punctuations to remove
+    punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~ '''
 
-        try:
-            logger.info(
-                " "
-                + str(datetime.now().time())
-                + " ~~> Ambiguity: "
-                + str(args.ambOptions)
-            )
-        except ValueError:
-            pass
+    # Removing punctuations in string
+    for word_index in range(len(theInput)):
+        word = theInput[word_index]
 
-        # List of punctuations to remove
-        punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~ '''
- 
-        # Removing punctuations in string
-        for word_index in range(len(theInput)):
-            word = theInput[word_index]
+        for char in word:
+            if char in punc:
+                word = word.replace(char, "")
+        
+        theInput[word_index] = word.lower()
 
-            for char in word:
-                if char in punc:
-                    word = word.replace(char, "")
-            
-            theInput[word_index] = word.lower()
+    # Remove empty strings
+    theInput = [i for i in theInput if i]
 
-        # Remove empty strings
-        theInput = [i for i in theInput if i]
+    logger.info("Refined input")
+    logger.info(theInput)
 
-        logger.info("Refined input")
-        logger.info(theInput)
-
-        # run main()
-        main(theInput, args.ambOptions, args.glossaryUpdate)
+    # run main()
+    main(theInput, args.ambOptions, args.glossaryUpdate)
 
     logger.info(
         " " + str(datetime.now().time()) + " ~~> Sucessfully executed."

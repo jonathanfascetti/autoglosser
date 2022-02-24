@@ -1,9 +1,51 @@
-46 --> CRITICAL --> autogloss.py:Starting autogloss.py
-632 --> INFO --> autogloss.py: 17:04:25.221364 ~~> Arguments: {'ambOptions': None, 'glossaryUpdate': False, 'theInput': ["           TESTSETSETS',T,S, , "]}
-643 --> INFO --> autogloss.py: 17:04:25.221538 ~~> Ambiguity: None
-672 --> INFO --> autogloss.py:Refined input
-673 --> INFO --> autogloss.py:['testsetsetsts']
-475 --> INFO --> autogloss.py:Main
-530 --> INFO --> autogloss.py: 17:04:25.222371 ~~> No ambiguity found
-299 --> INFO --> autogloss.py: Per word output: [testsetsetsts, ?, ?, ?]
-678 --> INFO --> autogloss.py: 17:04:25.224838 ~~> Sucessfully executed.
+626 --> INFO --> root: 11:27:24.260497 ~~> Arguments: {'moore': ['a', 'mary', 'ra', 'ka', 'tẽnd', 'ta', 'a', 'john', 'ra', 'na', 'tõog', 'n', 'woudga', 'soma', 'wotoyé']}
+703 --> INFO --> root: 11:27:24.265339 ~~> Parsed cells in SPLVAR, ENGMEAN, and GLOSS that have commas into sub-lists.
+227 --> INFO --> root: 11:27:24.266043 ~~> Match found: a -> row #1
+235 --> INFO --> root: 11:27:24.266267 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+227 --> INFO --> root: 11:27:24.266652 ~~> Match found: mary -> row #292
+235 --> INFO --> root: 11:27:24.266951 ~~> Moore: 'Mary', Gloss: 'Mary', English: ''.
+227 --> INFO --> root: 11:27:24.267231 ~~> Match found: ra -> row #125
+235 --> INFO --> root: 11:27:24.267472 ~~> Moore: 'ra', Gloss: 'buy', English: ''.
+227 --> INFO --> root: 11:27:24.267703 ~~> Match found: ka -> row #39
+235 --> INFO --> root: 11:27:24.267916 ~~> Moore: 'ka', Gloss: 'build', English: ''.
+227 --> INFO --> root: 11:27:24.268244 ~~> Match found: tẽnd -> row #188
+235 --> INFO --> root: 11:27:24.268461 ~~> Moore: 'tẽ́eda', Gloss: 'think-aff', English: 'believer'.
+227 --> INFO --> root: 11:27:24.268776 ~~> Match found: ta -> row #170
+235 --> INFO --> root: 11:27:24.268984 ~~> Moore: 'tã', Gloss: 'reach', English: '['reached', 'arrived', 'reach', 'arrive', 'attain', 'to be equivalent to ']'.
+227 --> INFO --> root: 11:27:24.269192 ~~> Match found: a -> row #1
+235 --> INFO --> root: 11:27:24.269400 ~~> Moore: 'a', Gloss: '3sg', English: ''.
+227 --> INFO --> root: 11:27:24.269734 ~~> Match found: john -> row #294
+235 --> INFO --> root: 11:27:24.269932 ~~> Moore: 'John', Gloss: 'John', English: ''.
+227 --> INFO --> root: 11:27:24.270150 ~~> Match found: ra -> row #125
+235 --> INFO --> root: 11:27:24.270340 ~~> Moore: 'ra', Gloss: 'buy', English: ''.
+227 --> INFO --> root: 11:27:24.270550 ~~> Match found: na -> row #92
+235 --> INFO --> root: 11:27:24.270741 ~~> Moore: 'na', Gloss: 'fut', English: 'future particle'.
+227 --> INFO --> root: 11:27:24.271040 ~~> Match found: tõog -> row #199
+235 --> INFO --> root: 11:27:24.271229 ~~> Moore: 'tõoge', Gloss: 'can', English: 'can do'.
+227 --> INFO --> root: 11:27:24.271440 ~~> Match found: n -> row #91
+235 --> INFO --> root: 11:27:24.271626 ~~> Moore: 'n', Gloss: '$', English: 'serializing connector'.
+227 --> INFO --> root: 11:27:24.271933 ~~> Match found: woudga -> row #238
+235 --> INFO --> root: 11:27:24.272119 ~~> Moore: 'wudga', Gloss: 'run-aff', English: ''.
+227 --> INFO --> root: 11:27:24.272407 ~~> Match found: soma -> row #152
+235 --> INFO --> root: 11:27:24.272593 ~~> Moore: 'sõma', Gloss: 'fast', English: 'good'.
+227 --> INFO --> root: 11:27:24.272900 ~~> Match found: wotoyé -> row #234
+235 --> INFO --> root: 11:27:24.273089 ~~> Moore: 'wóto yé', Gloss: 'like.that. neg', English: ''.
+170 --> DEBUG --> root:keys --> [1, 292, 125, 39, 188, 170, 1, 294, 125, 92, 199, 91, 238, 152, 234]
+171 --> DEBUG --> root:givenCat --> [0, 6, 0, 0, 6, 6, 0, 6, 0, 0, 6, 0, 6, 6, 6]
+172 --> DEBUG --> root:givenLang --> moore
+602 --> INFO --> root:[a, 3sg, a, 3\sg{}]
+602 --> INFO --> root:[mary, Mary, Mary, Mary]
+602 --> INFO --> root:[ra, buy, ra, buy]
+602 --> INFO --> root:[ka, build, ka, build]
+602 --> INFO --> root:[tẽnd, think-aff, t\highraise{\~e}ed-a, think-\aff{}]
+602 --> INFO --> root:[ta, reach, t\~a, reach]
+602 --> INFO --> root:[a, 3sg, a, 3\sg{}]
+602 --> INFO --> root:[john, John, John, John]
+602 --> INFO --> root:[ra, buy, ra, buy]
+602 --> INFO --> root:[na, fut, na, \fut{}]
+602 --> INFO --> root:[tõog, can, t\~ooge, can]
+602 --> INFO --> root:[n, $, n, \nlink{}]
+602 --> INFO --> root:[woudga, run-aff, wudg-a, run-\aff{}]
+602 --> INFO --> root:[soma, fast, s\~oma, fast]
+602 --> INFO --> root:[wotoyé, like.that. neg, w\'oto y\'e, like.that \negye{}]
+739 --> INFO --> root: 11:27:24.276553 ~~> Sucessfully executed.
