@@ -80,22 +80,10 @@ Additional terminal flags:
 
 
 Packages used:
-  It's possible that you will need to install some packages for the program to be able to run. 
-  The packages used in this softare are:
-    cgi
-    cgitb
-    os
-    json
-    subprocess
-    csv
-    argparse
-    logging
-    sys
-    datetime
-  If any one these packages are not installed on your local machine, you will need to use pip (or some other package installer) to use them. 
-  For pip, most of these packages can be installed using the following command in any terminal directory:
-    $ pip install [PACKAGE NAME]
-  If that command doesn't work, there is likely thorough documentation online about how to install the package.
+  Listed in requirements.txt
+
+  Packages can be installed using the following command in any terminal directory:
+    $ pip3 install -r requirements.txt
 
 Trouble shooting:
   Make sure the structure of the files (with the exception of start_webserver_python.py) is consistent with how it is on https://github.com/jonathanfascetti/autoglosser

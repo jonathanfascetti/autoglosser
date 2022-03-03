@@ -45,7 +45,7 @@ for i in range(len(glossaryTemp)):
 ORIGWORD = HEADDER.index("Wordform in Mòoré (high tones marked)")
 MORPH = HEADDER.index("Morph. breakdown (high tones marked)")
 LATEXSPL = HEADDER.index("LaTex Spelling (with breakdown)")
-POS = HEADDER.index("POS (webonary categories)")
+POS = HEADDER.index("POS")
 FLEXSPL = HEADDER.index("FLEX Spelling")
 RECORDING = HEADDER.index("Recording")
 GLOSS = HEADDER.index("Gloss")

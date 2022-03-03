@@ -2,13 +2,11 @@
 # coding: utf-8
 
 
-import cgi
-import cgitb
 import os
-import json
 import subprocess
-from csv import reader
-import argparse, logging, csv, sys
+import argparse, logging, sys
+import pandas as pd
+import numpy as np
 from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join('assets', 'glossary')))
 from glossaryGlobals import (
@@ -341,6 +339,103 @@ def resultsDict(
     return results, is_amb, old_results
 
 
+# PREPARE DICT FOR THE FINAL PRINTOUT
+def standardResults(
+    theInput,
+    gloss,
+    latexGloss,
+    latexSpl,
+    normSpl,
+    amb,
+    rules,
+    glossary
+):
+    # if any ambiguity is establised by user
+    if max(amb) > 0:
+        # work through list of ambiguity preferences
+        for j in range(len(amb)):
+            if amb[j] != 0:
+                # make changes to each of the certainLists
+                for certainList in [
+                    gloss,
+                    latexGloss,
+                    latexSpl,
+                    normSpl,
+                ]:
+                    # combine all possible options into one
+                    certainList[j] = "/".join(
+                        np.unique(certainList[j : j + amb[j]])
+                    )
+                    
+                    # remove old options
+                    for k in range(amb[j] - 1):
+                        certainList.pop(j + 1)
+
+    # if any ambiguity is establised by user
+    if max(amb) > 0:
+        ambiguousWords = rules['ambiguous wordform'].values
+        possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
+
+        for wordIndex in range(len(amb)):
+            # check if there is a rule to apply
+            rulesIndex = np.where(ambiguousWords == theInput[wordIndex])[0]
+
+            if amb[wordIndex] != 0 and len(rulesIndex) > 0:
+                rule = rules.loc[rulesIndex[0], :]
+
+                if rule['in position ("preceding" or "succeeding")'] == "preceding":
+                    # check if rule applies
+                    if wordIndex == len(amb) - 1:
+                        continue
+                    
+                    # TEMP Fix: Lowercase the names
+                    i = 291
+                    while (i < len(possibleWords)):
+                        possibleWords[i] = possibleWords[i].lower()
+                        i += 1
+                    
+                    # Find row of next word
+                    nextWord = theInput[wordIndex + 1]
+                    nextWordIndex = np.where(possibleWords == nextWord)[0]
+                    if (len(nextWordIndex) == 0):
+                        continue
+
+                    # check if next word's feature column match value
+                    feature = rule['feature']
+                    value = rule['value']
+
+                    if (glossary[feature].values[nextWordIndex] != value):
+                        continue
+
+                    # replace ambigious word with row that has use value in Gloss column
+                    print("match found")
+                    #issue with glossary + replace with match
+                    
+
+    # Log all matches to word
+    for i in range(len(theInput)):
+        logger.info(
+            " Per word output: ["
+            + str(theInput[i])
+            + ", "
+            + str(gloss[i])
+            + ", "
+            + str(latexGloss[i])
+            + ", "
+            + str(normSpl[i])
+            + "]"
+        )
+
+    # put the lists in the dictionary with respective keys
+    results = {}
+    results["inputword"] = " ".join(theInput)
+    results["normSpl"] = " ".join(normSpl)
+    results["gloss"] = " ".join(gloss)
+    results["latexSpelling"] = " ".join(latexSpl)
+    results["latexGloss"] = " ".join(latexGloss)
+
+    return results
+
 # this function will only be called if the -a flag is used
 def ambig(lofkeys, ambOptions, amb):
     # check to make sure whatever ambiguity preferences there are are valid
@@ -393,7 +488,7 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=glossary.csv",
+            "--output-document=assets/glossary/glossary.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=260382663&format=csv",
         ]
     )
@@ -401,30 +496,35 @@ def updateGlossary():
         [
             "wget",
             "--no-check-certificate",
-            "--output-document=glossaryrules.csv",
+            "--output-document=assets/glossary/glossaryrules.csv",
             "https://docs.google.com/spreadsheets/d/1hht0h0BP-TeO_RHx07RF0UjK2VX-tcRU47bQ9FKS8Cw/export?gid=210327120&format=csv",
         ]
     )
 
 
-# digest the glossary rules CSV (seperate into parallel lists by row)
-def analyzeGlossaryRules():
+# Convert Glossary Rules to DateFrame
+def readGlossaryRules():
     try:
         with open("assets/glossary/glossaryrules.csv") as file:
-            # print("Found assets/glossary/glossaryrules.csv")
-            csv_reader = reader(file)
-            # Pass reader object to list() to get a list of lists
-            list_of_rows = list(csv_reader)
+            return pd.read_csv("assets/glossary/glossaryrules.csv")
     except FileNotFoundError:
-        with open("glossaryrules.csv") as file:
-            logger.debug(
-                "assets/glossary/glossaryrules.csv not found. Looking for glossaryrules.csv"
-            )
-            csv_reader = reader(file)
-            # Pass reader object to list() to get a list of lists
-            list_of_rows = list(csv_reader)
+        logger.debug(
+            "assets/glossary/glossaryrules.csv not found."
+        )
 
-    return list_of_rows
+    return pd.DataFrame()
+
+# Convert Glossary to DateFrame
+def readGlossary():
+    try:
+        with open("assets/glossary/glossary.csv") as file:
+            return pd.read_csv("assets/glossary/glossary.csv")
+    except FileNotFoundError:
+        logger.debug(
+            "assets/glossary/glossary.csv not found."
+        )
+
+    return pd.DataFrame()
 
 # DO THE FINAL PRINTOUT
 def finalPrintout(givenLang, givenWords, normalSpelling, gloss, latexSpelling, latexGloss):
@@ -483,11 +583,6 @@ def main(args, ambOptions, glossaryUpdate):
         updateGlossary()
         logger.info("Updated glossary and rules")
         logger.debug(args)
-        if args == None:
-            rd = {}
-            print("Content-type: application/json")
-            print("")
-            print(json.JSONEncoder().encode(rd))
 
     # if the user indicated they want to designate an ambiguity option
     if ambOptions:
@@ -550,20 +645,32 @@ def main(args, ambOptions, glossaryUpdate):
 
     normSpl = findNormspl(lofkeys)
 
-    # analyze the rules
-    rules = analyzeGlossaryRules()
+    rules = readGlossaryRules()
+
+    glossary = readGlossary()
+
 
     # orangize lists and put into a dictionary
-    rd, is_amb, old_rd = resultsDict(
+    # rd, is_amb, old_rd = resultsDict(
+    #     theInput,
+    #     lofkeys,
+    #     gloss,
+    #     latexGloss,
+    #     latexSpl,
+    #     normSpl,
+    #     is_amb,
+    #     amb,
+    #     rules,
+    # )
+    rd = standardResults(
         theInput,
-        lofkeys,
         gloss,
         latexGloss,
         latexSpl,
         normSpl,
-        is_amb,
         amb,
         rules,
+        glossary
     )
 
     # Print to terminal - command line
