@@ -8,8 +8,7 @@ import argparse, logging, sys
 import pandas as pd
 import numpy as np
 from datetime import datetime
-sys.path.append(os.path.abspath(os.path.join('assets', 'glossary')))
-from glossaryGlobals import (
+from assets.glossary.glossaryGlobals import (
     commaParse,
     GLOSSARY,
     ORIGWORD,
@@ -372,44 +371,44 @@ def standardResults(
                         certainList.pop(j + 1)
 
     # if any ambiguity is establised by user
-    if max(amb) > 0:
-        ambiguousWords = rules['ambiguous wordform'].values
-        possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
+    # if max(amb) > 0:
+    #     ambiguousWords = rules['ambiguous wordform'].values
+    #     possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
 
-        for wordIndex in range(len(amb)):
-            # check if there is a rule to apply
-            rulesIndex = np.where(ambiguousWords == theInput[wordIndex])[0]
+    #     for wordIndex in range(len(amb)):
+    #         # check if there is a rule to apply
+    #         rulesIndex = np.where(ambiguousWords == theInput[wordIndex])[0]
 
-            if amb[wordIndex] != 0 and len(rulesIndex) > 0:
-                rule = rules.loc[rulesIndex[0], :]
+    #         if amb[wordIndex] != 0 and len(rulesIndex) > 0:
+    #             rule = rules.loc[rulesIndex[0], :]
 
-                if rule['in position ("preceding" or "succeeding")'] == "preceding":
-                    # check if rule applies
-                    if wordIndex == len(amb) - 1:
-                        continue
+    #             if rule['in position ("preceding" or "succeeding")'] == "preceding":
+    #                 # check if rule applies
+    #                 if wordIndex == len(amb) - 1:
+    #                     continue
                     
-                    # TEMP Fix: Lowercase the names
-                    i = 291
-                    while (i < len(possibleWords)):
-                        possibleWords[i] = possibleWords[i].lower()
-                        i += 1
+    #                 # TEMP Fix: Lowercase the names
+    #                 i = 291
+    #                 while (i < len(possibleWords)):
+    #                     possibleWords[i] = possibleWords[i].lower()
+    #                     i += 1
                     
-                    # Find row of next word
-                    nextWord = theInput[wordIndex + 1]
-                    nextWordIndex = np.where(possibleWords == nextWord)[0]
-                    if (len(nextWordIndex) == 0):
-                        continue
+    #                 # Find row of next word
+    #                 nextWord = theInput[wordIndex + 1]
+    #                 nextWordIndex = np.where(possibleWords == nextWord)[0]
+    #                 if (len(nextWordIndex) == 0):
+    #                     continue
 
-                    # check if next word's feature column match value
-                    feature = rule['feature']
-                    value = rule['value']
+    #                 # check if next word's feature column match value
+    #                 feature = rule['feature']
+    #                 value = rule['value']
 
-                    if (glossary[feature].values[nextWordIndex] != value):
-                        continue
+    #                 if (glossary[feature].values[nextWordIndex] != value):
+    #                     continue
 
-                    # replace ambigious word with row that has use value in Gloss column
-                    print("match found")
-                    #issue with glossary + replace with match
+    #                 # replace ambigious word with row that has use value in Gloss column
+    #                 print("match found")
+    #                 #issue with glossary + replace with match
                     
 
     # Log all matches to word
