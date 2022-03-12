@@ -185,160 +185,6 @@ def findNormspl(keys):
 
 
 # PREPARE DICT FOR THE FINAL PRINTOUT
-def resultsDict(
-    givenWords,
-    keys,
-    gloss,
-    latexGloss,
-    latexSpl,
-    normSpl,
-    is_amb,
-    amb,
-    rules,
-):
-    # if any ambiguity is establised by user
-    if is_amb == True:
-        i = 0
-        # iterate through the length of givenWords
-        while i < len(givenWords):
-            # work through list of ambiguity preferences
-            for j in range(len(amb)):
-                if amb[j] != 0:
-                    # make changes to each of the certainLists
-                    for certainList in [
-                        gloss,
-                        latexGloss,
-                        latexSpl,
-                        normSpl,
-                    ]:
-                        # combine all possible options
-                        certainList[i] = "/".join(
-                            certainList[i : i + amb[j]]
-                        )
-                        # remove junk to keep list clean
-                        for k in range(amb[j] - 1):
-                            certainList.pop(i + 1)
-                i += 1
-
-    # if there are rules set in the CSV file (in addition to headder)
-    if len(rules) > 1:
-        # iterate through all rule rows...
-        for i in range(len(rules)):
-            # ... except headder row
-            if i != 0:
-                # if the first item in the row is one of the givenWords (because if not, don't bother with the rest of the rule)
-                if rules[i][0] in givenWords:
-                    # check to see if the second item is either "preceding" or "succeeding"
-                    if rules[i][1] == "preceding":
-                        # check to see if the rule applies to this situation...
-                        try:
-                            if (
-                                GLOSSARY[
-                                    keys[givenWords.index(rules[i][0]) + 1][
-                                        0
-                                    ][0]
-                                ][POS]
-                                == rules[i][3]
-                            ):
-                                # find which word needs to be switched
-                                toSwitch = []
-                                for j in range(len(givenWords)):
-                                    if givenWords[j] == rules[i][0] and amb[j] != 0:
-                                        toSwitch.append(j)
-                                # make the change in all of the lists
-                                for certainList in [
-                                    gloss,
-                                    latexGloss,
-                                    latexSpl,
-                                ]:
-                                    for j in toSwitch:
-                                        certainList[j] = rules[i][4]
-                                for j in toSwitch:
-                                    normSpl[j] = rules[i][0]
-                        except TypeError:
-                            pass
-                    # this is the same as the condition above, but it checks for "succeeding"...
-                    elif rules[i][1] == "succeeding":
-                        # ...in this condition...
-                        try:
-                            if (
-                                GLOSSARY[
-                                    keys[givenWords.index(rules[i][0]) - 1][
-                                        0
-                                    ][0]
-                                ][POS]
-                                == rules[i][3]
-                            ):
-                                toSwitch = []
-                                for j in range(len(givenWords)):
-                                    if givenWords[j] == rules[i][0] and amb[j] != 0:
-                                        toSwitch.append(j)
-                                for certainList in [
-                                    gloss,
-                                    latexGloss,
-                                    latexSpl,
-                                ]:
-                                    for j in toSwitch:
-                                        certainList[j] = rules[i][4]
-                                for j in toSwitch:
-                                    normSpl[j] = rules[i][0]
-                        except TypeError:
-                            pass
-        for i in gloss:
-            # after rules are applied, if there is still a slash in the gloss (meaning there is ambiguity) make is_amb True
-            if "/" in i:
-                is_amb = True
-                break
-            else:
-                is_amb = False
-
-    for i in range(len(givenWords)):
-        logger.info(
-            " Per word output: ["
-            + str(givenWords[i])
-            + ", "
-            + str(gloss[i])
-            + ", "
-            + str(latexGloss[i])
-            + ", "
-            + str(normSpl[i])
-            + "]"
-        )
-
-    old_results = {}
-    old_results["inputword"] = givenWords
-    old_results["normSpl"] = normSpl
-    old_results["gloss"] = gloss
-    old_results["latexSpelling"] = latexSpl
-    old_results["latexGloss"] = latexGloss
-    if is_amb == True:
-        old_results["ambiguity"] = "True"
-    else:
-        old_results["ambiguity"] = "False"
-
-    # join all of lists into a more readable form.
-    givenWords = " ".join(givenWords)
-    normSpl = " ".join(normSpl)
-    gloss = " ".join(gloss)
-    latexSpl = " ".join(latexSpl)
-    latexGloss = " ".join(latexGloss)
-
-    # put the lists in the dictionary with respective keys
-    results = {}
-    results["inputword"] = givenWords
-    results["normSpl"] = normSpl
-    results["gloss"] = gloss
-    results["latexSpelling"] = latexSpl
-    results["latexGloss"] = latexGloss
-    if is_amb == True:
-        results["ambiguity"] = "True"
-    else:
-        results["ambiguity"] = "False"
-
-    return results, is_amb, old_results
-
-
-# PREPARE DICT FOR THE FINAL PRINTOUT
 def standardResults(
     theInput,
     gloss,
@@ -349,11 +195,103 @@ def standardResults(
     rules,
     glossary
 ):
-    # if any ambiguity is establised by user
+    # apply rules
     if max(amb) > 0:
-        # work through list of ambiguity preferences
-        for j in range(len(amb)):
-            if amb[j] != 0:
+        # Temp fix for website to read
+        if (rules.empty):
+            rules = pd.read_csv("../assets/glossary/glossaryrules.csv")
+            glossary = pd.read_csv("../assets/glossary/glossary.csv")
+        
+        ambiguousWords = rules['ambiguous wordform'].values
+        possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
+
+        # Lowercase the names
+        nameIndexes = np.where(glossary['POS'] == 'name')[0]
+        for i in nameIndexes:
+            possibleWords[i] = possibleWords[i].lower()
+
+        for wordIndex in range(len(amb)):
+            # check if there is a rule to apply
+            rulesIndex = np.where(ambiguousWords == theInput[wordIndex])[0]
+
+            if amb[wordIndex] != 0 and len(rulesIndex) > 0:
+                rule = rules.loc[rulesIndex[0], :]
+
+                if rule['in position ("preceding" or "succeeding")'] == "preceding":
+                    # check if rule applies
+                    if wordIndex == len(amb) - 1:
+                        continue
+                    
+                    # Find row of next word
+                    nextWord = theInput[wordIndex + 1]
+                    nextWordIndex = np.where(possibleWords == nextWord)[0]
+                    if (len(nextWordIndex) == 0):
+                        continue
+                    nextWordIndex = nextWordIndex[0]
+
+                    # check if next word's feature column match value
+                    feature = rule['feature']
+                    value = rule['value']
+
+                    if (glossary[feature].values[nextWordIndex] != value):
+                        continue
+
+                    # replace ambigious word with row that has use value in Gloss column
+                    for amb_option in range(amb[wordIndex]):
+                        if (gloss[amb_option + wordIndex] == rule['use value']):
+                            for certainList in [
+                                gloss,
+                                latexGloss,
+                                latexSpl,
+                                normSpl,
+                            ]:
+                                # choose the correct option
+                                certainList[wordIndex] = certainList[wordIndex + amb_option]
+                                
+                                # remove old options
+                                for k in range(amb[wordIndex] - 1):
+                                    certainList.pop(wordIndex + 1)
+
+                            amb[wordIndex] = 0
+                            break
+            
+
+                if rule['in position ("preceding" or "succeeding")'] == "succeeding":
+                    # Find row of next word
+                    nextWord = theInput[wordIndex - 1]
+                    nextWordIndex = np.where(possibleWords == nextWord)[0]
+                    if (len(nextWordIndex) == 0):
+                        continue
+                    nextWordIndex = nextWordIndex[0]
+
+                    # check if next word's feature column match value
+                    feature = rule['feature']
+                    value = rule['value']
+
+                    if (glossary[feature].values[nextWordIndex] != value):
+                        continue
+
+                    # replace ambigious word with row that has use value in Gloss column
+                    for amb_option in range(amb[wordIndex]):
+                        if (gloss[amb_option + wordIndex] == rule['use value']):
+                            for certainList in [
+                                gloss,
+                                latexGloss,
+                                latexSpl,
+                                normSpl,
+                            ]:
+                                # choose the correct option
+                                certainList[wordIndex] = certainList[wordIndex + amb_option]
+                                
+                                # remove old options
+                                for k in range(amb[wordIndex] - 1):
+                                    certainList.pop(wordIndex + 1)
+
+                            amb[wordIndex] = 0
+                            break
+
+            # apply generic values
+            if amb[wordIndex] != 0:
                 # make changes to each of the certainLists
                 for certainList in [
                     gloss,
@@ -362,54 +300,13 @@ def standardResults(
                     normSpl,
                 ]:
                     # combine all possible options into one
-                    certainList[j] = "/".join(
-                        np.unique(certainList[j : j + amb[j]])
+                    certainList[wordIndex] = "/".join(
+                        np.unique(certainList[wordIndex : wordIndex + amb[wordIndex]])
                     )
                     
                     # remove old options
-                    for k in range(amb[j] - 1):
-                        certainList.pop(j + 1)
-
-    # if any ambiguity is establised by user
-    # if max(amb) > 0:
-    #     ambiguousWords = rules['ambiguous wordform'].values
-    #     possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
-
-    #     for wordIndex in range(len(amb)):
-    #         # check if there is a rule to apply
-    #         rulesIndex = np.where(ambiguousWords == theInput[wordIndex])[0]
-
-    #         if amb[wordIndex] != 0 and len(rulesIndex) > 0:
-    #             rule = rules.loc[rulesIndex[0], :]
-
-    #             if rule['in position ("preceding" or "succeeding")'] == "preceding":
-    #                 # check if rule applies
-    #                 if wordIndex == len(amb) - 1:
-    #                     continue
-                    
-    #                 # TEMP Fix: Lowercase the names
-    #                 i = 291
-    #                 while (i < len(possibleWords)):
-    #                     possibleWords[i] = possibleWords[i].lower()
-    #                     i += 1
-                    
-    #                 # Find row of next word
-    #                 nextWord = theInput[wordIndex + 1]
-    #                 nextWordIndex = np.where(possibleWords == nextWord)[0]
-    #                 if (len(nextWordIndex) == 0):
-    #                     continue
-
-    #                 # check if next word's feature column match value
-    #                 feature = rule['feature']
-    #                 value = rule['value']
-
-    #                 if (glossary[feature].values[nextWordIndex] != value):
-    #                     continue
-
-    #                 # replace ambigious word with row that has use value in Gloss column
-    #                 print("match found")
-    #                 #issue with glossary + replace with match
-                    
+                    for k in range(amb[wordIndex] - 1):
+                        certainList.pop(wordIndex + 1)                  
 
     # Log all matches to word
     for i in range(len(theInput)):
@@ -650,17 +547,6 @@ def main(args, ambOptions, glossaryUpdate):
 
 
     # orangize lists and put into a dictionary
-    # rd, is_amb, old_rd = resultsDict(
-    #     theInput,
-    #     lofkeys,
-    #     gloss,
-    #     latexGloss,
-    #     latexSpl,
-    #     normSpl,
-    #     is_amb,
-    #     amb,
-    #     rules,
-    # )
     rd = standardResults(
         theInput,
         gloss,
