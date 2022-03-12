@@ -49,10 +49,12 @@ function App() {
         />
 
         {/* Displays results */}
-        <div>{(getMessage.status === 200 && searched.length) ? 
-          <Text style={{color: 'white', fontSize: 20, textAlign: 'left'}}>{getMessage.data.message}</Text>
+        <div className="App-searchresults">
+          {(getMessage.status === 200 && searched.length) ? 
+          <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.data.message}</Text>
           :
-          <h3></h3>}
+          <h3></h3>
+          }
         </div>
       </header>
     </div>

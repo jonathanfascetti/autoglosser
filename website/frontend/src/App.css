@@ -23,3 +23,8 @@
   margin: 50px auto;
   min-width: 45%;
 }
+
+.App-searchresults {
+  text-align: left;
+  min-width: 45%;
+}

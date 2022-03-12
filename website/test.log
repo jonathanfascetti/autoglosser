@@ -1,52 +1,11 @@
 43 --> CRITICAL --> autogloss.py:Starting ../autogloss.py
-597 --> INFO --> autogloss.py: 15:29:25.781382 ~~> Arguments: {'ambOptions': None, 'glossaryUpdate': False, 'theInput': ['"A John zoéssan ta a Mary raab wousgo"']}
-608 --> INFO --> autogloss.py: 15:29:25.781647 ~~> Ambiguity: None
-635 --> INFO --> autogloss.py:Refined input
-636 --> INFO --> autogloss.py:['a', 'john', 'zoéssan', 'ta', 'a', 'mary', 'raab', 'wousgo']
-473 --> INFO --> autogloss.py:Main
-99 --> INFO --> autogloss.py: 15:29:25.782363 ~~> Match found: a -> row #1
-107 --> INFO --> autogloss.py: 15:29:25.782514 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.782702 ~~> Match found: a -> row #2
-107 --> INFO --> autogloss.py: 15:29:25.782852 ~~> inputword: 'a', Gloss: 'num', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.783215 ~~> Match found: a -> row #1
-107 --> INFO --> autogloss.py: 15:29:25.783364 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.783553 ~~> Match found: a -> row #2
-107 --> INFO --> autogloss.py: 15:29:25.783702 ~~> inputword: 'a', Gloss: 'num', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.784216 ~~> Match found: john -> row #294
-107 --> INFO --> autogloss.py: 15:29:25.784364 ~~> inputword: 'John', Gloss: 'John', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.784848 ~~> Match found: zoéssan -> row #288
-107 --> INFO --> autogloss.py: 15:29:25.785011 ~~> inputword: 'zóeesã', Gloss: 'run-cl-defn', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.785467 ~~> Match found: ta -> row #170
-107 --> INFO --> autogloss.py: 15:29:25.785616 ~~> inputword: 'tã', Gloss: 'reach', English: '['reached', 'arrived', 'reach', 'arrive', 'attain', 'to be equivalent to ']'.
-99 --> INFO --> autogloss.py: 15:29:25.785807 ~~> Match found: ta -> row #180
-107 --> INFO --> autogloss.py: 15:29:25.785963 ~~> inputword: 't'a', Gloss: 'C:pm', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.786322 ~~> Match found: ta -> row #170
-107 --> INFO --> autogloss.py: 15:29:25.786469 ~~> inputword: 'tã', Gloss: 'reach', English: '['reached', 'arrived', 'reach', 'arrive', 'attain', 'to be equivalent to ']'.
-99 --> INFO --> autogloss.py: 15:29:25.786696 ~~> Match found: a -> row #1
-107 --> INFO --> autogloss.py: 15:29:25.786844 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.787047 ~~> Match found: a -> row #2
-107 --> INFO --> autogloss.py: 15:29:25.787196 ~~> inputword: 'a', Gloss: 'num', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.787512 ~~> Match found: a -> row #1
-107 --> INFO --> autogloss.py: 15:29:25.787660 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.787843 ~~> Match found: a -> row #2
-107 --> INFO --> autogloss.py: 15:29:25.788005 ~~> inputword: 'a', Gloss: 'num', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.788489 ~~> Match found: mary -> row #292
-107 --> INFO --> autogloss.py: 15:29:25.788638 ~~> inputword: 'Mary', Gloss: 'Mary', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.789057 ~~> Match found: raab -> row #120
-107 --> INFO --> autogloss.py: 15:29:25.789214 ~~> inputword: 'raab', Gloss: 'gotten', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.789540 ~~> Match found: raab -> row #120
-107 --> INFO --> autogloss.py: 15:29:25.789691 ~~> inputword: 'raab', Gloss: 'gotten', English: ''.
-99 --> INFO --> autogloss.py: 15:29:25.790190 ~~> Match found: wousgo -> row #244
-107 --> INFO --> autogloss.py: 15:29:25.790338 ~~> inputword: 'wʋsgo', Gloss: 'much', English: '['much', 'a lot', 'plenty']'.
-516 --> INFO --> autogloss.py: 15:29:25.790711 ~~> Ambiguity found: [2, 0, 0, 2, 2, 0, 0, 0]
-405 --> DEBUG --> autogloss.py:assets/glossary/glossaryrules.csv not found.
-417 --> DEBUG --> autogloss.py:assets/glossary/glossary.csv not found.
-311 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
-311 --> INFO --> autogloss.py: Per word output: [john, John, John, John]
-311 --> INFO --> autogloss.py: Per word output: [zoéssan, run-cl-defn, run-\cl{}-\defn{}, zóeesã]
-311 --> INFO --> autogloss.py: Per word output: [ta, C:pm/reach, C:\pm{}/reach, t'a/tã]
-311 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
-311 --> INFO --> autogloss.py: Per word output: [mary, Mary, Mary, Mary]
-311 --> INFO --> autogloss.py: Per word output: [raab, gotten, gotten, raab]
-311 --> INFO --> autogloss.py: Per word output: [wousgo, much, much, wʋsgo]
-641 --> INFO --> autogloss.py: 15:29:25.806434 ~~> Sucessfully executed.
+599 --> INFO --> autogloss.py: 15:47:32.133719 ~~> Arguments: {'ambOptions': None, 'glossaryUpdate': False, 'theInput': ['"test"']}
+610 --> INFO --> autogloss.py: 15:47:32.133955 ~~> Ambiguity: None
+637 --> INFO --> autogloss.py:Refined input
+638 --> INFO --> autogloss.py:['test']
+475 --> INFO --> autogloss.py:Main
+531 --> INFO --> autogloss.py: 15:47:32.134974 ~~> No ambiguity found
+407 --> DEBUG --> autogloss.py:assets/glossary/glossaryrules.csv not found.
+419 --> DEBUG --> autogloss.py:assets/glossary/glossary.csv not found.
+313 --> INFO --> autogloss.py: Per word output: [test, ?, ?, ?]
+643 --> INFO --> autogloss.py: 15:47:32.136890 ~~> Sucessfully executed.
