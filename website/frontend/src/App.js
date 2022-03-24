@@ -4,6 +4,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SearchBar from "material-ui-search-bar";
 import { Text } from "react-native";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+// import Dropdown from "./Dropdown"
 
 function App() {
   // Stores values of the search bar
@@ -32,6 +38,10 @@ function App() {
     }
   };
 
+  const handleChange = (event) => {
+    setOptions(event.target.value);
+  };
+
   // Processes a cancelled search
   const cancelSearch = () => {
     setSearched("");
@@ -51,12 +61,12 @@ function App() {
           className="App-searchbar"
         />
 
-        <SearchBar
+        {/* <SearchBar
           value={options}
           onRequestSearch={(optionsVal) => setOptions(optionsVal)}
           onCancelSearch={() => setOptions("")}
           className="App-searchbar"
-        />
+        /> */}
 
         {/* Displays results */}
         <div className="App-searchresults">
@@ -66,6 +76,17 @@ function App() {
           <h3></h3>
           }
         </div>
+
+        <FormControl>
+          <FormLabel style={{color: 'white'}}>Ambiguity Options</FormLabel>
+          <RadioGroup
+            value={options}
+            onChange={handleChange}
+          >
+            <FormControlLabel value="-a 3:0" control={<Radio />} label="0" />
+            <FormControlLabel value="-a 3:1" control={<Radio />} label="1" />
+          </RadioGroup>
+        </FormControl>
       </header>
     </div>
   );
