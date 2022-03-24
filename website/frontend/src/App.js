@@ -8,6 +8,8 @@ import { Text } from "react-native";
 function App() {
   // Stores values of the search bar
   const [searched, setSearched] = useState("");
+  // Stores values of the arguments
+  const [options, setOptions] = useState("");
   // Stores results of the search
   const [getMessage, setGetMessage] = useState({})
 
@@ -19,7 +21,8 @@ function App() {
       setSearched(searchedVal);
 
       axios.post('http://localhost:5000/hello', {
-          message: searchedVal
+          message: searchedVal,
+          type: options
         }).then(response => {
           setGetMessage(response);
           console.log(response.data.message);
@@ -45,6 +48,13 @@ function App() {
           value={searched}
           onRequestSearch={(searchVal) => requestSearch(searchVal)}
           onCancelSearch={() => cancelSearch()}
+          className="App-searchbar"
+        />
+
+        <SearchBar
+          value={options}
+          onRequestSearch={(optionsVal) => setOptions(optionsVal)}
+          onCancelSearch={() => setOptions("")}
           className="App-searchbar"
         />
 
