@@ -4,12 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SearchBar from "material-ui-search-bar";
 import { Text } from "react-native";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-// import Dropdown from "./Dropdown"
+import Dropdown from "./Dropdown"
 
 function App() {
   // Stores values of the search bar
@@ -17,7 +12,10 @@ function App() {
   // Stores values of the arguments
   const [options, setOptions] = useState("");
   // Stores results of the search
-  const [getMessage, setGetMessage] = useState({})
+  const [getResponse, setResponse] = useState({});
+  const [getMessage, setGetMessage] = useState([]);
+  const [amb, setAmb] = useState([]);
+
 
   // Processes a new search
   const requestSearch = (searchedVal) => {
@@ -30,7 +28,15 @@ function App() {
           message: searchedVal,
           type: options
         }).then(response => {
-          setGetMessage(response);
+          var str = response.data.message;
+          var lines = str.split("\n");
+          // Clean amb
+          var clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
+          setAmb(clean.split(',').map(element => { return Number(element); }));
+          lines.shift();
+
+          setGetMessage(lines)
+          setResponse(response);
           console.log(response.data.message);
         }).catch(error => {
           console.log(error);
@@ -40,6 +46,7 @@ function App() {
 
   const handleChange = (event) => {
     setOptions(event.target.value);
+    requestSearch(searched);
   };
 
   // Processes a cancelled search
@@ -61,32 +68,22 @@ function App() {
           className="App-searchbar"
         />
 
-        {/* <SearchBar
-          value={options}
-          onRequestSearch={(optionsVal) => setOptions(optionsVal)}
-          onCancelSearch={() => setOptions("")}
-          className="App-searchbar"
-        /> */}
-
         {/* Displays results */}
         <div className="App-searchresults">
-          {(getMessage.status === 200 && searched.length) ? 
-          <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.data.message}</Text>
+          {(getResponse.status === 200 && searched.length) ? 
+          <div>
+            <div>
+              {amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} handleChangeParent={handleChange}/>)}
+            </div>
+            <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.join('\n')}</Text>
+          </div>
           :
           <h3></h3>
           }
         </div>
 
-        <FormControl>
-          <FormLabel style={{color: 'white'}}>Ambiguity Options</FormLabel>
-          <RadioGroup
-            value={options}
-            onChange={handleChange}
-          >
-            <FormControlLabel value="-a 3:0" control={<Radio />} label="0" />
-            <FormControlLabel value="-a 3:1" control={<Radio />} label="1" />
-          </RadioGroup>
-        </FormControl>
+        {/* <Dropdown ambiguity={5} index={0} handleChangeParent={handleChange}/> */}
+        <h3>{options}</h3>
       </header>
     </div>
   );

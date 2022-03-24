@@ -292,6 +292,13 @@ def standardResults(
 
             # apply generic values
             if amb[wordIndex] != 0:
+                logger.info(
+                    " "
+                    + str(datetime.now().time())
+                    + " ~~> Found " + str(amb[wordIndex]) + " ambiguity at : "
+                    + str(wordIndex)
+                )
+
                 # make changes to each of the certainLists
                 for certainList in [
                     gloss,
@@ -560,6 +567,7 @@ def main(args, ambOptions, glossaryUpdate):
 
     # Print to terminal - command line
     # finalPrintout("moore", rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
+    print(amb) # For website to know where abiguity is
     standardPrintout(rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
 
 
