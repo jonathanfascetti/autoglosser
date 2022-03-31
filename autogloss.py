@@ -42,7 +42,6 @@ logger.addHandler(fh)
 logger.setLevel(logging.DEBUG)
 logger.critical("Starting " + __file__)
 
-
 # TO FIND WHICH ROW IN GLOSSARY INPUT WORD IS
 def wordToKey(word):
     # convert to lower case to avoid errors
@@ -195,12 +194,17 @@ def standardResults(
     rules,
     glossary
 ):
+    ambOptions = []
     # apply rules
     if max(amb) > 0:
         # Temp fix for website to read
+        global isWebsite
         if (rules.empty):
             rules = pd.read_csv("../assets/glossary/glossaryrules.csv")
             glossary = pd.read_csv("../assets/glossary/glossary.csv")
+            isWebsite = True
+        else:
+            isWebsite = False
         
         ambiguousWords = rules['ambiguous wordform'].values
         possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
@@ -289,7 +293,10 @@ def standardResults(
 
                             amb[wordIndex] = 0
                             break
-
+            
+            for i in range(amb[wordIndex] + 1):
+                ambOptions.append(normSpl[wordIndex + i] + "(" + gloss[wordIndex + i] + ")")
+            
             # apply generic values
             if amb[wordIndex] != 0:
                 logger.info(
@@ -308,13 +315,17 @@ def standardResults(
                 ]:
                     # combine all possible options into one
                     certainList[wordIndex] = "/".join(
-                        np.unique(certainList[wordIndex : wordIndex + amb[wordIndex]])
+                        [certainList[sortedIndex] for sortedIndex in sorted(np.unique(certainList[wordIndex : wordIndex + amb[wordIndex]], return_index=True)[1])]
                     )
                     
                     # remove old options
                     for k in range(amb[wordIndex] - 1):
                         certainList.pop(wordIndex + 1)                  
 
+    # For website to know which abiguity
+    if isWebsite:
+        print(ambOptions)
+    
     # Log all matches to word
     for i in range(len(theInput)):
         logger.info(
@@ -340,26 +351,27 @@ def standardResults(
     return results
 
 # this function will only be called if the -a flag is used
-def ambig(lofkeys, ambOptions, amb):
+def ambig(lofkeys, ambNormalizedSpelling, amb):
     # check to make sure whatever ambiguity preferences there are are valid
-    for ambOption in ambOptions:
+    for ambOption in ambNormalizedSpelling:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
 
         if input_index < 0 or input_index >= len(lofkeys) or ambiguity_option < 0 or ambiguity_option >= len(lofkeys[input_index]):
-            ambOptionStr = "[" + ", ".join([str(elem) for elem in ambOption]) + "]"
+            ambNormalizedSpellingtr = "[" + ", ".join([str(elem) for elem in ambOption]) + "]"
             logger.critical(
                 " Ambiguity input index error. %s is out of bounds.",
-                ambOptionStr,
+                ambNormalizedSpellingtr,
             )
             sys.exit(
                 "\n\nExiting with error...\n\tAmbiguity input index error. "
-                + ambOptionStr
+                + ambNormalizedSpellingtr
                 + " is out of bounds.\n\n"
             )
 
     # set values
-    for ambOption in ambOptions:
+    for ambOption in ambNormalizedSpelling:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
+        # ambiguity_option = amb[input_index] - ambiguity_option - 1
 
         # Set key to amb word
         lofkeys[input_index] = [lofkeys[input_index][ambiguity_option]]
@@ -478,7 +490,7 @@ def standardPrintout(givenWords, normalSpelling, gloss, latexSpelling, latexGlos
         )
     )
 
-def main(args, ambOptions, glossaryUpdate):
+def main(args, ambNormalizedSpelling, glossaryUpdate):
     logger.info("Main")
 
     # if glossaryUpdate is True, update the files
@@ -488,13 +500,13 @@ def main(args, ambOptions, glossaryUpdate):
         logger.debug(args)
 
     # if the user indicated they want to designate an ambiguity option
-    if ambOptions:
-        logger.info("AmbOptions argument input found: %s", ambOptions)
+    if ambNormalizedSpelling:
+        logger.info("ambNormalizedSpelling argument input found: %s", ambNormalizedSpelling)
         # convert to list
-        ambOptionsStr = ambOptions.strip()
+        ambNormalizedSpellingStr = ambNormalizedSpelling.strip()
 
         # organize list to be grouped in [[#:#], [#:#] ...]
-        ambOptions = [[int(elem.split(":")[0]), int(elem.split(":")[1])] for elem in ambOptionsStr.split("/")]
+        ambNormalizedSpelling = [[int(elem.split(":")[0]), int(elem.split(":")[1])] for elem in ambNormalizedSpellingStr.split("/")]
 
     # list where each element is a list where each element is a tuple of a match found
     lofkeys = []
@@ -530,8 +542,8 @@ def main(args, ambOptions, glossaryUpdate):
         )
 
         # Apply Ambiguity Options Handler
-        if ambOptions:
-            lofkeys, is_amb, amb = ambig(lofkeys, ambOptions, amb)
+        if ambNormalizedSpelling:
+            lofkeys, is_amb, amb = ambig(lofkeys, ambNormalizedSpelling, amb)
 
     else:
         is_amb = False
@@ -567,7 +579,9 @@ def main(args, ambOptions, glossaryUpdate):
 
     # Print to terminal - command line
     # finalPrintout("moore", rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
-    print(amb) # For website to know where abiguity is
+    # For website to know where abiguity is
+    if (isWebsite):
+        print(amb)
     standardPrintout(rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
 
 
@@ -584,7 +598,7 @@ if __name__ == "__main__":
     # use -a then the 0:0 type syntax to set ambiguity preferences
     parser.add_argument(
         "-a",
-        "--ambOptions",
+        "--ambNormalizedSpelling",
         type=str,
         help='Only use this argument when the ambiguity is known. Use syntax: -a "input-word-num:ambiguity-option/input-word-num:ambiguity-option/…".',
     )
@@ -619,7 +633,7 @@ if __name__ == "__main__":
             " "
             + str(datetime.now().time())
             + " ~~> Ambiguity: "
-            + str(args.ambOptions)
+            + str(args.ambNormalizedSpelling)
         )
     except ValueError:
         pass
@@ -646,7 +660,7 @@ if __name__ == "__main__":
     logger.info(theInput)
 
     # run main()
-    main(theInput, args.ambOptions, args.glossaryUpdate)
+    main(theInput, args.ambNormalizedSpelling, args.glossaryUpdate)
 
     logger.info(
         " " + str(datetime.now().time()) + " ~~> Sucessfully executed."

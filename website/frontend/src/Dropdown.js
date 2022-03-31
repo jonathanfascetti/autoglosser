@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-export default function Dropdown({ambiguity, index, handleChangeParent}) {
+export default function Dropdown({ambiguity, index, ambOptions, handleChangeParent}) {
   const [options, setValue] = React.useState('');
 
   const handleChange = (event) => {
@@ -24,7 +24,7 @@ export default function Dropdown({ambiguity, index, handleChangeParent}) {
         value={options}
         onChange={handleChange}
       >
-        {[...Array(ambiguity)].map((e, i) => <FormControlLabel value={"-a "+index+":"+i} control={<Radio />} label={i} />)}
+        {[...Array(ambiguity)].map((e, i) => <FormControlLabel value={index+":"+i} control={<Radio />} label={ambOptions[index + i]} />)}
       </RadioGroup>
     </FormControl>
   );

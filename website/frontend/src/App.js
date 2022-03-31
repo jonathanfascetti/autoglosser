@@ -14,6 +14,7 @@ function App() {
   // Stores results of the search
   const [getResponse, setResponse] = useState({});
   const [getMessage, setGetMessage] = useState([]);
+  const [ambOptions, setAmbOptions] = useState([]);
   const [amb, setAmb] = useState([]);
 
 
@@ -32,6 +33,11 @@ function App() {
           var lines = str.split("\n");
           // Clean amb
           var clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
+          // console.log(clean);
+          setAmbOptions(clean.split(','));
+          lines.shift();
+          clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
+          // console.log(clean);
           setAmb(clean.split(',').map(element => { return Number(element); }));
           lines.shift();
 
@@ -45,8 +51,11 @@ function App() {
   };
 
   const handleChange = (event) => {
-    setOptions(event.target.value);
-    requestSearch(searched);
+    if (options === "") {
+      setOptions("-a " + event.target.value);
+    } else {
+      setOptions(options + "/" + event.target.value);
+    }
   };
 
   // Processes a cancelled search
@@ -73,7 +82,7 @@ function App() {
           {(getResponse.status === 200 && searched.length) ? 
           <div>
             <div>
-              {amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} handleChangeParent={handleChange}/>)}
+              {amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} ambOptions={ambOptions} handleChangeParent={handleChange}/>)}
             </div>
             <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.join('\n')}</Text>
           </div>
@@ -83,7 +92,7 @@ function App() {
         </div>
 
         {/* <Dropdown ambiguity={5} index={0} handleChangeParent={handleChange}/> */}
-        <h3>{options}</h3>
+        {/* <h3>{options}</h3> */}
       </header>
     </div>
   );
