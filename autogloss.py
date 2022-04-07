@@ -487,6 +487,18 @@ def standardPrintout(givenWords, normalSpelling, gloss, latexSpelling, latexGlos
             givenWords,
         )
     )
+    
+    # Print missing words
+    gloss = gloss.split(" ")
+    givenWords = givenWords.split(" ")
+    missingWords = []
+    for i in range(len(givenWords)):
+        if gloss[i] == "?":
+            missingWords.append(givenWords[i])
+
+    if (len(missingWords) > 0):
+        print("Ambiguity Detected! Could not find matches for: ")
+        print(", ".join(missingWords)) 
 
 def main(args, ambNormalizedSpelling, glossaryUpdate):
     logger.info("Main")

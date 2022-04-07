@@ -1,69 +1,70 @@
 43 --> CRITICAL --> autogloss.py:Starting autogloss.py
-623 --> INFO --> autogloss.py: 19:47:52.899247 ~~> Arguments: {'ambNormalizedSpelling': None, 'glossaryUpdate': False, 'theInput': ['A Robert, A Bill nẽ John la woto']}
-634 --> INFO --> autogloss.py: 19:47:52.899511 ~~> Ambiguity: None
-661 --> INFO --> autogloss.py:Refined input
-662 --> INFO --> autogloss.py:['a', 'robert', 'a', 'bill', 'nẽ', 'john', 'la', 'woto']
-496 --> INFO --> autogloss.py:Main
-98 --> INFO --> autogloss.py: 19:47:52.900448 ~~> Match found: a -> row #1
-106 --> INFO --> autogloss.py: 19:47:52.900641 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.900827 ~~> Match found: a -> row #2
-106 --> INFO --> autogloss.py: 19:47:52.901031 ~~> inputword: 'a', Gloss: 'num', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.901406 ~~> Match found: a -> row #1
-106 --> INFO --> autogloss.py: 19:47:52.901594 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.901771 ~~> Match found: a -> row #2
-106 --> INFO --> autogloss.py: 19:47:52.901948 ~~> inputword: 'a', Gloss: 'num', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.902443 ~~> Match found: robert -> row #291
-106 --> INFO --> autogloss.py: 19:47:52.902642 ~~> inputword: 'Robert', Gloss: 'Robert', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.903086 ~~> Match found: a -> row #1
-106 --> INFO --> autogloss.py: 19:47:52.903302 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.903560 ~~> Match found: a -> row #2
-106 --> INFO --> autogloss.py: 19:47:52.903829 ~~> inputword: 'a', Gloss: 'num', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.904194 ~~> Match found: a -> row #1
-106 --> INFO --> autogloss.py: 19:47:52.904392 ~~> inputword: 'a', Gloss: '3sg', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.904620 ~~> Match found: a -> row #2
-106 --> INFO --> autogloss.py: 19:47:52.904792 ~~> inputword: 'a', Gloss: 'num', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.905361 ~~> Match found: bill -> row #295
-106 --> INFO --> autogloss.py: 19:47:52.905554 ~~> inputword: 'Bill', Gloss: 'Bill', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.906097 ~~> Match found: nẽ -> row #97
-106 --> INFO --> autogloss.py: 19:47:52.906289 ~~> inputword: 'né', Gloss: 'with', English: 'with'.
-98 --> INFO --> autogloss.py: 19:47:52.906849 ~~> Match found: john -> row #294
-106 --> INFO --> autogloss.py: 19:47:52.907046 ~~> inputword: 'John', Gloss: 'John', English: ''.
-98 --> INFO --> autogloss.py: 19:47:52.907474 ~~> Match found: la -> row #66
-106 --> INFO --> autogloss.py: 19:47:52.907654 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-98 --> INFO --> autogloss.py: 19:47:52.907849 ~~> Match found: la -> row #67
-106 --> INFO --> autogloss.py: 19:47:52.908082 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-98 --> INFO --> autogloss.py: 19:47:52.908272 ~~> Match found: la -> row #68
-106 --> INFO --> autogloss.py: 19:47:52.908486 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-98 --> INFO --> autogloss.py: 19:47:52.908747 ~~> Match found: la -> row #66
-106 --> INFO --> autogloss.py: 19:47:52.908928 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-98 --> INFO --> autogloss.py: 19:47:52.909103 ~~> Match found: la -> row #67
-106 --> INFO --> autogloss.py: 19:47:52.909301 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-98 --> INFO --> autogloss.py: 19:47:52.909483 ~~> Match found: la -> row #68
-106 --> INFO --> autogloss.py: 19:47:52.909683 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-98 --> INFO --> autogloss.py: 19:47:52.909942 ~~> Match found: la -> row #66
-106 --> INFO --> autogloss.py: 19:47:52.910111 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-98 --> INFO --> autogloss.py: 19:47:52.910277 ~~> Match found: la -> row #67
-106 --> INFO --> autogloss.py: 19:47:52.910444 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-98 --> INFO --> autogloss.py: 19:47:52.910627 ~~> Match found: la -> row #68
-106 --> INFO --> autogloss.py: 19:47:52.910837 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-98 --> INFO --> autogloss.py: 19:47:52.911118 ~~> Match found: la -> row #66
-106 --> INFO --> autogloss.py: 19:47:52.911297 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
-98 --> INFO --> autogloss.py: 19:47:52.911458 ~~> Match found: la -> row #67
-106 --> INFO --> autogloss.py: 19:47:52.911633 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
-98 --> INFO --> autogloss.py: 19:47:52.911851 ~~> Match found: la -> row #68
-106 --> INFO --> autogloss.py: 19:47:52.912032 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
-98 --> INFO --> autogloss.py: 19:47:52.912484 ~~> Match found: woto -> row #235
-106 --> INFO --> autogloss.py: 19:47:52.912678 ~~> inputword: 'wóto', Gloss: 'like.that', English: '['this', 'like that', 'exact']'.
-98 --> INFO --> autogloss.py: 19:47:52.913143 ~~> Match found: woto -> row #235
-106 --> INFO --> autogloss.py: 19:47:52.913333 ~~> inputword: 'wóto', Gloss: 'like.that', English: '['this', 'like that', 'exact']'.
-539 --> INFO --> autogloss.py: 19:47:52.913533 ~~> Ambiguity found: [2, 0, 2, 0, 0, 0, 3, 0]
-303 --> INFO --> autogloss.py: 19:47:52.926875 ~~> Found 3 ambiguity at : 6
-333 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
-333 --> INFO --> autogloss.py: Per word output: [robert, Robert, Robert, Robert]
-333 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
-333 --> INFO --> autogloss.py: Per word output: [bill, Bill, Bill, Bill]
-333 --> INFO --> autogloss.py: Per word output: [nẽ, with, with, né]
-333 --> INFO --> autogloss.py: Per word output: [john, John, John, John]
-333 --> INFO --> autogloss.py: Per word output: [la, cop/and/foc, \cop{}/and/\foc{}, la/la/la]
-333 --> INFO --> autogloss.py: Per word output: [woto, like.that, like.that, wóto]
-667 --> INFO --> autogloss.py: 19:47:52.931537 ~~> Sucessfully executed.
+631 --> INFO --> autogloss.py: 11:14:08.288850 ~~> Arguments: {'ambNormalizedSpelling': None, 'glossaryUpdate': False, 'theInput': ['A Robert, A Bill nẽ John la woto test']}
+642 --> INFO --> autogloss.py: 11:14:08.289886 ~~> Ambiguity: None
+669 --> INFO --> autogloss.py:Refined input
+670 --> INFO --> autogloss.py:['a', 'robert', 'a', 'bill', 'nẽ', 'john', 'la', 'woto', 'test']
+504 --> INFO --> autogloss.py:Main
+98 --> INFO --> autogloss.py: 11:14:08.294589 ~~> Match found: a -> row #1
+106 --> INFO --> autogloss.py: 11:14:08.295687 ~~> inputword: 'a', Gloss: '3sg', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.296671 ~~> Match found: a -> row #2
+106 --> INFO --> autogloss.py: 11:14:08.297734 ~~> inputword: 'a', Gloss: 'num', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.299701 ~~> Match found: a -> row #1
+106 --> INFO --> autogloss.py: 11:14:08.300686 ~~> inputword: 'a', Gloss: '3sg', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.301780 ~~> Match found: a -> row #2
+106 --> INFO --> autogloss.py: 11:14:08.302829 ~~> inputword: 'a', Gloss: 'num', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.305527 ~~> Match found: robert -> row #291
+106 --> INFO --> autogloss.py: 11:14:08.306506 ~~> inputword: 'Robert', Gloss: 'Robert', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.308643 ~~> Match found: a -> row #1
+106 --> INFO --> autogloss.py: 11:14:08.309623 ~~> inputword: 'a', Gloss: '3sg', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.310743 ~~> Match found: a -> row #2
+106 --> INFO --> autogloss.py: 11:14:08.311837 ~~> inputword: 'a', Gloss: 'num', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.313840 ~~> Match found: a -> row #1
+106 --> INFO --> autogloss.py: 11:14:08.314996 ~~> inputword: 'a', Gloss: '3sg', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.316276 ~~> Match found: a -> row #2
+106 --> INFO --> autogloss.py: 11:14:08.317389 ~~> inputword: 'a', Gloss: 'num', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.320223 ~~> Match found: bill -> row #295
+106 --> INFO --> autogloss.py: 11:14:08.321266 ~~> inputword: 'Bill', Gloss: 'Bill', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.323555 ~~> Match found: nẽ -> row #97
+106 --> INFO --> autogloss.py: 11:14:08.324522 ~~> inputword: 'né', Gloss: 'with', English: 'with'.
+98 --> INFO --> autogloss.py: 11:14:08.327243 ~~> Match found: john -> row #294
+106 --> INFO --> autogloss.py: 11:14:08.328187 ~~> inputword: 'John', Gloss: 'John', English: ''.
+98 --> INFO --> autogloss.py: 11:14:08.330126 ~~> Match found: la -> row #66
+106 --> INFO --> autogloss.py: 11:14:08.331115 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+98 --> INFO --> autogloss.py: 11:14:08.332264 ~~> Match found: la -> row #67
+106 --> INFO --> autogloss.py: 11:14:08.333372 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+98 --> INFO --> autogloss.py: 11:14:08.334503 ~~> Match found: la -> row #68
+106 --> INFO --> autogloss.py: 11:14:08.335703 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+98 --> INFO --> autogloss.py: 11:14:08.337214 ~~> Match found: la -> row #66
+106 --> INFO --> autogloss.py: 11:14:08.338258 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+98 --> INFO --> autogloss.py: 11:14:08.339562 ~~> Match found: la -> row #67
+106 --> INFO --> autogloss.py: 11:14:08.340760 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+98 --> INFO --> autogloss.py: 11:14:08.341819 ~~> Match found: la -> row #68
+106 --> INFO --> autogloss.py: 11:14:08.342911 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+98 --> INFO --> autogloss.py: 11:14:08.344437 ~~> Match found: la -> row #66
+106 --> INFO --> autogloss.py: 11:14:08.345544 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+98 --> INFO --> autogloss.py: 11:14:08.346717 ~~> Match found: la -> row #67
+106 --> INFO --> autogloss.py: 11:14:08.347764 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+98 --> INFO --> autogloss.py: 11:14:08.348792 ~~> Match found: la -> row #68
+106 --> INFO --> autogloss.py: 11:14:08.349806 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+98 --> INFO --> autogloss.py: 11:14:08.351665 ~~> Match found: la -> row #66
+106 --> INFO --> autogloss.py: 11:14:08.352831 ~~> inputword: 'la', Gloss: 'cop', English: '['to be', 'exist', "be the 'truth'", 'be the case that']'.
+98 --> INFO --> autogloss.py: 11:14:08.354127 ~~> Match found: la -> row #67
+106 --> INFO --> autogloss.py: 11:14:08.355272 ~~> inputword: 'la', Gloss: 'and', English: '['CD [(Marker of) Coordination]', 'and', 'and also', 'but']'.
+98 --> INFO --> autogloss.py: 11:14:08.356297 ~~> Match found: la -> row #68
+106 --> INFO --> autogloss.py: 11:14:08.357332 ~~> inputword: 'la', Gloss: 'foc', English: 'used to emphasize; used for non-subject focus in cleft constructions [Peterson 1971 p. 139]'.
+98 --> INFO --> autogloss.py: 11:14:08.360405 ~~> Match found: woto -> row #235
+106 --> INFO --> autogloss.py: 11:14:08.361609 ~~> inputword: 'wóto', Gloss: 'like.that', English: '['this', 'like that', 'exact']'.
+98 --> INFO --> autogloss.py: 11:14:08.364458 ~~> Match found: woto -> row #235
+106 --> INFO --> autogloss.py: 11:14:08.365663 ~~> inputword: 'wóto', Gloss: 'like.that', English: '['this', 'like that', 'exact']'.
+547 --> INFO --> autogloss.py: 11:14:08.368857 ~~> Ambiguity found: [2, 0, 2, 0, 0, 0, 3, 0, 0]
+303 --> INFO --> autogloss.py: 11:14:08.434329 ~~> Found 3 ambiguity at : 6
+332 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
+332 --> INFO --> autogloss.py: Per word output: [robert, Robert, Robert, Robert]
+332 --> INFO --> autogloss.py: Per word output: [a, 3sg, 3\sg{}, a]
+332 --> INFO --> autogloss.py: Per word output: [bill, Bill, Bill, Bill]
+332 --> INFO --> autogloss.py: Per word output: [nẽ, with, with, né]
+332 --> INFO --> autogloss.py: Per word output: [john, John, John, John]
+332 --> INFO --> autogloss.py: Per word output: [la, cop/and/foc, \cop{}/and/\foc{}, la/la/la]
+332 --> INFO --> autogloss.py: Per word output: [woto, like.that, like.that, wóto]
+332 --> INFO --> autogloss.py: Per word output: [test, ?, ?, ?]
+675 --> INFO --> autogloss.py: 11:14:08.447244 ~~> Sucessfully executed.
