@@ -341,6 +341,12 @@ def standardResults(
             + "]"
         )
 
+    # Convert ? to original word
+    for i in range(len(theInput)):
+        if gloss[i] == "?":
+            normSpl[i] = theInput[i]
+            latexSpl[i] = theInput[i]
+
     # put the lists in the dictionary with respective keys
     results = {}
     results["inputword"] = " ".join(theInput)
