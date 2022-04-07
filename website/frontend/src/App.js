@@ -32,9 +32,10 @@ function App() {
           var str = response.data.message;
           var lines = str.split("\n");
           // Clean amb
-          var clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
+          // var clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
+          var clean = lines[0].replace('[', '').replace(']', '');
           // console.log(clean);
-          setAmbOptions(clean.split(','));
+          setAmbOptions(clean.split(', '));
           lines.shift();
           clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
           // console.log(clean);
@@ -68,7 +69,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" style={{position: "absolute"}}/>
         
-        <p>Moore Autoglossar</p>
+        <p>Moore Autoglosser</p>
         
         <SearchBar
           value={searched}
@@ -82,7 +83,10 @@ function App() {
           {(getResponse.status === 200 && searched.length) ? 
           <div>
             <div>
-              {amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} ambOptions={ambOptions} handleChangeParent={handleChange}/>)}
+              {amb.length === ambOptions.length ?
+              <h3 />
+              :
+              amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} ambOptions={ambOptions} handleChangeParent={handleChange}/>)}
             </div>
             <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.join('\n')}</Text>
           </div>

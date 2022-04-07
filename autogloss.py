@@ -195,17 +195,18 @@ def standardResults(
     glossary
 ):
     ambOptions = []
+
+    # Temp fix for website to read
+    global isWebsite
+    if (rules.empty):
+        rules = pd.read_csv("../assets/glossary/glossaryrules.csv")
+        glossary = pd.read_csv("../assets/glossary/glossary.csv")
+        isWebsite = True
+    else:
+        isWebsite = False
+
     # apply rules
     if max(amb) > 0:
-        # Temp fix for website to read
-        global isWebsite
-        if (rules.empty):
-            rules = pd.read_csv("../assets/glossary/glossaryrules.csv")
-            glossary = pd.read_csv("../assets/glossary/glossary.csv")
-            isWebsite = True
-        else:
-            isWebsite = False
-        
         ambiguousWords = rules['ambiguous wordform'].values
         possibleWords = glossary['Wordform in Mòoré (high tones marked)'].values
 
@@ -295,7 +296,7 @@ def standardResults(
                             break
             
             for i in range(amb[wordIndex] + 1):
-                ambOptions.append(normSpl[wordIndex + i] + "(" + gloss[wordIndex + i] + ")")
+                ambOptions.append(normSpl[wordIndex + i] + " (" + gloss[wordIndex + i] + ")")
             
             # apply generic values
             if amb[wordIndex] != 0:
@@ -315,7 +316,7 @@ def standardResults(
                 ]:
                     # combine all possible options into one
                     certainList[wordIndex] = "/".join(
-                        [certainList[sortedIndex] for sortedIndex in sorted(np.unique(certainList[wordIndex : wordIndex + amb[wordIndex]], return_index=True)[1])]
+                        certainList[wordIndex : wordIndex + amb[wordIndex]]
                     )
                     
                     # remove old options
@@ -371,7 +372,6 @@ def ambig(lofkeys, ambNormalizedSpelling, amb):
     # set values
     for ambOption in ambNormalizedSpelling:
         input_index, ambiguity_option = ambOption[0], ambOption[1]
-        # ambiguity_option = amb[input_index] - ambiguity_option - 1
 
         # Set key to amb word
         lofkeys[input_index] = [lofkeys[input_index][ambiguity_option]]
@@ -385,8 +385,6 @@ def ambig(lofkeys, ambNormalizedSpelling, amb):
 
         # set ambiguious term to default
         if type(key) != tuple:
-            # lofkeys[input_index] = key[0]
-
             # set ambiguious term to default
             if len(key) > 1:
                 logger.warning(" Ambiguity still exists after user input.")
