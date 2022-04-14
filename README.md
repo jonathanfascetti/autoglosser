@@ -52,7 +52,7 @@ Clone the repository (repo), then install packages with the command $ pip3 insta
     Run the command (add sudo if on mac):
       npm upgrade,
       npm install,
-      npm build.
+      npm run build.
     Navigate to /website, then run the command:
       flask run (Note: As needed run (python3 -m pip install [PACKAGE NAME])
 
