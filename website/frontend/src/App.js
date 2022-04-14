@@ -16,7 +16,7 @@ function App() {
   const [getMessage, setGetMessage] = useState([]);
   const [ambOptions, setAmbOptions] = useState([]);
   const [amb, setAmb] = useState([]);
-
+  const [pastAmb, setPastAmb] = useState([]);
 
   // Processes a new search
   const requestSearch = (searchedVal) => {
@@ -32,15 +32,20 @@ function App() {
           var str = response.data.message;
           var lines = str.split("\n");
           // Clean amb
-          // var clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
           var clean = lines[0].replace('[', '').replace(']', '');
-          // console.log(clean);
           setAmbOptions(clean.split(', '));
           lines.shift();
           clean = lines[0].split(' ').join('').replace('[', '').replace(']', '');
-          // console.log(clean);
           setAmb(clean.split(',').map(element => { return Number(element); }));
           lines.shift();
+          var myarray = clean.split(',').map(element => { return Number(element); });
+          var output = [];
+          var pastSum = 0;
+          for(var i in myarray){
+            output.push(pastSum)
+            pastSum = pastSum + myarray[i]
+          }
+          setPastAmb(output);
 
           setGetMessage(lines)
           setResponse(response);
@@ -82,11 +87,11 @@ function App() {
         <div className="App-searchresults">
           {(getResponse.status === 200 && searched.length) ? 
           <div>
-            <div>
+            <div style={{display: "flex", justifyContent: "space-around"}}>
               {amb.length === ambOptions.length ?
               <h3 />
               :
-              amb.map((ambiguity, index) => <Dropdown ambiguity={ambiguity} index={index} ambOptions={ambOptions} handleChangeParent={handleChange}/>)}
+              amb.map((ambiguity, index) => <Dropdown  ambiguity={ambiguity} index={index} ambOptions={ambOptions} handleChangeParent={handleChange} pastAmb={pastAmb[index]}/>)}
             </div>
             <Text style={{color: 'white', fontSize: 20, textAlign: 'right'}}>{getMessage.join('\n')}</Text>
           </div>
@@ -95,8 +100,6 @@ function App() {
           }
         </div>
 
-        {/* <Dropdown ambiguity={5} index={0} handleChangeParent={handleChange}/> */}
-        {/* <h3>{options}</h3> */}
       </header>
     </div>
   );
