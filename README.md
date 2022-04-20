@@ -2,7 +2,11 @@
 
 Contact Marco Raigoza (mraigoza@bu.edu) or Jonathan Fascetti (jlfascetti@gmail.com) with any questions.
 
-Clone the repository (repo), then install packages with the command $ pip3 install -r requirements.txt
+Clone the repository (repo):
+
+git clone https://github.com/jonathanfascetti/autoglosser.git
+
+then in main directory, install packages with the command $ pip3 install -r requirements.txt
 
 ### How to run autogloss.py
   For command line interaction run:
@@ -48,12 +52,11 @@ Clone the repository (repo), then install packages with the command $ pip3 insta
       python3 autogloss.py "[INPUT TEXT]" -u -a [WORD INDEX]/[AMBIGUITY OPTION]
   
   In web interface: 
-    In terminal, navigate to /website/frontend.
+    In terminal, navigate to website/frontend.
     Run the command (add sudo if on mac):
-      npm upgrade,
-      npm install,
-      npm run build.
-    Navigate to /website, then run the command:
+      npm install --save --legacy-peer-deps (be patient, could take a while)
+      npm run build
+    Navigate to website, then run the command:
       flask run (Note: As needed run (python3 -m pip install [PACKAGE NAME])
 
 Created by Jonathan Fascetti and Marco Raigoza overseen by Dr. Elizabeth Coppock.
