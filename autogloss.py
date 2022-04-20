@@ -529,15 +529,28 @@ def main(args, ambNormalizedSpelling, glossaryUpdate):
     theInput = args
 
     # Match the input
-    for i in theInput:
+    for wordIndex in range(len(theInput)):
         # find the row number for each of the given rows
-        lofkeys.append(wordToKey(i))
+
+        # Todo: Faster implementation of finding word
+        # tmp = [str(val) for val in glossary['Wordform in Mòoré (high tones marked)'].values]
+        # string = " ".join(theInput)
+        # for word in tmp:
+        #     if word in string:
+        #         index = string.find(word)
+        #         print(word, "was found at", index)
+
+        wordList = []
+        for endIndex in range(wordIndex, len(theInput)):
+            word = " ".join(theInput[wordIndex : endIndex + 1])
+            wordList = wordList + wordToKey(word)
+        lofkeys.append(wordList)
         # if more than one possible row is found, make ambiguity True
         if len(lofkeys[-1]) > 1:  # ambiguity is true
             amb.append(len(lofkeys[-1]))
         else:
             amb.append(0)
-
+    
     # Match anything that was unmatched
     for i in range(len(lofkeys)):
         if lofkeys[i] == []:
