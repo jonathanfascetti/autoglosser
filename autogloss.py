@@ -294,10 +294,14 @@ def standardResults(
 
                             amb[wordIndex] = 0
                             break
-            
-            for i in range(amb[wordIndex] + 1):
+            # print(ambOptions, len(ambOptions))
+            # print(normSpl, len(normSpl))
+            # print(gloss, len(gloss))
+            for i in range(amb[wordIndex]):
+                # print(wordIndex + i)
                 ambOptions.append(normSpl[wordIndex + i] + " (" + gloss[wordIndex + i] + ")")
-            
+            if amb[wordIndex] == 0:
+                ambOptions.append(normSpl[wordIndex ] + " (" + gloss[wordIndex ] + ")")
             # apply generic values
             if amb[wordIndex] != 0:
                 logger.info(
