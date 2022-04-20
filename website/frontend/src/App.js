@@ -30,7 +30,6 @@ function App() {
           message: searchedVal,
           type: options
         }).then(response => {
-          console.log(response.data.message);
           var str = response.data.message;
           var lines = str.split("\n");
 
@@ -40,17 +39,12 @@ function App() {
             clean = [""];
           } else {
             clean = lines[0].replace('[', '').replace(']', '').split(', ');
+            clean = clean.map(value => value.substr(1, value.length - 2));
           }
-          console.log(clean);
-          console.log("0");
           lines.shift();
 
-          console.log("1.5");
           var clean2 = lines[0].replace('[', '').replace(']', '').split(', ');
           clean2 = clean2.map(element => { return Number(element); });
-          console.log("2");
-          console.log(clean2);
-          console.log("3");
           lines.shift();
 
           var output = [];
@@ -61,7 +55,6 @@ function App() {
               pastSum = pastSum + clean2[i] - 1;
             }
           }
-          console.log(output);
 
           console.log("Setting search result to ", response, lines, clean, clean2, output);
           setSearchResult({
@@ -109,11 +102,10 @@ function App() {
         />
 
         {/* Displays results */}
-        {/* {console.log("Search result is ", response, message, ambOptions, amb, pastAmb, searched, options)} */}
         <div className="App-searchresults">
           {(response.status === 200 && searched.length) ? 
           <div>
-            <div style={{display: "flex", justifyContent: "space-around"}}>
+            <div style={{display: "inline-block", justifyContent: "space-around"}}>
               {amb.length === ambOptions.length ?
               <div />
               :

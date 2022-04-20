@@ -18,7 +18,7 @@ export default function Dropdown({ambiguity, index, ambOptions, handleChangePare
   }
 
   return (
-    <FormControl>
+    <FormControl style={{ minWidth: '250px'}}>
       <FormLabel style={{color: 'white'}}>Ambiguity Options for Word {index}</FormLabel>
       <RadioGroup
         value={options}

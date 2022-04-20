@@ -294,14 +294,13 @@ def standardResults(
 
                             amb[wordIndex] = 0
                             break
-            # print(ambOptions, len(ambOptions))
-            # print(normSpl, len(normSpl))
-            # print(gloss, len(gloss))
+
+            # Add options for website
             for i in range(amb[wordIndex]):
-                # print(wordIndex + i)
                 ambOptions.append(normSpl[wordIndex + i] + " (" + gloss[wordIndex + i] + ")")
             if amb[wordIndex] == 0:
                 ambOptions.append(normSpl[wordIndex ] + " (" + gloss[wordIndex ] + ")")
+            
             # apply generic values
             if amb[wordIndex] != 0:
                 logger.info(
@@ -364,29 +363,23 @@ def standardResults(
 # this function will only be called if the -a flag is used
 def ambig(lofkeys, ambNormalizedSpelling, amb):
     # check to make sure whatever ambiguity preferences there are are valid
-    for ambOption in ambNormalizedSpelling:
+    for ambOption in reversed(ambNormalizedSpelling):
         input_index, ambiguity_option = ambOption[0], ambOption[1]
 
         if input_index < 0 or input_index >= len(lofkeys) or ambiguity_option < 0 or ambiguity_option >= len(lofkeys[input_index]):
             ambNormalizedSpellingtr = "[" + ", ".join([str(elem) for elem in ambOption]) + "]"
-            logger.critical(
+            logger.warning(
                 " Ambiguity input index error. %s is out of bounds.",
                 ambNormalizedSpellingtr,
             )
-            sys.exit(
-                "\n\nExiting with error...\n\tAmbiguity input index error. "
-                + ambNormalizedSpellingtr
-                + " is out of bounds.\n\n"
-            )
+        else:
+            # set values
+            input_index, ambiguity_option = ambOption[0], ambOption[1]
 
-    # set values
-    for ambOption in ambNormalizedSpelling:
-        input_index, ambiguity_option = ambOption[0], ambOption[1]
-
-        # Set key to amb word
-        lofkeys[input_index] = [lofkeys[input_index][ambiguity_option]]
-        # Set number of amb to 0
-        amb[input_index] = 0
+            # Set key to amb word
+            lofkeys[input_index] = [lofkeys[input_index][ambiguity_option]]
+            # Set number of amb to 0
+            amb[input_index] = 0
 
     # Select default values if no ambiguity option selected for those words
     is_amb = False

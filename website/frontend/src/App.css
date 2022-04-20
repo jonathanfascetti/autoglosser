@@ -27,7 +27,8 @@
 
 .App-searchresults {
   text-align: left;
-  padding:100px;
-  float:left;
+  padding: 100px;
+  padding-top: 40px;
   min-width: 45%;
+  display: inline-block;
 }
