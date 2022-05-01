@@ -1,0 +1,11 @@
+{
+    "name": "autoglosser",
+    "description": "a really cool autoglosser",
+    "version": "0.0.1",
+    "engines": {
+      "npm": "6.x"
+    },
+    "scripts": {
+        "build": "cd website/frontend && npm install && npm run build"
+    }
+  }
