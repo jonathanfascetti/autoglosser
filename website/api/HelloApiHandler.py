@@ -28,7 +28,7 @@ class HelloApiHandler(Resource):
     ret_msg = request_json
 
     if ret_msg:
-      bytes = subprocess.Popen(['python3', '../autogloss.py', '"' + request_json + '"', request_type], stdout=subprocess.PIPE)
+      bytes = subprocess.Popen(['python3', 'autogloss.py', '"' + request_json + '"', request_type], stdout=subprocess.PIPE)
       out, err = bytes.communicate()
       message = out.decode("utf-8")
     else:
