@@ -1,9 +1,9 @@
 43 --> CRITICAL --> autogloss.py:Starting autogloss.py
-647 --> INFO --> autogloss.py: 15:27:08.980031 ~~> Arguments: {'ambNormalizedSpelling': None, 'glossaryUpdate': False, 'theInput': ['"test"', '']}
-658 --> INFO --> autogloss.py: 15:27:08.980438 ~~> Ambiguity: None
+647 --> INFO --> autogloss.py: 15:46:15.647262 ~~> Arguments: {'ambNormalizedSpelling': None, 'glossaryUpdate': False, 'theInput': ['"test"', '']}
+658 --> INFO --> autogloss.py: 15:46:15.647545 ~~> Ambiguity: None
 685 --> INFO --> autogloss.py:Refined input
 686 --> INFO --> autogloss.py:['test']
 507 --> INFO --> autogloss.py:Main
-576 --> INFO --> autogloss.py: 15:27:08.982021 ~~> No ambiguity found
+576 --> INFO --> autogloss.py: 15:46:15.648649 ~~> No ambiguity found
 335 --> INFO --> autogloss.py: Per word output: [test, ?, ?, ?]
-691 --> INFO --> autogloss.py: 15:27:09.005003 ~~> Sucessfully executed.
+691 --> INFO --> autogloss.py: 15:46:15.662159 ~~> Sucessfully executed.

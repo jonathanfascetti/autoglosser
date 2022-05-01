@@ -26,7 +26,7 @@ function App() {
       cancelSearch();
     } else {
 
-      axios.post('http://localhost:5000/hello', {
+      axios.post('https://autoglosser.herokuapp.com/hello', {
           message: searchedVal,
           type: options
         }).then(response => {
