@@ -6,6 +6,6 @@
       "npm": "6.x"
     },
     "scripts": {
-        "postinstall": "cd website/frontend && npm install && npm run build"
+        "heroku-postbuild": "cd website/frontend && npm install && npm run build"
     }
   }
