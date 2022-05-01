@@ -6,6 +6,6 @@
       "npm": "6.x"
     },
     "scripts": {
-        "build": "cd website/frontend && npm install && npm run build"
+        "postinstall": "cd website/frontend && npm install && npm run build"
     }
   }
