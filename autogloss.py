@@ -196,15 +196,6 @@ def standardResults(
 ):
     ambOptions = []
 
-    # Temp fix for website to read
-    global isWebsite
-    if (rules.empty):
-        rules = pd.read_csv("../assets/glossary/glossaryrules.csv")
-        glossary = pd.read_csv("../assets/glossary/glossary.csv")
-        isWebsite = True
-    else:
-        isWebsite = False
-
     # apply rules
     if max(amb) > 0:
         ambiguousWords = rules['ambiguous wordform'].values
@@ -327,8 +318,7 @@ def standardResults(
                         certainList.pop(wordIndex + 1)                  
 
     # For website to know which abiguity
-    if isWebsite:
-        print(ambOptions)
+    print(ambOptions)
     
     # Log all matches to word
     for i in range(len(theInput)):
@@ -606,8 +596,7 @@ def main(args, ambNormalizedSpelling, glossaryUpdate):
     # Print to terminal - command line
     # finalPrintout("moore", rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
     # For website to know where abiguity is
-    if (isWebsite):
-        print(amb)
+    print(amb)
     standardPrintout(rd["inputword"], rd["normSpl"], rd["gloss"], rd["latexSpelling"], rd["latexGloss"])
 
 
